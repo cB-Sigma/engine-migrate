@@ -1,0 +1,78 @@
+# vllm 0.33.0 -> llamacpp b12323  (input read as: command)
+
+llama-server \
+  --hf-repo Qwen/Qwen3-32B \
+  --alias qwen3 \
+  --ctx-size 32768 \
+  --parallel 128 \
+  --cache-prompt \
+  --api-key sk-local \
+  --host 0.0.0.0
+
+## Report: 2 exact, 5 approximate, 6 no equivalent, 0 unknown
+
+APPROXIMATE    Qwen/Qwen3-32B (positional)  ->  --hf-repo Qwen/Qwen3-32B
+               vllm: Name or path of a Hugging Face model. llamacpp: Hugging Face repository that
+               contains GGUF files, optionally with a ":QUANT" suffix; other weight formats are not
+               loaded.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:969
+               target: llamacpp@b12323:common/arg.cpp:3062
+EXACT          --served-model-name qwen3  ->  --alias qwen3
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1030
+               target: llamacpp@b12323:common/arg.cpp:3003
+APPROXIMATE    --max-model-len 32768  ->  --ctx-size 32768
+               vllm: Model context length (prompt and output); derived from the model config when
+               unset. llamacpp: Size of the prompt context of the server (0 = loaded from model);
+               how it is shared between parallel slots depends on other options.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:991
+               target: llamacpp@b12323:common/arg.cpp:1609
+NO EQUIVALENT  --gpu-memory-utilization 0.90
+               llama-server has no memory fraction. The nearest controls use other units:
+               --gpu-layers (number of layers kept in VRAM) and --fit-target (free-memory margin per
+               device in MiB).
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1388
+NO EQUIVALENT  --tensor-parallel-size 2
+               llama-server has no tensor-parallel degree; multi-GPU placement is controlled by
+               --device and --split-mode.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1208
+APPROXIMATE    --max-num-seqs 128  ->  --parallel 128
+               vllm: Maximum number of sequences processed in a single iteration. llamacpp: Number
+               of server slots (-1 = auto).
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1753
+               target: llamacpp@b12323:common/arg.cpp:2515
+APPROXIMATE    --enable-prefix-caching  ->  --cache-prompt
+               vllm: Whether to enable prefix caching. llamacpp: Whether to enable prompt caching in
+               the server.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1401
+               target: llamacpp@b12323:common/arg.cpp:3603
+NO EQUIVALENT  --enable-auto-tool-choice
+               llama-server has no such switch.
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:123
+NO EQUIVALENT  --tool-call-parser hermes
+               llama-server has no tool-call parser option; tool calls are handled by the Jinja chat
+               template (--jinja).
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:129
+NO EQUIVALENT  --reasoning-parser qwen3
+               llama-server selects an output format, not a per-model parser (--reasoning-format
+               none|deepseek|...); choose it by hand.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1146
+NO EQUIVALENT  --kv-cache-memory-bytes 24G
+               llama-server has no byte-sized KV cache option.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1394
+EXACT          --api-key sk-local  ->  --api-key sk-local
+               note: Which endpoints the key protects differs per engine and is not covered by this
+               tool.
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:335
+               target: llamacpp@b12323:common/arg.cpp:3521
+APPROXIMATE    --host 0.0.0.0  ->  --host 0.0.0.0
+               vllm: Host name. llamacpp: IP addresses to listen on (comma-separated) or UNIX socket
+               paths ending in .sock.
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:293
+               target: llamacpp@b12323:common/arg.cpp:3323
+
+## Also check
+
+- Listen port: not set, and the defaults differ - vllm 0.33.0 --port defaults to 8000, llamacpp
+  b12323 --port defaults to 9931.
+- Prometheus metrics: llamacpp b12323 has a switch for this (--metrics); vllm has none, so decide
+  whether to add it.

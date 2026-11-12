@@ -1,0 +1,57 @@
+# vllm 0.33.0 -> llamacpp b12323  (input read as: docker)
+
+docker run \
+  --gpus all \
+  --ipc=host \
+  -p 8000:8000 \
+  -v ~/.cache/huggingface:/root/.cache/huggingface \
+  -e HF_TOKEN=$HF_TOKEN \
+  '<llamacpp-image>' \
+  llama-server \
+  --hf-repo meta-llama/Llama-3.1-8B-Instruct \
+  --ctx-size 16384 \
+  --parallel 64 \
+  --seed 7
+
+## Report: 0 exact, 4 approximate, 3 no equivalent, 0 unknown
+
+APPROXIMATE    --model meta-llama/Llama-3.1-8B-Instruct  ->  --hf-repo meta-llama/Llama-3.1-8B-Instruct
+               vllm: Name or path of a Hugging Face model. llamacpp: Hugging Face repository that
+               contains GGUF files, optionally with a ":QUANT" suffix; other weight formats are not
+               loaded.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:969
+               target: llamacpp@b12323:common/arg.cpp:3062
+NO EQUIVALENT  --dtype bfloat16
+               The GGUF file fixes the weight format; llama-server has no dtype option.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:977
+APPROXIMATE    --max-model-len 16384  ->  --ctx-size 16384
+               vllm: Model context length (prompt and output); derived from the model config when
+               unset. llamacpp: Size of the prompt context of the server (0 = loaded from model);
+               how it is shared between parallel slots depends on other options.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:991
+               target: llamacpp@b12323:common/arg.cpp:1609
+APPROXIMATE    --max-num-seqs 64  ->  --parallel 64
+               vllm: Maximum number of sequences processed in a single iteration. llamacpp: Number
+               of server slots (-1 = auto).
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1753
+               target: llamacpp@b12323:common/arg.cpp:2515
+APPROXIMATE    --seed 7  ->  --seed 7
+               vllm: Random seed for reproducibility (set globally). llamacpp: RNG seed of the
+               sampler.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:978
+               target: llamacpp@b12323:common/arg.cpp:1965
+NO EQUIVALENT  --trust-remote-code
+               llama-server never runs model-repository code, so there is nothing to switch.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:974
+NO EQUIVALENT  --download-dir /root/.cache/huggingface
+               No option of llamacpp b12323 is mapped to 'download directory'.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1086
+
+## Also check
+
+- The container image is not translated: replace <llamacpp-image> and drop the launcher words if the
+  image already defines them as its entrypoint.
+- Listen port: not set, and the defaults differ - vllm 0.33.0 --port defaults to 8000, llamacpp
+  b12323 --port defaults to 9931.
+- Prometheus metrics: llamacpp b12323 has a switch for this (--metrics); vllm has none, so decide
+  whether to add it.

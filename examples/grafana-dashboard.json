@@ -1,0 +1,73 @@
+{
+  "title": "vLLM serving",
+  "uid": "vllm-serving-demo",
+  "schemaVersion": 39,
+  "templating": {
+    "list": [
+      {
+        "name": "model",
+        "type": "query",
+        "query": "label_values(vllm:num_requests_running, model_name)"
+      }
+    ]
+  },
+  "panels": [
+    {
+      "title": "Requests running / waiting",
+      "type": "timeseries",
+      "targets": [
+        {"refId": "A", "expr": "sum by (model_name) (vllm:num_requests_running{model_name=~\"$model\"})"},
+        {"refId": "B", "expr": "sum by (model_name) (vllm:num_requests_waiting{model_name=~\"$model\"})"}
+      ]
+    },
+    {
+      "title": "Time to first token (p95)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(vllm:time_to_first_token_seconds_bucket{model_name=~\"$model\"}[$__rate_interval])))"
+        }
+      ]
+    },
+    {
+      "title": "Token throughput",
+      "type": "timeseries",
+      "targets": [
+        {"refId": "A", "expr": "sum(rate(vllm:prompt_tokens_total{model_name=~\"$model\"}[5m]))"},
+        {"refId": "B", "expr": "sum(rate(vllm:generation_tokens_total{model_name=~\"$model\"}[5m]))"}
+      ]
+    },
+    {
+      "title": "KV cache usage",
+      "type": "gauge",
+      "targets": [
+        {"refId": "A", "expr": "avg(vllm:gpu_cache_usage_perc{model_name=~\"$model\"})"}
+      ]
+    },
+    {
+      "title": "Finished requests by reason",
+      "type": "timeseries",
+      "targets": [
+        {"refId": "A", "expr": "sum by (finish_reason) (rate(vllm:request_success_total{finish_reason!=\"\"}[5m]))"}
+      ]
+    },
+    {
+      "title": "Queue time (mean)",
+      "type": "stat",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(vllm:request_queue_time_seconds_sum[5m]) / rate(vllm:request_queue_time_seconds_count[5m])"
+        }
+      ]
+    },
+    {
+      "title": "Preemptions",
+      "type": "stat",
+      "targets": [
+        {"refId": "A", "expr": "histogram_quantile(0.5, rate(vllm:num_preemptions_bucket[5m]))"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,281 @@
+{
+ "llamacpp": [
+  {
+   "metrics": 11,
+   "options": {
+    "cli": 239,
+    "env": 123
+   },
+   "tag": "b9000",
+   "tag_date": "2026-05-01",
+   "version": "b9000"
+  },
+  {
+   "metrics": 11,
+   "options": {
+    "cli": 243,
+    "env": 128
+   },
+   "tag": "b10000",
+   "tag_date": "2026-07-14",
+   "version": "b10000"
+  },
+  {
+   "metrics": 16,
+   "options": {
+    "cli": 255,
+    "env": 142
+   },
+   "tag": "b11000",
+   "tag_date": "2026-09-16",
+   "version": "b11000"
+  },
+  {
+   "metrics": 16,
+   "options": {
+    "cli": 257,
+    "env": 150
+   },
+   "tag": "b11500",
+   "tag_date": "2026-10-08",
+   "version": "b11500"
+  },
+  {
+   "metrics": 16,
+   "options": {
+    "cli": 261,
+    "env": 155
+   },
+   "tag": "b12000",
+   "tag_date": "2026-10-29",
+   "version": "b12000"
+  },
+  {
+   "metrics": 16,
+   "options": {
+    "cli": 265,
+    "env": 157
+   },
+   "tag": "b12323",
+   "tag_date": "2026-11-12",
+   "version": "b12323"
+  }
+ ],
+ "ollama": [
+  {
+   "metrics": 0,
+   "options": {
+    "env": 39,
+    "modelfile": 11,
+    "param": 20
+   },
+   "tag": "v0.33.0",
+   "tag_date": "2026-08-25",
+   "version": "0.33.0"
+  },
+  {
+   "metrics": 0,
+   "options": {
+    "env": 39,
+    "modelfile": 11,
+    "param": 20
+   },
+   "tag": "v0.34.0",
+   "tag_date": "2026-09-09",
+   "version": "0.34.0"
+  },
+  {
+   "metrics": 0,
+   "options": {
+    "env": 40,
+    "modelfile": 11,
+    "param": 20
+   },
+   "tag": "v0.35.0",
+   "tag_date": "2026-09-28",
+   "version": "0.35.0"
+  },
+  {
+   "metrics": 0,
+   "options": {
+    "env": 40,
+    "modelfile": 12,
+    "param": 20
+   },
+   "tag": "v0.40.0",
+   "tag_date": "2026-10-06",
+   "version": "0.40.0"
+  },
+  {
+   "metrics": 0,
+   "options": {
+    "env": 40,
+    "modelfile": 12,
+    "param": 20
+   },
+   "tag": "v0.40.16",
+   "tag_date": "2026-11-07",
+   "version": "0.40.16"
+  }
+ ],
+ "sglang": [
+  {
+   "metrics": 142,
+   "options": {
+    "cli": 488
+   },
+   "tag": "v0.5.18",
+   "tag_date": "2026-08-20",
+   "version": "0.5.18"
+  },
+  {
+   "metrics": 144,
+   "options": {
+    "cli": 503
+   },
+   "tag": "v0.5.19",
+   "tag_date": "2026-09-03",
+   "version": "0.5.19"
+  },
+  {
+   "metrics": 150,
+   "options": {
+    "cli": 494
+   },
+   "tag": "v0.5.20",
+   "tag_date": "2026-09-18",
+   "version": "0.5.20"
+  },
+  {
+   "metrics": 152,
+   "options": {
+    "cli": 512
+   },
+   "tag": "v0.5.21",
+   "tag_date": "2026-09-29",
+   "version": "0.5.21"
+  },
+  {
+   "metrics": 161,
+   "options": {
+    "cli": 521
+   },
+   "tag": "v0.5.22",
+   "tag_date": "2026-10-13",
+   "version": "0.5.22"
+  },
+  {
+   "metrics": 169,
+   "options": {
+    "cli": 531
+   },
+   "tag": "v0.5.23",
+   "tag_date": "2026-10-28",
+   "version": "0.5.23"
+  }
+ ],
+ "tgi": [
+  {
+   "metrics": 27,
+   "options": {
+    "cli": 52,
+    "env": 51
+   },
+   "tag": "v3.0.2",
+   "tag_date": "2025-01-24",
+   "version": "3.0.2"
+  },
+  {
+   "metrics": 27,
+   "options": {
+    "cli": 52,
+    "env": 51
+   },
+   "tag": "v3.1.1",
+   "tag_date": "2025-03-04",
+   "version": "3.1.1"
+  },
+  {
+   "metrics": 27,
+   "options": {
+    "cli": 53,
+    "env": 52
+   },
+   "tag": "v3.2.3",
+   "tag_date": "2025-04-08",
+   "version": "3.2.3"
+  },
+  {
+   "metrics": 27,
+   "options": {
+    "cli": 54,
+    "env": 53
+   },
+   "tag": "v3.3.7",
+   "tag_date": "2025-12-18",
+   "version": "3.3.7"
+  }
+ ],
+ "vllm": [
+  {
+   "metrics": 66,
+   "options": {
+    "cli": 284,
+    "env": 295
+   },
+   "tag": "v0.28.0",
+   "tag_date": "2026-08-24",
+   "version": "0.28.0"
+  },
+  {
+   "metrics": 66,
+   "options": {
+    "cli": 292,
+    "env": 302
+   },
+   "tag": "v0.29.0",
+   "tag_date": "2026-09-08",
+   "version": "0.29.0"
+  },
+  {
+   "metrics": 67,
+   "options": {
+    "cli": 300,
+    "env": 302
+   },
+   "tag": "v0.30.0",
+   "tag_date": "2026-09-21",
+   "version": "0.30.0"
+  },
+  {
+   "metrics": 72,
+   "options": {
+    "cli": 311,
+    "env": 308
+   },
+   "tag": "v0.31.0",
+   "tag_date": "2026-10-02",
+   "version": "0.31.0"
+  },
+  {
+   "metrics": 89,
+   "options": {
+    "cli": 316,
+    "env": 316
+   },
+   "tag": "v0.32.0",
+   "tag_date": "2026-10-17",
+   "version": "0.32.0"
+  },
+  {
+   "metrics": 99,
+   "options": {
+    "cli": 320,
+    "env": 318
+   },
+   "tag": "v0.33.0",
+   "tag_date": "2026-10-31",
+   "version": "0.33.0"
+  }
+ ]
+}

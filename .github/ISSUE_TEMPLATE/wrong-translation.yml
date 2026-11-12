@@ -1,0 +1,26 @@
+name: Wrong or misleading result
+description: A translation, diff or lint result that does not match what the engine does
+labels: [bug]
+body:
+  - type: textarea
+    id: command
+    attributes:
+      label: Command and output
+      description: The exact engine-migrate command and what it printed (remove secrets).
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What the engine actually does
+      description: A link to the engine source at the tag, or a `--help` excerpt, that shows the correct behaviour.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: engine-migrate version
+      placeholder: output of `engine-migrate --version`
+    validations:
+      required: true

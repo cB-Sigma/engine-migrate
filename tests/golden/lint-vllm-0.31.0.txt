@@ -1,0 +1,17 @@
+examples/grafana-dashboard.json: vLLM serving > KV cache usage [A]
+  ERROR [unknown] vllm:gpu_cache_usage_perc
+    not defined in any vllm version in the database
+examples/grafana-dashboard.json: vLLM serving > Finished requests by reason [A]
+  WARNING [label] vllm:request_success_total
+    label 'finish_reason' is not a label of vllm:request_success in vllm 0.31.0 (labels: model_name,
+    engine, finished_reason)
+    source: vllm@v0.31.0:vllm/v1/metrics/loggers.py:729
+examples/grafana-dashboard.json: vLLM serving > Preemptions [A]
+  ERROR [type] vllm:num_preemptions_bucket
+    vllm:num_preemptions is a counter in vllm 0.31.0; it has no _bucket series
+    source: vllm@v0.31.0:vllm/v1/metrics/loggers.py:676
+examples/alert-rules.yaml: vllm / VllmAdmissionRejections
+  ERROR [not-in-version] vllm:admission_rejections_total
+    not defined in vllm 0.31.0; it is defined in vllm 0.32.0 to 0.33.0
+
+2 file(s), 14 expression(s), 15 vllm metric reference(s) checked against vllm 0.31.0: 3 error(s), 1 warning(s)

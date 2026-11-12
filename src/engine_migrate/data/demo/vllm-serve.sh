@@ -1,0 +1,13 @@
+vllm serve Qwen/Qwen3-32B \
+  --served-model-name qwen3 \
+  --max-model-len 32768 \
+  --gpu-memory-utilization 0.90 \
+  --tensor-parallel-size 2 \
+  --max-num-seqs 128 \
+  --enable-prefix-caching \
+  --enable-auto-tool-choice \
+  --tool-call-parser hermes \
+  --reasoning-parser qwen3 \
+  --kv-cache-memory-bytes 24G \
+  --api-key sk-local \
+  --host 0.0.0.0

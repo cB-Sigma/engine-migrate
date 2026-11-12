@@ -1,0 +1,80 @@
+# vllm 0.33.0 -> sglang 0.5.23  (input read as: command)
+
+python3 -m sglang.launch_server \
+  --model-path Qwen/Qwen3-32B \
+  --served-model-name qwen3 \
+  --context-length 32768 \
+  --mem-fraction-static 0.90 \
+  --tp-size 2 \
+  --max-running-requests 128 \
+  --tool-call-parser hermes \
+  --reasoning-parser qwen3 \
+  --api-key sk-local \
+  --host 0.0.0.0
+
+## Report: 7 exact, 4 approximate, 2 no equivalent, 0 unknown
+
+EXACT          Qwen/Qwen3-32B (positional)  ->  --model-path Qwen/Qwen3-32B
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:969
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/model.py:51
+EXACT          --served-model-name qwen3  ->  --served-model-name qwen3
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1030
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/serving.py:168
+EXACT          --max-model-len 32768  ->  --context-length 32768
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:991
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/model.py:110
+APPROXIMATE    --gpu-memory-utilization 0.90  ->  --mem-fraction-static 0.90
+               vllm: Fraction (0-1) of GPU memory for the model executor of this instance. sglang:
+               Fraction of memory used for static allocation (model weights and KV cache pool).
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1388
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/schedule.py:27
+EXACT          --tensor-parallel-size 2  ->  --tp-size 2
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1208
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/parallel.py:45
+APPROXIMATE    --max-num-seqs 128  ->  --max-running-requests 128
+               vllm: Maximum number of sequences processed in a single iteration. sglang: The
+               maximum number of running requests.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1753
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/schedule.py:31
+EXACT          --enable-prefix-caching  ->  (nothing emitted)
+               note: nothing to emit: the feature is on in sglang 0.5.23 unless
+               --disable-radix-cache is given
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1401
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/memory.py:64
+NO EQUIVALENT  --enable-auto-tool-choice
+               SGLang has no separate switch; selecting --tool-call-parser is the only tool-calling
+               option.
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:123
+APPROXIMATE    --tool-call-parser hermes  ->  --tool-call-parser hermes
+               vllm: Tool call parser for the model in use; built-in or registered by a plugin.
+               sglang: Parser for tool-call interactions.
+               note: Parser names are engine-specific; the value is copied and checked against the
+               target's built-in names.
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:129
+               target: sglang@v0.5.23:python/sglang/srt/server_args.py:378
+APPROXIMATE    --reasoning-parser qwen3  ->  --reasoning-parser qwen3
+               vllm: Reasoning parser for the model in use. sglang: Parser for reasoning models
+               ("auto" detects it from the chat template).
+               note: Parser names are engine-specific; the value is copied and checked against the
+               target's built-in names.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1146
+               target: sglang@v0.5.23:python/sglang/srt/server_args.py:368
+NO EQUIVALENT  --kv-cache-memory-bytes 24G
+               SGLang sizes the pool in tokens, not bytes (--max-total-tokens), or as a fraction
+               (--mem-fraction-static); there is no byte-sized option.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1394
+EXACT          --api-key sk-local  ->  --api-key sk-local
+               note: Which endpoints the key protects differs per engine and is not covered by this
+               tool.
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:335
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/serving.py:160
+EXACT          --host 0.0.0.0  ->  --host 0.0.0.0
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:293
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/serving.py:65
+
+## Also check
+
+- Listen port: not set, and the defaults differ - vllm 0.33.0 --port defaults to 8000, sglang 0.5.23
+  --port defaults to 30000.
+- Prometheus metrics: sglang 0.5.23 has a switch for this (--enable-metrics); vllm has none, so
+  decide whether to add it.

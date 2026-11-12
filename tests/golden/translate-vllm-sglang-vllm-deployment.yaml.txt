@@ -1,0 +1,95 @@
+# vllm 0.33.0 -> sglang 0.5.23  (input read as: kubernetes)
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qwen3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qwen3
+  template:
+    metadata:
+      labels:
+        app: qwen3
+    spec:
+      containers:
+      - name: vllm
+        image: <sglang-image>
+        command:
+        - python3
+        - -m
+        - sglang.launch_server
+        args:
+        - --model-path
+        - Qwen/Qwen3-32B
+        - --context-length
+        - '32768'
+        - --tp-size
+        - '2'
+        - --mem-fraction-static
+        - '0.90'
+        - --disable-radix-cache
+        - --lora-paths
+        - sql=/adapters/sql
+        - support=/adapters/support
+        - --enable-lora
+        - --port
+        - '8000'
+        env:
+        - name: HF_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: hf
+              key: token
+        ports:
+        - containerPort: 8000
+        resources:
+          limits:
+            nvidia.com/gpu: 2
+
+## Report: 6 exact, 2 approximate, 0 no equivalent, 1 unknown
+
+UNKNOWN        VLLM_LOGGING_LEVEL=INFO
+               VLLM_LOGGING_LEVEL is a known vllm 0.33.0 option, but no mapping row covers it yet.
+               source: vllm@v0.33.0:vllm/envs.py:861
+EXACT          --model Qwen/Qwen3-32B  ->  --model-path Qwen/Qwen3-32B
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:969
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/model.py:51
+EXACT          --max-model-len 32768  ->  --context-length 32768
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:991
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/model.py:110
+EXACT          --tensor-parallel-size 2  ->  --tp-size 2
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1208
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/parallel.py:45
+APPROXIMATE    --gpu-memory-utilization 0.90  ->  --mem-fraction-static 0.90
+               vllm: Fraction (0-1) of GPU memory for the model executor of this instance. sglang:
+               Fraction of memory used for static allocation (model weights and KV cache pool).
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1388
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/schedule.py:27
+EXACT          --disable-prefix-caching  ->  --disable-radix-cache
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1401
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/memory.py:64
+APPROXIMATE    --lora-modules sql=/adapters/sql support=/adapters/support  ->  --lora-paths sql=/adapters/sql support=/adapters/support
+               vllm: Adapters as name=path items or JSON objects with "name" and "path". sglang:
+               Adapters as PATH, NAME=PATH or JSON objects with "lora_name" and "lora_path".
+               note: Adapter weight formats are not interchangeable between engines (for example
+               llama.cpp needs GGUF adapters).
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:81
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/lora.py:54
+EXACT          --enable-lora  ->  --enable-lora
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1609
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/lora.py:34
+EXACT          --port 8000  ->  --port 8000
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:295
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/serving.py:66
+
+## Also check
+
+- The container image is not translated: replace <sglang-image>; probes, ports and resources are
+  copied unchanged and may need the new port.
+- Listen address: not set, and the defaults differ - vllm 0.33.0 --host defaults to None, sglang
+  0.5.23 --host defaults to '127.0.0.1'.
+- Prometheus metrics: sglang 0.5.23 has a switch for this (--enable-metrics); vllm has none, so
+  decide whether to add it.

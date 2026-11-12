@@ -1,0 +1,1187 @@
+{
+ "llamacpp": {
+  "b10000": {
+   "checks": [
+    {
+     "agree": 241,
+     "check": "reference flags found by extraction (recall)",
+     "total": 241
+    },
+    {
+     "agree": 241,
+     "check": "extracted flags present in reference (precision)",
+     "total": 243
+    },
+    {
+     "agree": 241,
+     "check": "aliases and negations identical",
+     "total": 241
+    },
+    {
+     "agree": 241,
+     "check": "env var identical",
+     "total": 241
+    },
+    {
+     "agree": 219,
+     "check": "rendered help incl. defaults identical (fully rendered entries)",
+     "total": 221
+    },
+    {
+     "agree": 11,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 11
+    }
+   ],
+   "metrics": {
+    "check": {
+     "agree": 11,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 11
+    },
+    "files": [
+     "tools/server/README.md"
+    ],
+    "missing": {}
+   },
+   "mismatches": [
+    "--checkpoint-min-step: help text differs",
+    "--tools: help text differs"
+   ],
+   "missing": [],
+   "note": "The README is refreshed manually from llama-gen-docs output and can lag arg.cpp.",
+   "reference": "tools/server/README.md at b10000"
+  },
+  "b11000": {
+   "checks": [
+    {
+     "agree": 255,
+     "check": "reference flags found by extraction (recall)",
+     "total": 255
+    },
+    {
+     "agree": 255,
+     "check": "extracted flags present in reference (precision)",
+     "total": 255
+    },
+    {
+     "agree": 255,
+     "check": "aliases and negations identical",
+     "total": 255
+    },
+    {
+     "agree": 255,
+     "check": "env var identical",
+     "total": 255
+    },
+    {
+     "agree": 234,
+     "check": "rendered help incl. defaults identical (fully rendered entries)",
+     "total": 234
+    },
+    {
+     "agree": 15,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 15
+    }
+   ],
+   "metrics": {
+    "check": {
+     "agree": 15,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 15
+    },
+    "files": [
+     "tools/server/README.md"
+    ],
+    "missing": {}
+   },
+   "mismatches": [],
+   "missing": [],
+   "note": "The README is refreshed manually from llama-gen-docs output and can lag arg.cpp.",
+   "reference": "tools/server/README.md at b11000"
+  },
+  "b11500": {
+   "checks": [
+    {
+     "agree": 255,
+     "check": "reference flags found by extraction (recall)",
+     "total": 255
+    },
+    {
+     "agree": 255,
+     "check": "extracted flags present in reference (precision)",
+     "total": 257
+    },
+    {
+     "agree": 255,
+     "check": "aliases and negations identical",
+     "total": 255
+    },
+    {
+     "agree": 255,
+     "check": "env var identical",
+     "total": 255
+    },
+    {
+     "agree": 233,
+     "check": "rendered help incl. defaults identical (fully rendered entries)",
+     "total": 233
+    },
+    {
+     "agree": 15,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 15
+    }
+   ],
+   "metrics": {
+    "check": {
+     "agree": 15,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 15
+    },
+    "files": [
+     "tools/server/README.md"
+    ],
+    "missing": {}
+   },
+   "mismatches": [],
+   "missing": [],
+   "note": "The README is refreshed manually from llama-gen-docs output and can lag arg.cpp.",
+   "reference": "tools/server/README.md at b11500"
+  },
+  "b12000": {
+   "checks": [
+    {
+     "agree": 261,
+     "check": "reference flags found by extraction (recall)",
+     "total": 261
+    },
+    {
+     "agree": 261,
+     "check": "extracted flags present in reference (precision)",
+     "total": 261
+    },
+    {
+     "agree": 261,
+     "check": "aliases and negations identical",
+     "total": 261
+    },
+    {
+     "agree": 261,
+     "check": "env var identical",
+     "total": 261
+    },
+    {
+     "agree": 238,
+     "check": "rendered help incl. defaults identical (fully rendered entries)",
+     "total": 239
+    },
+    {
+     "agree": 15,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 15
+    }
+   ],
+   "metrics": {
+    "check": {
+     "agree": 15,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 15
+    },
+    "files": [
+     "tools/server/README.md"
+    ],
+    "missing": {}
+   },
+   "mismatches": [
+    "--reasoning-preserve: help text differs"
+   ],
+   "missing": [],
+   "note": "The README is refreshed manually from llama-gen-docs output and can lag arg.cpp.",
+   "reference": "tools/server/README.md at b12000"
+  },
+  "b12323": {
+   "checks": [
+    {
+     "agree": 262,
+     "check": "reference flags found by extraction (recall)",
+     "total": 262
+    },
+    {
+     "agree": 262,
+     "check": "extracted flags present in reference (precision)",
+     "total": 265
+    },
+    {
+     "agree": 262,
+     "check": "aliases and negations identical",
+     "total": 262
+    },
+    {
+     "agree": 262,
+     "check": "env var identical",
+     "total": 262
+    },
+    {
+     "agree": 239,
+     "check": "rendered help incl. defaults identical (fully rendered entries)",
+     "total": 240
+    },
+    {
+     "agree": 15,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 15
+    }
+   ],
+   "metrics": {
+    "check": {
+     "agree": 15,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 15
+    },
+    "files": [
+     "tools/server/README.md"
+    ],
+    "missing": {}
+   },
+   "mismatches": [
+    "--reasoning-preserve: help text differs"
+   ],
+   "missing": [],
+   "note": "The README is refreshed manually from llama-gen-docs output and can lag arg.cpp.",
+   "reference": "tools/server/README.md at b12323"
+  },
+  "b9000": {
+   "checks": [
+    {
+     "agree": 213,
+     "check": "reference flags found by extraction (recall)",
+     "total": 213
+    },
+    {
+     "agree": 213,
+     "check": "extracted flags present in reference (precision)",
+     "total": 239
+    },
+    {
+     "agree": 199,
+     "check": "aliases and negations identical",
+     "total": 213
+    },
+    {
+     "agree": 205,
+     "check": "env var identical",
+     "total": 213
+    },
+    {
+     "agree": 189,
+     "check": "rendered help incl. defaults identical (fully rendered entries)",
+     "total": 195
+    },
+    {
+     "agree": 7,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 9
+    }
+   ],
+   "metrics": {
+    "check": {
+     "agree": 7,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 9
+    },
+    "files": [
+     "tools/server/README.md"
+    ],
+    "missing": {
+     "llamacpp:kv_cache_tokens": "tools/server/README.md",
+     "llamacpp:kv_cache_usage_ratio": "tools/server/README.md"
+    }
+   },
+   "mismatches": [
+    "--split-mode: help text differs",
+    "--hf-repo-draft: spellings ['--hf-repo-draft', '--spec-draft-hf', '-hfd', '-hfrd'] != ['--hf-repo-draft', '-hfd', '-hfrd']",
+    "--hf-repo-draft: env LLAMA_ARG_SPEC_DRAFT_HF_REPO != LLAMA_ARG_HFD_REPO",
+    "--cache-type-k-draft: spellings ['--cache-type-k-draft', '--spec-draft-type-k', '-ctkd'] != ['--cache-type-k-draft', '-ctkd']",
+    "--cache-type-k-draft: env LLAMA_ARG_SPEC_DRAFT_CACHE_TYPE_K != LLAMA_ARG_CACHE_TYPE_K_DRAFT",
+    "--cache-type-v-draft: spellings ['--cache-type-v-draft', '--spec-draft-type-v', '-ctvd'] != ['--cache-type-v-draft', '-ctvd']",
+    "--cache-type-v-draft: env LLAMA_ARG_SPEC_DRAFT_CACHE_TYPE_V != LLAMA_ARG_CACHE_TYPE_V_DRAFT",
+    "--override-tensor-draft: spellings ['--override-tensor-draft', '--spec-draft-override-tensor', '-otd'] != ['--override-tensor-draft', '-otd']",
+    "--cpu-moe-draft: spellings ['--cpu-moe-draft', '--spec-draft-cpu-moe', '-cmoed'] != ['--cpu-moe-draft', '-cmoed']",
+    "--cpu-moe-draft: env LLAMA_ARG_SPEC_DRAFT_CPU_MOE != LLAMA_ARG_CPU_MOE_DRAFT",
+    "--n-cpu-moe-draft: spellings ['--n-cpu-moe-draft', '--spec-draft-n-cpu-moe', '--spec-draft-ncmoe', '-ncmoed'] != ['--n-cpu-moe-draft', '-ncmoed']",
+    "--n-cpu-moe-draft: env LLAMA_ARG_SPEC_DRAFT_N_CPU_MOE != LLAMA_ARG_N_CPU_MOE_DRAFT",
+    "--threads-draft: spellings ['--spec-draft-threads', '--threads-draft', '-td'] != ['--threads-draft', '-td']",
+    "--threads-batch-draft: spellings ['--spec-draft-threads-batch', '--threads-batch-draft', '-tbd'] != ['--threads-batch-draft', '-tbd']",
+    "--draft: help text differs",
+    "--draft-min: help text differs",
+    "--draft-p-min: spellings ['--draft-p-min', '--spec-draft-p-min'] != ['--draft-p-min']",
+    "--draft-p-min: env LLAMA_ARG_SPEC_DRAFT_P_MIN != LLAMA_ARG_DRAFT_P_MIN",
+    "--ctx-size-draft: spellings ['--ctx-size-draft', '--spec-draft-ctx-size', '-cd'] != ['--ctx-size-draft', '-cd']",
+    "--ctx-size-draft: env LLAMA_ARG_SPEC_DRAFT_CTX_SIZE != LLAMA_ARG_CTX_SIZE_DRAFT",
+    "--device-draft: spellings ['--device-draft', '--spec-draft-device', '-devd'] != ['--device-draft', '-devd']",
+    "--gpu-layers-draft: spellings ['--gpu-layers-draft', '--n-gpu-layers-draft', '--spec-draft-ngl', '-ngld'] != ['--gpu-layers-draft', '--n-gpu-layers-draft', '-ngld']",
+    "--model-draft: spellings ['--model-draft', '--spec-draft-model', '-md'] != ['--model-draft', '-md']",
+    "--model-draft: env LLAMA_ARG_SPEC_DRAFT_MODEL != LLAMA_ARG_MODEL_DRAFT",
+    "--spec-replace: spellings ['--spec-draft-replace', '--spec-replace'] != ['--spec-replace']",
+    "--spec-ngram-size-n: help text differs",
+    "--spec-ngram-size-m: help text differs",
+    "--spec-ngram-min-hits: help text differs"
+   ],
+   "missing": [],
+   "note": "The README is refreshed manually from llama-gen-docs output and can lag arg.cpp.",
+   "reference": "tools/server/README.md at b9000"
+  }
+ },
+ "ollama": {
+  "0.33.0": {
+   "checks": [
+    {
+     "agree": 23,
+     "check": "referenced env vars found by extraction (recall)",
+     "total": 23
+    }
+   ],
+   "missing": [],
+   "note": "Weak check: Ollama has no generated option reference.",
+   "reference": "env vars referenced by command help in cmd/cmd.go at v0.33.0"
+  },
+  "0.34.0": {
+   "checks": [
+    {
+     "agree": 23,
+     "check": "referenced env vars found by extraction (recall)",
+     "total": 23
+    }
+   ],
+   "missing": [],
+   "note": "Weak check: Ollama has no generated option reference.",
+   "reference": "env vars referenced by command help in cmd/cmd.go at v0.34.0"
+  },
+  "0.35.0": {
+   "checks": [
+    {
+     "agree": 23,
+     "check": "referenced env vars found by extraction (recall)",
+     "total": 23
+    }
+   ],
+   "missing": [],
+   "note": "Weak check: Ollama has no generated option reference.",
+   "reference": "env vars referenced by command help in cmd/cmd.go at v0.35.0"
+  },
+  "0.40.0": {
+   "checks": [
+    {
+     "agree": 23,
+     "check": "referenced env vars found by extraction (recall)",
+     "total": 23
+    }
+   ],
+   "missing": [],
+   "note": "Weak check: Ollama has no generated option reference.",
+   "reference": "env vars referenced by command help in cmd/cmd.go at v0.40.0"
+  },
+  "0.40.16": {
+   "checks": [
+    {
+     "agree": 23,
+     "check": "referenced env vars found by extraction (recall)",
+     "total": 23
+    }
+   ],
+   "missing": [],
+   "note": "Weak check: Ollama has no generated option reference.",
+   "reference": "env vars referenced by command help in cmd/cmd.go at v0.40.16"
+  }
+ },
+ "sglang": {
+  "0.5.18": {
+   "checks": [
+    {
+     "agree": 442,
+     "check": "documented flags found by extraction (recall)",
+     "total": 446
+    },
+    {
+     "agree": 313,
+     "check": "help text identical to the documented description",
+     "total": 406
+    },
+    {
+     "agree": 25,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 29
+    }
+   ],
+   "metrics": {
+    "check": {
+     "agree": 25,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 29
+    },
+    "files": [
+     "docs/docs/references/production_metrics.mdx"
+    ],
+    "missing": {
+     "sglang:time_per_output_token_seconds": "docs/docs/references/production_metrics.mdx",
+     "sglang:time_per_output_token_seconds_bucket": "docs/docs/references/production_metrics.mdx",
+     "sglang:time_per_output_token_seconds_count": "docs/docs/references/production_metrics.mdx",
+     "sglang:time_per_output_token_seconds_sum": "docs/docs/references/production_metrics.mdx"
+    }
+   },
+   "missing": [
+    "--custom-sigquit-handler",
+    "--debug-tensor-dump-inject",
+    "--hybrid-kvcache-ratio",
+    "--optimistic-prefill-retries"
+   ],
+   "note": "The page is hand-maintained and incomplete at this tag, so only recall is measured.",
+   "reference": "docs/docs/advanced_features/server_arguments.mdx at v0.5.18"
+  },
+  "0.5.19": {
+   "checks": [
+    {
+     "agree": 444,
+     "check": "documented flags found by extraction (recall)",
+     "total": 448
+    },
+    {
+     "agree": 311,
+     "check": "help text identical to the documented description",
+     "total": 408
+    },
+    {
+     "agree": 25,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 29
+    }
+   ],
+   "metrics": {
+    "check": {
+     "agree": 25,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 29
+    },
+    "files": [
+     "docs/docs/references/production_metrics.mdx"
+    ],
+    "missing": {
+     "sglang:time_per_output_token_seconds": "docs/docs/references/production_metrics.mdx",
+     "sglang:time_per_output_token_seconds_bucket": "docs/docs/references/production_metrics.mdx",
+     "sglang:time_per_output_token_seconds_count": "docs/docs/references/production_metrics.mdx",
+     "sglang:time_per_output_token_seconds_sum": "docs/docs/references/production_metrics.mdx"
+    }
+   },
+   "missing": [
+    "--custom-sigquit-handler",
+    "--debug-tensor-dump-inject",
+    "--hybrid-kvcache-ratio",
+    "--optimistic-prefill-retries"
+   ],
+   "note": "The page is hand-maintained and incomplete at this tag, so only recall is measured.",
+   "reference": "docs/docs/advanced_features/server_arguments.mdx at v0.5.19"
+  },
+  "0.5.20": {
+   "checks": [
+    {
+     "agree": 432,
+     "check": "documented flags found by extraction (recall)",
+     "total": 436
+    },
+    {
+     "agree": 300,
+     "check": "help text identical to the documented description",
+     "total": 398
+    },
+    {
+     "agree": 25,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 29
+    }
+   ],
+   "metrics": {
+    "check": {
+     "agree": 25,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 29
+    },
+    "files": [
+     "docs/docs/references/production_metrics.mdx"
+    ],
+    "missing": {
+     "sglang:time_per_output_token_seconds": "docs/docs/references/production_metrics.mdx",
+     "sglang:time_per_output_token_seconds_bucket": "docs/docs/references/production_metrics.mdx",
+     "sglang:time_per_output_token_seconds_count": "docs/docs/references/production_metrics.mdx",
+     "sglang:time_per_output_token_seconds_sum": "docs/docs/references/production_metrics.mdx"
+    }
+   },
+   "missing": [
+    "--custom-sigquit-handler",
+    "--debug-tensor-dump-inject",
+    "--hybrid-kvcache-ratio",
+    "--optimistic-prefill-retries"
+   ],
+   "note": "The page is hand-maintained and incomplete at this tag, so only recall is measured.",
+   "reference": "docs/docs/advanced_features/server_arguments.mdx at v0.5.20"
+  },
+  "0.5.21": {
+   "checks": [
+    {
+     "agree": 431,
+     "check": "documented flags found by extraction (recall)",
+     "total": 435
+    },
+    {
+     "agree": 299,
+     "check": "help text identical to the documented description",
+     "total": 397
+    },
+    {
+     "agree": 25,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 29
+    }
+   ],
+   "metrics": {
+    "check": {
+     "agree": 25,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 29
+    },
+    "files": [
+     "docs/docs/references/production_metrics.mdx"
+    ],
+    "missing": {
+     "sglang:time_per_output_token_seconds": "docs/docs/references/production_metrics.mdx",
+     "sglang:time_per_output_token_seconds_bucket": "docs/docs/references/production_metrics.mdx",
+     "sglang:time_per_output_token_seconds_count": "docs/docs/references/production_metrics.mdx",
+     "sglang:time_per_output_token_seconds_sum": "docs/docs/references/production_metrics.mdx"
+    }
+   },
+   "missing": [
+    "--custom-sigquit-handler",
+    "--debug-tensor-dump-inject",
+    "--hybrid-kvcache-ratio",
+    "--optimistic-prefill-retries"
+   ],
+   "note": "The page is hand-maintained and incomplete at this tag, so only recall is measured.",
+   "reference": "docs/docs/advanced_features/server_arguments.mdx at v0.5.21"
+  },
+  "0.5.22": {
+   "checks": [
+    {
+     "agree": 532,
+     "check": "reference flags found by extraction (recall)",
+     "total": 532
+    },
+    {
+     "agree": 519,
+     "check": "extracted flags present in reference (precision)",
+     "total": 521
+    },
+    {
+     "agree": 303,
+     "check": "help text identical to the documented description",
+     "total": 404
+    },
+    {
+     "agree": 28,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 28
+    }
+   ],
+   "extra": [
+    "--boundary-reduction",
+    "--flashinfer-a2a-dispatch-type"
+   ],
+   "metrics": {
+    "check": {
+     "agree": 28,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 28
+    },
+    "files": [
+     "docs/docs/references/production_metrics.mdx"
+    ],
+    "missing": {}
+   },
+   "missing": [],
+   "reference": "docs/docs/advanced_features/server_arguments.mdx at v0.5.22 + docs/docs/advanced_features/server_arguments_undocumented.txt"
+  },
+  "0.5.23": {
+   "checks": [
+    {
+     "agree": 543,
+     "check": "reference flags found by extraction (recall)",
+     "total": 543
+    },
+    {
+     "agree": 529,
+     "check": "extracted flags present in reference (precision)",
+     "total": 531
+    },
+    {
+     "agree": 308,
+     "check": "help text identical to the documented description",
+     "total": 418
+    },
+    {
+     "agree": 28,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 28
+    }
+   ],
+   "extra": [
+    "--boundary-reduction",
+    "--flashinfer-a2a-dispatch-type"
+   ],
+   "metrics": {
+    "check": {
+     "agree": 28,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 28
+    },
+    "files": [
+     "docs/docs/references/production_metrics.mdx"
+    ],
+    "missing": {}
+   },
+   "missing": [],
+   "reference": "docs/docs/advanced_features/server_arguments.mdx at v0.5.23 + docs/docs/advanced_features/server_arguments_undocumented.txt"
+  }
+ },
+ "tgi": {
+  "3.0.2": {
+   "checks": [
+    {
+     "agree": 52,
+     "check": "reference flags found by extraction (recall)",
+     "total": 52
+    },
+    {
+     "agree": 52,
+     "check": "extracted flags present in reference (precision)",
+     "total": 52
+    },
+    {
+     "agree": 52,
+     "check": "env var identical",
+     "total": 52
+    },
+    {
+     "agree": 18,
+     "check": "defaults identical (where reference states one)",
+     "total": 18
+    },
+    {
+     "agree": 6,
+     "check": "choices identical (where reference lists them)",
+     "total": 6
+    },
+    {
+     "agree": 36,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 36
+    }
+   ],
+   "extra": [],
+   "metrics": {
+    "check": {
+     "agree": 36,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 36
+    },
+    "files": [
+     "assets/tgi_grafana.json",
+     "docs/source/reference/metrics.md"
+    ],
+    "missing": {}
+   },
+   "mismatches": [],
+   "missing": [],
+   "reference": "docs/source/reference/launcher.md at v3.0.2"
+  },
+  "3.1.1": {
+   "checks": [
+    {
+     "agree": 52,
+     "check": "reference flags found by extraction (recall)",
+     "total": 52
+    },
+    {
+     "agree": 52,
+     "check": "extracted flags present in reference (precision)",
+     "total": 52
+    },
+    {
+     "agree": 52,
+     "check": "env var identical",
+     "total": 52
+    },
+    {
+     "agree": 18,
+     "check": "defaults identical (where reference states one)",
+     "total": 18
+    },
+    {
+     "agree": 6,
+     "check": "choices identical (where reference lists them)",
+     "total": 6
+    },
+    {
+     "agree": 36,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 36
+    }
+   ],
+   "extra": [],
+   "metrics": {
+    "check": {
+     "agree": 36,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 36
+    },
+    "files": [
+     "assets/tgi_grafana.json",
+     "docs/source/reference/metrics.md"
+    ],
+    "missing": {}
+   },
+   "mismatches": [],
+   "missing": [],
+   "reference": "docs/source/reference/launcher.md at v3.1.1"
+  },
+  "3.2.3": {
+   "checks": [
+    {
+     "agree": 53,
+     "check": "reference flags found by extraction (recall)",
+     "total": 53
+    },
+    {
+     "agree": 53,
+     "check": "extracted flags present in reference (precision)",
+     "total": 53
+    },
+    {
+     "agree": 53,
+     "check": "env var identical",
+     "total": 53
+    },
+    {
+     "agree": 19,
+     "check": "defaults identical (where reference states one)",
+     "total": 19
+    },
+    {
+     "agree": 6,
+     "check": "choices identical (where reference lists them)",
+     "total": 6
+    },
+    {
+     "agree": 36,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 36
+    }
+   ],
+   "extra": [],
+   "metrics": {
+    "check": {
+     "agree": 36,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 36
+    },
+    "files": [
+     "assets/tgi_grafana.json",
+     "docs/source/reference/metrics.md"
+    ],
+    "missing": {}
+   },
+   "mismatches": [],
+   "missing": [],
+   "reference": "docs/source/reference/launcher.md at v3.2.3"
+  },
+  "3.3.7": {
+   "checks": [
+    {
+     "agree": 54,
+     "check": "reference flags found by extraction (recall)",
+     "total": 54
+    },
+    {
+     "agree": 54,
+     "check": "extracted flags present in reference (precision)",
+     "total": 54
+    },
+    {
+     "agree": 54,
+     "check": "env var identical",
+     "total": 54
+    },
+    {
+     "agree": 20,
+     "check": "defaults identical (where reference states one)",
+     "total": 20
+    },
+    {
+     "agree": 6,
+     "check": "choices identical (where reference lists them)",
+     "total": 6
+    },
+    {
+     "agree": 36,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 36
+    }
+   ],
+   "extra": [],
+   "metrics": {
+    "check": {
+     "agree": 36,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 36
+    },
+    "files": [
+     "assets/tgi_grafana.json",
+     "docs/source/reference/metrics.md"
+    ],
+    "missing": {}
+   },
+   "mismatches": [],
+   "missing": [],
+   "reference": "docs/source/reference/launcher.md at v3.3.7"
+  }
+ },
+ "vllm": {
+  "0.28.0": {
+   "checks": [
+    {
+     "agree": 284,
+     "check": "reference flags found by extraction (recall)",
+     "total": 284
+    },
+    {
+     "agree": 284,
+     "check": "extracted flags present in reference (precision)",
+     "total": 284
+    },
+    {
+     "agree": 284,
+     "check": "aliases and negations identical",
+     "total": 284
+    },
+    {
+     "agree": 145,
+     "check": "defaults identical (where both sides state one)",
+     "total": 145
+    },
+    {
+     "agree": 38,
+     "check": "choices identical (where reference lists them)",
+     "total": 40
+    },
+    {
+     "agree": 25,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 25
+    }
+   ],
+   "extra": [],
+   "metrics": {
+    "check": {
+     "agree": 25,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 25
+    },
+    "files": [
+     "docs/features/per_request_metrics.md",
+     "docs/usage/metrics.md",
+     "examples/observability/prometheus_grafana/grafana.json"
+    ],
+    "missing": {}
+   },
+   "mismatches": [
+    "--mm-processor-device: choices differ",
+    "--collect-detailed-traces: choices differ"
+   ],
+   "missing": [],
+   "reference": "https://docs.vllm.ai/en/v0.28.0/cli/serve/"
+  },
+  "0.29.0": {
+   "checks": [
+    {
+     "agree": 292,
+     "check": "reference flags found by extraction (recall)",
+     "total": 292
+    },
+    {
+     "agree": 292,
+     "check": "extracted flags present in reference (precision)",
+     "total": 292
+    },
+    {
+     "agree": 292,
+     "check": "aliases and negations identical",
+     "total": 292
+    },
+    {
+     "agree": 147,
+     "check": "defaults identical (where both sides state one)",
+     "total": 147
+    },
+    {
+     "agree": 39,
+     "check": "choices identical (where reference lists them)",
+     "total": 41
+    },
+    {
+     "agree": 28,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 28
+    }
+   ],
+   "extra": [],
+   "metrics": {
+    "check": {
+     "agree": 28,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 28
+    },
+    "files": [
+     "docs/features/per_request_metrics.md",
+     "docs/features/speculative_decoding/acceptance_metrics.md",
+     "docs/usage/metrics.md",
+     "examples/observability/prometheus_grafana/grafana.json"
+    ],
+    "missing": {}
+   },
+   "mismatches": [
+    "--mm-processor-device: choices differ",
+    "--collect-detailed-traces: choices differ"
+   ],
+   "missing": [],
+   "reference": "https://docs.vllm.ai/en/v0.29.0/cli/serve/"
+  },
+  "0.30.0": {
+   "checks": [
+    {
+     "agree": 300,
+     "check": "reference flags found by extraction (recall)",
+     "total": 300
+    },
+    {
+     "agree": 300,
+     "check": "extracted flags present in reference (precision)",
+     "total": 300
+    },
+    {
+     "agree": 300,
+     "check": "aliases and negations identical",
+     "total": 300
+    },
+    {
+     "agree": 150,
+     "check": "defaults identical (where both sides state one)",
+     "total": 150
+    },
+    {
+     "agree": 41,
+     "check": "choices identical (where reference lists them)",
+     "total": 43
+    },
+    {
+     "agree": 31,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 31
+    }
+   ],
+   "extra": [],
+   "metrics": {
+    "check": {
+     "agree": 31,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 31
+    },
+    "files": [
+     "docs/features/per_request_metrics.md",
+     "docs/features/speculative_decoding/acceptance_metrics.md",
+     "docs/usage/metrics.md",
+     "examples/observability/prometheus_grafana/grafana.json"
+    ],
+    "missing": {}
+   },
+   "mismatches": [
+    "--mm-processor-device: choices differ",
+    "--collect-detailed-traces: choices differ"
+   ],
+   "missing": [],
+   "reference": "https://docs.vllm.ai/en/v0.30.0/cli/serve/"
+  },
+  "0.31.0": {
+   "checks": [
+    {
+     "agree": 311,
+     "check": "reference flags found by extraction (recall)",
+     "total": 311
+    },
+    {
+     "agree": 311,
+     "check": "extracted flags present in reference (precision)",
+     "total": 311
+    },
+    {
+     "agree": 311,
+     "check": "aliases and negations identical",
+     "total": 311
+    },
+    {
+     "agree": 155,
+     "check": "defaults identical (where both sides state one)",
+     "total": 155
+    },
+    {
+     "agree": 45,
+     "check": "choices identical (where reference lists them)",
+     "total": 46
+    },
+    {
+     "agree": 31,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 31
+    }
+   ],
+   "extra": [],
+   "metrics": {
+    "check": {
+     "agree": 31,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 31
+    },
+    "files": [
+     "docs/features/per_request_metrics.md",
+     "docs/features/speculative_decoding/acceptance_metrics.md",
+     "docs/usage/metrics.md",
+     "examples/observability/prometheus_grafana/grafana.json"
+    ],
+    "missing": {}
+   },
+   "mismatches": [
+    "--mm-processor-device: choices differ"
+   ],
+   "missing": [],
+   "reference": "https://docs.vllm.ai/en/v0.31.0/cli/serve/"
+  },
+  "0.32.0": {
+   "checks": [
+    {
+     "agree": 316,
+     "check": "reference flags found by extraction (recall)",
+     "total": 316
+    },
+    {
+     "agree": 316,
+     "check": "extracted flags present in reference (precision)",
+     "total": 316
+    },
+    {
+     "agree": 316,
+     "check": "aliases and negations identical",
+     "total": 316
+    },
+    {
+     "agree": 155,
+     "check": "defaults identical (where both sides state one)",
+     "total": 155
+    },
+    {
+     "agree": 44,
+     "check": "choices identical (where reference lists them)",
+     "total": 46
+    },
+    {
+     "agree": 48,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 48
+    }
+   ],
+   "extra": [],
+   "metrics": {
+    "check": {
+     "agree": 48,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 48
+    },
+    "files": [
+     "docs/features/per_request_metrics.md",
+     "docs/features/speculative_decoding/acceptance_metrics.md",
+     "docs/usage/metrics.md",
+     "examples/observability/prometheus_grafana/grafana.json"
+    ],
+    "missing": {}
+   },
+   "mismatches": [
+    "--all2all-backend: choices differ",
+    "--mm-processor-device: choices differ"
+   ],
+   "missing": [],
+   "reference": "https://docs.vllm.ai/en/v0.32.0/cli/serve/"
+  },
+  "0.33.0": {
+   "checks": [
+    {
+     "agree": 320,
+     "check": "reference flags found by extraction (recall)",
+     "total": 320
+    },
+    {
+     "agree": 320,
+     "check": "extracted flags present in reference (precision)",
+     "total": 320
+    },
+    {
+     "agree": 320,
+     "check": "aliases and negations identical",
+     "total": 320
+    },
+    {
+     "agree": 154,
+     "check": "defaults identical (where both sides state one)",
+     "total": 154
+    },
+    {
+     "agree": 44,
+     "check": "choices identical (where reference lists them)",
+     "total": 46
+    },
+    {
+     "agree": 48,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 48
+    }
+   ],
+   "extra": [],
+   "metrics": {
+    "check": {
+     "agree": 48,
+     "check": "metric names in the engine's own docs/dashboards that resolve",
+     "total": 48
+    },
+    "files": [
+     "docs/features/per_request_metrics.md",
+     "docs/features/speculative_decoding/acceptance_metrics.md",
+     "docs/usage/metrics.md",
+     "examples/observability/prometheus_grafana/grafana.json"
+    ],
+    "missing": {}
+   },
+   "mismatches": [
+    "--all2all-backend: choices differ",
+    "--mm-processor-device: choices differ"
+   ],
+   "missing": [],
+   "reference": "https://docs.vllm.ai/en/v0.33.0/cli/serve/"
+  }
+ }
+}

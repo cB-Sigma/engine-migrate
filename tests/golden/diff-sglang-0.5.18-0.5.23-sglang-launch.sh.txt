@@ -1,0 +1,39 @@
+# sglang: 0.5.18 -> 0.5.23, for this configuration  (input read as: command)
+
+severity  option                      what changes
+--------  --------------------------  ----------------------------------------
+ERROR     --quantization              value 'marlin' is no longer a listed choice in 0.5.23
+ERROR     --cuda-graph-max-bs         removed in 0.5.23 (replaced by --cuda-graph-max-bs-decode; was
+                                      deprecated in 0.5.18)
+ERROR     --stream-output             removed in 0.5.23 (replaced by --incremental-streaming-output;
+                                      was deprecated in 0.5.18)
+ERROR     --collect-tokens-histogram  removed in 0.5.23 (was deprecated in 0.5.18)
+
+## Defaults that changed for options this configuration does not set (7)
+
+option                       change
+---------------------------  ----------------------------------------
+--dcp-comm-backend           default 'ag_rs' -> unset
+--enable-fused-qk-norm-rope  default False -> unset; type bool -> str
+--enable-tf32-matmul         default False -> unset; type bool -> str
+--file-storage-path          default 'sglang_storage' -> unset
+--mamba-full-memory-ratio    default 0.9 -> unset
+--mm-enable-dp-encoder       default False -> unset; type bool -> str
+--swa-full-tokens-ratio      default 0.8 -> unset
+
+## Suggested configuration for sglang 0.5.23
+
+python3 -m sglang.launch_server \
+  --model-path Qwen/Qwen3-32B-AWQ \
+  --quantization marlin \
+  --tp-size 2 \
+  --mem-fraction-static 0.88 \
+  --cuda-graph-max-bs-decode 128 \
+  --incremental-streaming-output \
+  --enable-metrics \
+  --port 30000
+
+- --quantization marlin was kept as written; pick a value that sglang 0.5.23 accepts.
+- --cuda-graph-max-bs was rewritten to --cuda-graph-max-bs-decode, the replacement named by sglang's own deprecation notice.
+- --stream-output was rewritten to --incremental-streaming-output, the replacement named by sglang's own deprecation notice.
+- --collect-tokens-histogram was dropped from the rewritten config (removed in 0.5.23).

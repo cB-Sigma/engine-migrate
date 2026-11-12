@@ -1,0 +1,63 @@
+# vllm 0.33.0 -> ollama 0.40.16  (input read as: command)
+
+OLLAMA_CONTEXT_LENGTH=32768
+OLLAMA_NUM_PARALLEL=128
+OLLAMA_HOST=0.0.0.0
+
+# Modelfile
+FROM Qwen/Qwen3-32B
+
+## Report: 0 exact, 4 approximate, 9 no equivalent, 0 unknown
+
+APPROXIMATE    Qwen/Qwen3-32B (positional)  ->  FROM Qwen/Qwen3-32B
+               vllm: Name or path of a Hugging Face model. ollama: Modelfile instruction naming an
+               Ollama model, a GGUF file or a safetensors directory.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:969
+               target: ollama@v0.40.16:parser/parser.go:730
+NO EQUIVALENT  --served-model-name qwen3
+               No option of ollama 0.40.16 is mapped to 'served model name'.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1030
+APPROXIMATE    --max-model-len 32768  ->  OLLAMA_CONTEXT_LENGTH=32768
+               vllm: Model context length (prompt and output); derived from the model config when
+               unset. ollama: Context length used unless a model or request specifies otherwise.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:991
+               target: ollama@v0.40.16:envconfig/config.go:338
+NO EQUIVALENT  --gpu-memory-utilization 0.90
+               Ollama has no memory fraction; OLLAMA_GPU_OVERHEAD reserves an absolute number of
+               bytes per GPU.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1388
+NO EQUIVALENT  --tensor-parallel-size 2
+               No option of ollama 0.40.16 is mapped to 'tensor parallelism'.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1208
+APPROXIMATE    --max-num-seqs 128  ->  OLLAMA_NUM_PARALLEL=128
+               vllm: Maximum number of sequences processed in a single iteration. ollama: Maximum
+               number of parallel requests.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1753
+               target: ollama@v0.40.16:envconfig/config.go:335
+NO EQUIVALENT  --enable-prefix-caching
+               No option of ollama 0.40.16 is mapped to 'prefix / prompt cache'.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1401
+NO EQUIVALENT  --enable-auto-tool-choice
+               No option of ollama 0.40.16 is mapped to 'automatic tool choice'.
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:123
+NO EQUIVALENT  --tool-call-parser hermes
+               No option of ollama 0.40.16 is mapped to 'tool-call parser'.
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:129
+NO EQUIVALENT  --reasoning-parser qwen3
+               No option of ollama 0.40.16 is mapped to 'reasoning parser'.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1146
+NO EQUIVALENT  --kv-cache-memory-bytes 24G
+               No option of ollama 0.40.16 is mapped to 'kv cache size'.
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1394
+NO EQUIVALENT  --api-key sk-local
+               No option of ollama 0.40.16 is mapped to 'api key'.
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:335
+APPROXIMATE    --host 0.0.0.0  ->  OLLAMA_HOST=0.0.0.0
+               vllm: Host name. ollama: IP address for the Ollama server, optionally with ":port"
+               (default 127.0.0.1:11434).
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:293
+               target: ollama@v0.40.16:envconfig/config.go:324
+
+## Also check
+
+- Ollama is configured through environment variables and a Modelfile, so the output uses that form.

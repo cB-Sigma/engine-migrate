@@ -1,0 +1,56 @@
+# sglang 0.5.18 -> vllm 0.33.0  (input read as: command)
+
+vllm serve Qwen/Qwen3-32B-AWQ \
+  --quantization marlin \
+  --tensor-parallel-size 2 \
+  --gpu-memory-utilization 0.88 \
+  --port 30000
+
+## Report: 3 exact, 2 approximate, 1 no equivalent, 3 unknown
+
+EXACT          --model-path Qwen/Qwen3-32B-AWQ  ->  Qwen/Qwen3-32B-AWQ (positional)
+               source: sglang@v0.5.18:python/sglang/srt/server_args.py:492
+               target: vllm@v0.33.0:vllm/engine/arg_utils.py:969
+APPROXIMATE    --quantization marlin  ->  --quantization marlin
+               sglang: The quantization method. vllm: Method used to quantize the weights; unset
+               means read it from the model config.
+               note: 'marlin' is not a built-in value of --quantization in vllm 0.33.0 (auto_awq,
+               auto_gptq, awq, awq_marlin, compressed-tensors, deepseek_v4_fp8, experts_int8,
+               fbgemm_fp8, fp8, fp8_per_block, fp8_per_channel, fp8_per_tensor, ...)
+               note: Quantisation method names are engine-specific; the value is copied and checked
+               against the target's choices.
+               source: sglang@v0.5.18:python/sglang/srt/server_args.py:658
+               target: vllm@v0.33.0:vllm/engine/arg_utils.py:992
+EXACT          --tp-size 2  ->  --tensor-parallel-size 2
+               source: sglang@v0.5.18:python/sglang/srt/server_args.py:1010
+               target: vllm@v0.33.0:vllm/engine/arg_utils.py:1208
+APPROXIMATE    --mem-fraction-static 0.88  ->  --gpu-memory-utilization 0.88
+               sglang: Fraction of memory used for static allocation (model weights and KV cache
+               pool). vllm: Fraction (0-1) of GPU memory for the model executor of this instance.
+               source: sglang@v0.5.18:python/sglang/srt/server_args.py:774
+               target: vllm@v0.33.0:vllm/engine/arg_utils.py:1388
+UNKNOWN        --cuda-graph-max-bs 128
+               --cuda-graph-max-bs is a known sglang 0.5.18 option, but no mapping row covers it
+               yet.
+               note: --cuda-graph-max-bs is deprecated in sglang 0.5.18
+               source: sglang@v0.5.18:python/sglang/srt/server_args.py:8773
+UNKNOWN        --stream-output
+               --stream-output is a known sglang 0.5.18 option, but no mapping row covers it yet.
+               note: --stream-output is deprecated in sglang 0.5.18
+               source: sglang@v0.5.18:python/sglang/srt/server_args.py:8719
+UNKNOWN        --collect-tokens-histogram
+               --collect-tokens-histogram is a known sglang 0.5.18 option, but no mapping row covers
+               it yet.
+               note: --collect-tokens-histogram is deprecated in sglang 0.5.18
+               source: sglang@v0.5.18:python/sglang/srt/server_args.py:8731
+NO EQUIVALENT  --enable-metrics
+               vLLM has no flag that switches the metrics endpoint on or off.
+               source: sglang@v0.5.18:python/sglang/srt/server_args.py:1547
+EXACT          --port 30000  ->  --port 30000
+               source: sglang@v0.5.18:python/sglang/srt/server_args.py:1278
+               target: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:295
+
+## Also check
+
+- Listen address: not set, and the defaults differ - sglang 0.5.18 --host defaults to '127.0.0.1',
+  vllm 0.33.0 --host defaults to None.

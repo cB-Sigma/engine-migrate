@@ -1,0 +1,7169 @@
+{
+ "engine": "llamacpp",
+ "metrics": [
+  {
+   "help": "Average number of busy slots per llama_decode() call",
+   "labels": [],
+   "name": "llamacpp:n_busy_slots_per_decode",
+   "source": {
+    "line": 1585,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "gauge"
+  },
+  {
+   "help": "Total number of llama_decode() calls, excluding speculative decoding and multimodal decoding",
+   "labels": [],
+   "name": "llamacpp:n_decode_total",
+   "source": {
+    "line": 1545,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "Largest observed sequence length (prompt + generation)",
+   "labels": [],
+   "name": "llamacpp:n_tokens_max",
+   "source": {
+    "line": 1549,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "Average generation throughput in tokens/s",
+   "labels": [],
+   "name": "llamacpp:predicted_tokens_seconds",
+   "source": {
+    "line": 1573,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "gauge"
+  },
+  {
+   "help": "Total time spent processing prompts",
+   "labels": [],
+   "name": "llamacpp:prompt_seconds_total",
+   "source": {
+    "line": 1533,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "Number of prompt tokens reused from the cache",
+   "labels": [],
+   "name": "llamacpp:prompt_tokens_cached_total",
+   "source": {
+    "line": 1529,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "Average prompt throughput in tokens/s",
+   "labels": [],
+   "name": "llamacpp:prompt_tokens_seconds",
+   "source": {
+    "line": 1569,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "gauge"
+  },
+  {
+   "help": "Number of prompt tokens processed, excluding cached tokens",
+   "labels": [],
+   "name": "llamacpp:prompt_tokens_total",
+   "source": {
+    "line": 1525,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "Number of requests deferred",
+   "labels": [],
+   "name": "llamacpp:requests_deferred",
+   "source": {
+    "line": 1581,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "gauge"
+  },
+  {
+   "help": "Number of requests processing",
+   "labels": [],
+   "name": "llamacpp:requests_processing",
+   "source": {
+    "line": 1577,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "gauge"
+  },
+  {
+   "help": "Accepted tokens per draft position",
+   "labels": [
+    "position"
+   ],
+   "name": "llamacpp:spec_decode_num_accepted_tokens_per_pos_total",
+   "source": {
+    "line": 1607,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "Speculative: Total draft tokens accepted by the target model",
+   "labels": [],
+   "name": "llamacpp:spec_decode_num_accepted_tokens_total",
+   "source": {
+    "line": 1557,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "Speculative: Total draft tokens generated",
+   "labels": [],
+   "name": "llamacpp:spec_decode_num_draft_tokens_total",
+   "source": {
+    "line": 1553,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "Speculative: Total speculative decoding verification steps",
+   "labels": [],
+   "name": "llamacpp:spec_decode_num_drafts_total",
+   "source": {
+    "line": 1561,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "Total time spent generating tokens",
+   "labels": [],
+   "name": "llamacpp:tokens_predicted_seconds_total",
+   "source": {
+    "line": 1541,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "Number of generation tokens processed",
+   "labels": [],
+   "name": "llamacpp:tokens_predicted_total",
+   "source": {
+    "line": 1537,
+    "path": "tools/server/server-task.cpp"
+   },
+   "type": "counter"
+  }
+ ],
+ "notes": [
+  "Options are those whose examples include LLAMA_EXAMPLE_COMMON or LLAMA_EXAMPLE_SERVER and that do not exclude the server.",
+  "Defaults are read from the '(default: ...)' part of the help text after rendering it with the struct defaults in common/common.h; options whose help could not be fully rendered carry help_partial=true.",
+  "Options registered only under some build flags are included without the condition."
+ ],
+ "options": [
+  {
+   "aliases": [],
+   "default": 0.9,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "adaptive-p: decay rate for target adaptation over time. lower values are more reactive, higher values are more stable. (valid range 0.0 to 0.99) (default: 0.90)",
+   "kind": "cli",
+   "name": "--adaptive-decay",
+   "source": {
+    "line": 2193,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": -1.0,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "adaptive-p: select tokens near this probability (valid range 0.0 to 1.0; negative = disabled) (default: -1.00) [(more info)](https://github.com/ggml-org/llama.cpp/pull/17927)",
+   "kind": "cli",
+   "name": "--adaptive-target",
+   "source": {
+    "line": 2183,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-ag"
+   ],
+   "default": false,
+   "deprecated": false,
+   "env": "LLAMA_ARG_AGENT",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "whether to enable CORS proxy and all built-in tools - do not enable in untrusted environments (default: disabled) note: for security reasons, this will limit --cors-origins to localhost by default",
+   "kind": "cli",
+   "name": "--agent",
+   "negations": [
+    "-no-ag",
+    "--no-agent"
+   ],
+   "source": {
+    "line": 3439,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-a"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_ALIAS",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "set model name aliases, comma-separated (to be used by API)",
+   "kind": "cli",
+   "name": "--alias",
+   "source": {
+    "line": 3006,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "STRING"
+  },
+  {
+   "aliases": [],
+   "default": "none",
+   "deprecated": false,
+   "env": "LLAMA_API_KEY",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "API key to use for authentication, multiple keys can be provided as a comma-separated list (default: none)",
+   "kind": "cli",
+   "name": "--api-key",
+   "source": {
+    "line": 3478,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "KEY"
+  },
+  {
+   "aliases": [],
+   "default": "none",
+   "deprecated": false,
+   "env": "LLAMA_ARG_API_KEY_FILE",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "path to file containing API keys, one per line; lines starting with a hash are treated as comments (default: none)",
+   "kind": "cli",
+   "name": "--api-key-file",
+   "source": {
+    "line": 3489,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FNAME"
+  },
+  {
+   "aliases": [],
+   "default": "",
+   "deprecated": false,
+   "env": "LLAMA_ARG_API_PREFIX",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "prefix path the server serves from, without the trailing slash (default: )",
+   "kind": "cli",
+   "name": "--api-prefix",
+   "source": {
+    "line": 3373,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "PREFIX"
+  },
+  {
+   "aliases": [
+    "-bs"
+   ],
+   "default": false,
+   "deprecated": false,
+   "env": "LLAMA_ARG_BACKEND_SAMPLING",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "enable backend sampling (experimental) (default: disabled)",
+   "kind": "cli",
+   "name": "--backend-sampling",
+   "source": {
+    "line": 2302,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-b"
+   ],
+   "default": 2048,
+   "deprecated": false,
+   "env": "LLAMA_ARG_BATCH",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "logical maximum batch size (default: 2048)",
+   "kind": "cli",
+   "name": "--batch-size",
+   "source": {
+    "line": 1665,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": true,
+   "deprecated": false,
+   "env": "LLAMA_ARG_CACHE_IDLE_SLOTS",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "save idle slots to the prompt cache on new task, and clear them when using unified KV (default: enabled, requires cache-ram)",
+   "kind": "cli",
+   "name": "--cache-idle-slots",
+   "negations": [
+    "--no-cache-idle-slots"
+   ],
+   "source": {
+    "line": 1728,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-cl"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "show list of models in cache",
+   "kind": "cli",
+   "name": "--cache-list",
+   "source": {
+    "line": 1455,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": true,
+   "deprecated": false,
+   "env": "LLAMA_ARG_CACHE_PROMPT",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "whether to enable prompt caching (default: enabled)",
+   "kind": "cli",
+   "name": "--cache-prompt",
+   "negations": [
+    "--no-cache-prompt"
+   ],
+   "source": {
+    "line": 3560,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-cram"
+   ],
+   "default": 8192,
+   "deprecated": false,
+   "env": "LLAMA_ARG_CACHE_RAM",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "set the maximum cache size in MiB (default: 8192, -1 - no limit, 0 - disable)[(more info)](https://github.com/ggml-org/llama.cpp/pull/16391)",
+   "kind": "cli",
+   "name": "--cache-ram",
+   "source": {
+    "line": 1712,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 0,
+   "deprecated": false,
+   "env": "LLAMA_ARG_CACHE_REUSE",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "min chunk size to attempt reusing from the cache via KV shifting, requires prompt caching to be enabled (default: 0) [(card)](https://ggml.ai/f0.png)",
+   "kind": "cli",
+   "name": "--cache-reuse",
+   "source": {
+    "line": 3568,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-ctk"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_CACHE_TYPE_K",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "KV cache data type for K allowed values: <get_all_kv_cache_types().c_str()> (default: <ggml_type_name(params.cache_type_k)>)",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--cache-type-k",
+   "source": {
+    "line": 2433,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "TYPE"
+  },
+  {
+   "aliases": [
+    "-ctv"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_CACHE_TYPE_V",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "KV cache data type for V allowed values: <get_all_kv_cache_types().c_str()> (default: <ggml_type_name(params.cache_type_v)>)",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--cache-type-v",
+   "source": {
+    "line": 2446,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "TYPE"
+  },
+  {
+   "aliases": [],
+   "default": "template taken from model's metadata",
+   "deprecated": false,
+   "env": "LLAMA_ARG_CHAT_TEMPLATE",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_COMPLETION",
+    "LLAMA_EXAMPLE_MTMD",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "set custom jinja chat template (default: template taken from model's metadata) if suffix/prefix are specified, template will be disabled only commonly used templates are accepted (unless --jinja is set before this flag): list of built-in templates: <list_builtin_chat_templates().c_str()>",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--chat-template",
+   "source": {
+    "line": 3736,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "JINJA_TEMPLATE"
+  },
+  {
+   "aliases": [],
+   "default": "template taken from model's metadata",
+   "deprecated": false,
+   "env": "LLAMA_ARG_CHAT_TEMPLATE_FILE",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_COMPLETION",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "set custom jinja chat template file (default: template taken from model's metadata) if suffix/prefix are specified, template will be disabled only commonly used templates are accepted (unless --jinja is set before this flag): list of built-in templates: <list_builtin_chat_templates().c_str()>",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--chat-template-file",
+   "source": {
+    "line": 3748,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "JINJA_TEMPLATE_FILE"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_CHAT_TEMPLATE_KWARGS",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "sets additional params for the json template parser, must be a valid json object string, e.g. '{\"key1\":\"value1\",\"key2\":\"value2\"}'",
+   "kind": "cli",
+   "name": "--chat-template-kwargs",
+   "source": {
+    "line": 3520,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "STRING"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "check model tensor data for invalid values (default: false)",
+   "kind": "cli",
+   "name": "--check-tensors",
+   "source": {
+    "line": 2923,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-cms"
+   ],
+   "default": 8192,
+   "deprecated": false,
+   "env": "LLAMA_ARG_CHECKPOINT_MIN_SPACING_NT",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "minimum spacing between context checkpoints in tokens (default: 8192, 0 = no minimum)",
+   "kind": "cli",
+   "name": "--checkpoint-min-step",
+   "source": {
+    "line": 1702,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "print source-able bash completion script for llama.cpp",
+   "kind": "cli",
+   "name": "--completion-bash",
+   "source": {
+    "line": 1467,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-cb"
+   ],
+   "default": true,
+   "deprecated": false,
+   "env": "LLAMA_ARG_CONT_BATCHING",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "whether to enable continuous batching (a.k.a dynamic batching) (default: enabled)",
+   "kind": "cli",
+   "name": "--cont-batching",
+   "negations": [
+    "-nocb",
+    "--no-cont-batching"
+   ],
+   "source": {
+    "line": 2566,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "env": "LLAMA_ARG_CONTEXT_SHIFT",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_COMPLETION",
+    "LLAMA_EXAMPLE_IMATRIX",
+    "LLAMA_EXAMPLE_PERPLEXITY",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "whether to use context shift on infinite text generation (default: disabled)",
+   "kind": "cli",
+   "name": "--context-shift",
+   "negations": [
+    "--no-context-shift"
+   ],
+   "source": {
+    "line": 1736,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "add a control vector note: use comma-separated values to add multiple control vectors",
+   "kind": "cli",
+   "name": "--control-vector",
+   "source": {
+    "line": 2975,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FNAME"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "layer range to apply the control vector(s) to, start and end inclusive",
+   "kind": "cli",
+   "name": "--control-vector-layer-range",
+   "source": {
+    "line": 2998,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "START END"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "add a control vector with user defined scaling SCALE note: use comma-separated values (format: FNAME:SCALE,...)",
+   "kind": "cli",
+   "name": "--control-vector-scaled",
+   "source": {
+    "line": 2984,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FNAME:SCALE,..."
+  },
+  {
+   "aliases": [],
+   "default": true,
+   "deprecated": false,
+   "env": "LLAMA_ARG_CORS_CREDENTIALS",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "whether to allow credentials for CORS (default: enabled) note: if this is enabled and --cors-origins is set to * (default), the Origin header will be echoed back, and credentials will always be allowed",
+   "kind": "cli",
+   "name": "--cors-credentials",
+   "negations": [
+    "--no-cors-credentials"
+   ],
+   "source": {
+    "line": 3362,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": "*",
+   "deprecated": false,
+   "env": "LLAMA_ARG_CORS_HEADERS",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "comma-separated list of allowed headers for CORS (default: *)",
+   "kind": "cli",
+   "name": "--cors-headers",
+   "source": {
+    "line": 3355,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "HEADERS"
+  },
+  {
+   "aliases": [],
+   "default": "GET",
+   "deprecated": false,
+   "env": "LLAMA_ARG_CORS_METHODS",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "comma-separated list of allowed methods for CORS (default: GET, POST, DELETE, OPTIONS)",
+   "kind": "cli",
+   "name": "--cors-methods",
+   "source": {
+    "line": 3348,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "METHODS"
+  },
+  {
+   "aliases": [],
+   "default": "*",
+   "deprecated": false,
+   "env": "LLAMA_ARG_CORS_ORIGINS",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "comma-separated list of allowed origins for CORS (default: *) if set to special value 'localhost', reflect the Origin header only if it is localhost",
+   "kind": "cli",
+   "name": "--cors-origins",
+   "source": {
+    "line": 3337,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "ORIGINS"
+  },
+  {
+   "aliases": [
+    "-C"
+   ],
+   "default": "",
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "CPU affinity mask: arbitrarily long hex. Complements cpu-range (default: \"\")",
+   "kind": "cli",
+   "name": "--cpu-mask",
+   "source": {
+    "line": 1533,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "M"
+  },
+  {
+   "aliases": [
+    "-Cb"
+   ],
+   "default": "same as --cpu-mask",
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "CPU affinity mask: arbitrarily long hex. Complements cpu-range-batch (default: same as --cpu-mask)",
+   "kind": "cli",
+   "name": "--cpu-mask-batch",
+   "source": {
+    "line": 1577,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "M"
+  },
+  {
+   "aliases": [
+    "-cmoe"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_CPU_MOE",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "keep all Mixture of Experts (MoE) weights in the CPU",
+   "kind": "cli",
+   "name": "--cpu-moe",
+   "source": {
+    "line": 2755,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-Cr"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "range of CPUs for affinity. Complements --cpu-mask",
+   "kind": "cli",
+   "name": "--cpu-range",
+   "source": {
+    "line": 1543,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "lo-hi"
+  },
+  {
+   "aliases": [
+    "-Crb"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "ranges of CPUs for affinity. Complements --cpu-mask-batch",
+   "kind": "cli",
+   "name": "--cpu-range-batch",
+   "source": {
+    "line": 1587,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "lo-hi"
+  },
+  {
+   "aliases": [],
+   "choices": [
+    "0",
+    "1"
+   ],
+   "default": 0,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "use strict CPU placement (default: 0)",
+   "kind": "cli",
+   "name": "--cpu-strict",
+   "source": {
+    "line": 1553,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "<0|1>"
+  },
+  {
+   "aliases": [],
+   "choices": [
+    "0",
+    "1"
+   ],
+   "default": "same as --cpu-strict",
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "use strict CPU placement (default: same as --cpu-strict)",
+   "kind": "cli",
+   "name": "--cpu-strict-batch",
+   "source": {
+    "line": 1597,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "<0|1>"
+  },
+  {
+   "aliases": [
+    "-ctxcp",
+    "--swa-checkpoints"
+   ],
+   "default": 32,
+   "deprecated": false,
+   "env": "LLAMA_ARG_CTX_CHECKPOINTS",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "max number of context checkpoints to create per slot (default: 32)[(more info)](https://github.com/ggml-org/llama.cpp/pull/15293)",
+   "kind": "cli",
+   "name": "--ctx-checkpoints",
+   "source": {
+    "line": 1694,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-c"
+   ],
+   "default": 0,
+   "deprecated": false,
+   "env": "LLAMA_ARG_CTX_SIZE",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "size of the prompt context (default: 0, 0 = loaded from model)",
+   "kind": "cli",
+   "name": "--ctx-size",
+   "source": {
+    "line": 1635,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-dt"
+   ],
+   "deprecated": true,
+   "env": "LLAMA_ARG_DEFRAG_THOLD",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "KV cache defragmentation threshold (DEPRECATED)",
+   "kind": "cli",
+   "name": "--defrag-thold",
+   "source": {
+    "line": 2529,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-dev"
+   ],
+   "choices": [
+    "dev1",
+    "dev2",
+    ".."
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_DEVICE",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "comma-separated list of devices to use for offloading (none = don't offload) use --list-devices to see a list of available devices",
+   "kind": "cli",
+   "name": "--device",
+   "source": {
+    "line": 2733,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "<dev1,dev2,..>"
+  },
+  {
+   "aliases": [
+    "-dr"
+   ],
+   "default": "unused",
+   "deprecated": false,
+   "env": "LLAMA_ARG_DOCKER_REPO",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON",
+    "LLAMA_EXAMPLE_DOWNLOAD",
+    "LLAMA_EXAMPLE_TOKENIZE"
+   ],
+   "group": "example-specific",
+   "help": "Docker Hub model repository. repo is optional, default to ai/. quant is optional, default to :latest. example: gemma3 (default: unused)",
+   "kind": "cli",
+   "name": "--docker-repo",
+   "source": {
+    "line": 3046,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "[<repo>/]<model>[:quant]"
+  },
+  {
+   "aliases": [
+    "--draft-n",
+    "--draft-max"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_DRAFT_MAX",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_LOOKUP",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "the argument has been removed. use --spec-draft-n-max or --spec-ngram-mod-n-max",
+   "kind": "cli",
+   "name": "--draft",
+   "source": {
+    "line": 4373,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "--draft-n-min"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_DRAFT_MIN",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_LOOKUP",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "the argument has been removed. use --spec-draft-n-min or --spec-ngram-mod-n-min",
+   "kind": "cli",
+   "name": "--draft-min",
+   "source": {
+    "line": 4380,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 2,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "set allowed length for DRY sampling (default: 2)",
+   "kind": "cli",
+   "name": "--dry-allowed-length",
+   "source": {
+    "line": 2140,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 1.75,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "set DRY sampling base value (default: 1.75)",
+   "kind": "cli",
+   "name": "--dry-base",
+   "source": {
+    "line": 2129,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 0.0,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "set DRY sampling multiplier (default: 0.00, 0.0 = disabled)",
+   "kind": "cli",
+   "name": "--dry-multiplier",
+   "source": {
+    "line": 2122,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 64,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "set DRY penalty for the last n tokens (default: 64, 0 = disable)",
+   "kind": "cli",
+   "name": "--dry-penalty-last-n",
+   "source": {
+    "line": 2147,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "add sequence breaker for DRY sampling, clearing out default breakers (<params.sampling.dry_sequence_breakers.empty() ? \"none\" : std::accumulate(std::next(params.sampling.dry_sequence_breakers.begin()), params.sampling.dry_sequence_breakers.end(), std::string(\"'\") + (params.sampling.dry_sequence_breakers[0] == \"\\n\" ? \"\\\\n\" : params.sampling.dry_sequence_breakers[0]) + \"'\", [](const std::string& a, const std::string& b) { std::string formatted_b = (b == \"\\n\") ? \"\\\\n\" : b; return a + \", '\" + formatted_b + \"'\"; }).c_str()>) in the process; use \"none\" to not use any sequence breakers",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--dry-sequence-breaker",
+   "source": {
+    "line": 2157,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "STRING"
+  },
+  {
+   "aliases": [],
+   "default": 1.0,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "dynamic temperature exponent (default: 1.00)",
+   "kind": "cli",
+   "name": "--dynatemp-exp",
+   "source": {
+    "line": 2210,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 0.0,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "dynamic temperature range (default: 0.00, 0.0 = disabled)",
+   "kind": "cli",
+   "name": "--dynatemp-range",
+   "source": {
+    "line": 2203,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_EMBEDDING",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "use default EmbeddingGemma model (note: can download weights from the internet)",
+   "kind": "cli",
+   "name": "--embd-gemma-default",
+   "source": {
+    "line": 4546,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": 2,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_DEBUG",
+    "LLAMA_EXAMPLE_EMBEDDING",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "normalisation for embeddings (default: 2) (-1=none, 0=max absolute int16, 1=taxicab, 2=euclidean, >2=p-norm)",
+   "kind": "cli",
+   "name": "--embd-normalize",
+   "source": {
+    "line": 3281,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "--embeddings"
+   ],
+   "default": false,
+   "deprecated": false,
+   "env": "LLAMA_ARG_EMBEDDINGS",
+   "examples": [
+    "LLAMA_EXAMPLE_DEBUG",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "restrict to only support embedding use case; use only with dedicated embedding models (default: disabled)",
+   "kind": "cli",
+   "name": "--embedding",
+   "source": {
+    "line": 3463,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-e"
+   ],
+   "default": true,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "whether to process escapes sequences (\\n, \\r, \\t, \\', \\\", \\\\) (default: true)",
+   "kind": "cli",
+   "name": "--escape",
+   "negations": [
+    "--no-escape"
+   ],
+   "source": {
+    "line": 1848,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "use default Qwen 2.5 Coder 1.5B (note: can download weights from the internet)",
+   "kind": "cli",
+   "name": "--fim-qwen-1.5b-default",
+   "source": {
+    "line": 4562,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "use Qwen 2.5 Coder 14B + 0.5B draft for speculative decoding (note: can download weights from the internet)",
+   "kind": "cli",
+   "name": "--fim-qwen-14b-spec",
+   "source": {
+    "line": 4620,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "use default Qwen 3 Coder 30B A3B Instruct (note: can download weights from the internet)",
+   "kind": "cli",
+   "name": "--fim-qwen-30b-default",
+   "source": {
+    "line": 4636,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "use default Qwen 2.5 Coder 3B (note: can download weights from the internet)",
+   "kind": "cli",
+   "name": "--fim-qwen-3b-default",
+   "source": {
+    "line": 4576,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "use default Qwen 2.5 Coder 7B (note: can download weights from the internet)",
+   "kind": "cli",
+   "name": "--fim-qwen-7b-default",
+   "source": {
+    "line": 4590,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "use Qwen 2.5 Coder 7B + 0.5B draft for speculative decoding (note: can download weights from the internet)",
+   "kind": "cli",
+   "name": "--fim-qwen-7b-spec",
+   "source": {
+    "line": 4604,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-fit"
+   ],
+   "choices": [
+    "on",
+    "off"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_FIT",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "whether to adjust unset arguments to fit in device memory ('on' or 'off', default: 'on')",
+   "kind": "cli",
+   "name": "--fit",
+   "source": {
+    "line": 2863,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "[on|off]"
+  },
+  {
+   "aliases": [
+    "-fitc"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_FIT_CTX",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "minimum ctx size that can be set by --fit option, default: %",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--fit-ctx",
+   "source": {
+    "line": 2916,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-fitt"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_FIT_TARGET",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "target margin per device for --fit, comma-separated list of values, single value is broadcast across all devices, default: <params.fit_params_target[0]/(1024*1024)>",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--fit-target",
+   "source": {
+    "line": 2891,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "MiB0,MiB1,MiB2,..."
+  },
+  {
+   "aliases": [
+    "-fa"
+   ],
+   "choices": [
+    "on",
+    "off",
+    "auto"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_FLASH_ATTN",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "set Flash Attention use ('on', 'off', or 'auto', default: '<llama_flash_attn_type_name(params.flash_attn_type)>')",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--flash-attn",
+   "source": {
+    "line": 1751,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "[on|off|auto]"
+  },
+  {
+   "aliases": [],
+   "default": 0.0,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "repeat alpha frequency penalty (default: 0.00, 0.0 = disabled)",
+   "kind": "cli",
+   "name": "--frequency-penalty",
+   "source": {
+    "line": 2111,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "use gpt-oss-120b (note: can download weights from the internet)",
+   "kind": "cli",
+   "name": "--gpt-oss-120b-default",
+   "source": {
+    "line": 4669,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "use gpt-oss-20b (note: can download weights from the internet)",
+   "kind": "cli",
+   "name": "--gpt-oss-20b-default",
+   "source": {
+    "line": 4650,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-ngl",
+    "--n-gpu-layers"
+   ],
+   "default": "auto",
+   "deprecated": false,
+   "env": "LLAMA_ARG_N_GPU_LAYERS",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "max. number of layers to store in VRAM, either an exact number, 'auto', or 'all' (default: auto)",
+   "kind": "cli",
+   "name": "--gpu-layers",
+   "source": {
+    "line": 2784,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "BNF-like grammar to constrain generations (see samples in grammars/ dir)",
+   "kind": "cli",
+   "name": "--grammar",
+   "source": {
+    "line": 2264,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "GRAMMAR"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "file to read grammar from",
+   "kind": "cli",
+   "name": "--grammar-file",
+   "source": {
+    "line": 2271,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FNAME"
+  },
+  {
+   "aliases": [
+    "-h",
+    "--usage"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON",
+    "LLAMA_EXAMPLE_DOWNLOAD"
+   ],
+   "group": "example-specific",
+   "help": "print usage and exit",
+   "kind": "cli",
+   "name": "--help",
+   "source": {
+    "line": 1440,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-hff"
+   ],
+   "default": "unused",
+   "deprecated": false,
+   "env": "LLAMA_ARG_HF_FILE",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON",
+    "LLAMA_EXAMPLE_DOWNLOAD",
+    "LLAMA_EXAMPLE_TOKENIZE"
+   ],
+   "group": "example-specific",
+   "help": "Hugging Face model file. If specified, it will override the quant in --hf-repo (default: unused)",
+   "kind": "cli",
+   "name": "--hf-file",
+   "source": {
+    "line": 3065,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FILE"
+  },
+  {
+   "aliases": [
+    "-hf",
+    "-hfr"
+   ],
+   "default": "unused",
+   "deprecated": false,
+   "env": "LLAMA_ARG_HF_REPO",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON",
+    "LLAMA_EXAMPLE_DOWNLOAD",
+    "LLAMA_EXAMPLE_TOKENIZE"
+   ],
+   "group": "example-specific",
+   "help": "Hugging Face model repository; quant is optional, case-insensitive, default to Q4_K_M, or falls back to the first file in the repo if Q4_K_M doesn't exist. mmproj is also downloaded automatically if available. to disable, add --no-mmproj example: ggml-org/GLM-4.7-Flash-GGUF:Q4_K_M (default: unused)",
+   "kind": "cli",
+   "name": "--hf-repo",
+   "source": {
+    "line": 3055,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "<user>/<model>[:quant]"
+  },
+  {
+   "aliases": [
+    "-hft"
+   ],
+   "default": "value from HF_TOKEN environment variable",
+   "deprecated": false,
+   "env": "HF_TOKEN",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON",
+    "LLAMA_EXAMPLE_DOWNLOAD",
+    "LLAMA_EXAMPLE_TOKENIZE"
+   ],
+   "group": "example-specific",
+   "help": "Hugging Face access token (default: value from HF_TOKEN environment variable)",
+   "kind": "cli",
+   "name": "--hf-token",
+   "source": {
+    "line": 3072,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "TOKEN"
+  },
+  {
+   "aliases": [],
+   "default": "127.0.0.1",
+   "deprecated": false,
+   "env": "LLAMA_ARG_HOST",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "ip address to listen, or bind to an UNIX socket if the address ends with .sock (default: 127.0.0.1)",
+   "kind": "cli",
+   "name": "--host",
+   "source": {
+    "line": 3309,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "HOST"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "ignore end of stream token and continue generating (implies --logit-bias EOS-inf)",
+   "kind": "cli",
+   "name": "--ignore-eos",
+   "source": {
+    "line": 2004,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": "read from model",
+   "deprecated": false,
+   "env": "LLAMA_ARG_IMAGE_MAX_TOKENS",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "maximum number of tokens each image can take, only used by vision models with dynamic resolution (default: read from model)",
+   "kind": "cli",
+   "name": "--image-max-tokens",
+   "source": {
+    "line": 2641,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": "read from model",
+   "deprecated": false,
+   "env": "LLAMA_ARG_IMAGE_MIN_TOKENS",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "minimum number of tokens each image can take, only used by vision models with dynamic resolution (default: read from model)",
+   "kind": "cli",
+   "name": "--image-min-tokens",
+   "source": {
+    "line": 2634,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": true,
+   "deprecated": false,
+   "env": "LLAMA_ARG_JINJA",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_COMPLETION",
+    "LLAMA_EXAMPLE_MTMD",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "whether to use jinja template engine for chat (default: enabled)",
+   "kind": "cli",
+   "name": "--jinja",
+   "negations": [
+    "--no-jinja"
+   ],
+   "source": {
+    "line": 3657,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-j"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "JSON schema to constrain generations (https://json-schema.org/), e.g. `{\"type\": \"object\"}` for any JSON object",
+   "kind": "cli",
+   "name": "--json-schema",
+   "source": {
+    "line": 2278,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "SCHEMA"
+  },
+  {
+   "aliases": [
+    "-jf"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "File containing a JSON schema to constrain generations (https://json-schema.org/), e.g. `{\"type\": \"object\"}` for any JSON object",
+   "kind": "cli",
+   "name": "--json-schema-file",
+   "source": {
+    "line": 2285,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FILE"
+  },
+  {
+   "aliases": [],
+   "default": 0,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "number of tokens to keep from the initial prompt (default: 0, -1 = all)",
+   "kind": "cli",
+   "name": "--keep",
+   "source": {
+    "line": 1679,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-kvo"
+   ],
+   "default": true,
+   "deprecated": false,
+   "env": "LLAMA_ARG_KV_OFFLOAD",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "whether to enable KV cache offloading (default: enabled)",
+   "kind": "cli",
+   "name": "--kv-offload",
+   "negations": [
+    "-nkvo",
+    "--no-kv-offload"
+   ],
+   "source": {
+    "line": 2410,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-kvu"
+   ],
+   "default": "enabled if number of slots is auto",
+   "deprecated": false,
+   "env": "LLAMA_ARG_KV_UNIFIED",
+   "examples": [
+    "LLAMA_EXAMPLE_BATCHED",
+    "LLAMA_EXAMPLE_BENCH",
+    "LLAMA_EXAMPLE_PARALLEL",
+    "LLAMA_EXAMPLE_PERPLEXITY",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "use single unified KV buffer shared across all sequences (default: enabled if number of slots is auto)",
+   "kind": "cli",
+   "name": "--kv-unified",
+   "negations": [
+    "-no-kvu",
+    "--no-kv-unified"
+   ],
+   "source": {
+    "line": 1720,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": "unset",
+   "deprecated": false,
+   "env": "LLAMA_ARG_KV_UNIFIED_PER_SLOT",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "context limit per parallel slot (default: unset, behavior unchanged). when set without -c/--ctx-size, the shared KV pool is sized to n_parallel*N",
+   "kind": "cli",
+   "name": "--kv-unified-per-slot",
+   "source": {
+    "line": 1646,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-lzm"
+   ],
+   "default": "auto",
+   "deprecated": false,
+   "env": "LLAMA_ARG_LAZY_MODE",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "on-demand reading of certain tensors, for example per-layer embeddings (default: auto) - on: read the rows of such tensors from disk on demand instead of keeping them resident (requires mmap) - auto: on, but only for tensors larger than 4 GiB - off: always keep them resident",
+   "kind": "cli",
+   "name": "--lazy-mode",
+   "source": {
+    "line": 2705,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "MODE"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "print list of available devices and exit",
+   "kind": "cli",
+   "name": "--list-devices",
+   "source": {
+    "line": 2741,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-lm"
+   ],
+   "default": "auto",
+   "deprecated": false,
+   "env": "LLAMA_ARG_LOAD_MODE",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "model loading mode (default: auto) - auto: mmap, unless a device does not support it - none: no special loading mode - mmap: memory-map model (if mmap disabled, slower load but may reduce pageouts if not using mlock) - mlock: force system to keep model in RAM rather than swapping or compressing - mmap+mlock: mmap + force system to keep model in RAM rather than swapping or compressing - dio: use DirectIO if available",
+   "kind": "cli",
+   "name": "--load-mode",
+   "source": {
+    "line": 2686,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "MODE"
+  },
+  {
+   "aliases": [],
+   "choices": [
+    "on",
+    "off",
+    "auto"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_LOG_COLORS",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "Set colored logging ('on', 'off', or 'auto', default: 'auto') 'auto' enables colors when output is to a terminal",
+   "kind": "cli",
+   "name": "--log-colors",
+   "source": {
+    "line": 3893,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "[on|off|auto]"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "Log disable",
+   "kind": "cli",
+   "name": "--log-disable",
+   "source": {
+    "line": 3859,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_LOG_FILE",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "Log to file",
+   "kind": "cli",
+   "name": "--log-file",
+   "source": {
+    "line": 3866,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FNAME"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "env": "LLAMA_ARG_LOG_JSONL",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "Log as JSONL (one JSON object per line) to stdout, this also disables colored logging (default: disabled)",
+   "kind": "cli",
+   "name": "--log-jsonl",
+   "negations": [
+    "--no-log-jsonl"
+   ],
+   "source": {
+    "line": 3873,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_LOG_PREFIX",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "Enable prefix in log messages",
+   "kind": "cli",
+   "name": "--log-prefix",
+   "negations": [
+    "--no-log-prefix"
+   ],
+   "source": {
+    "line": 3940,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "Log prompts to directory (auto-created if not present; only used for debugging, default: disabled)",
+   "kind": "cli",
+   "name": "--log-prompts-dir",
+   "source": {
+    "line": 3881,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "PATH"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_LOG_TIMESTAMPS",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "Enable timestamps in log messages",
+   "kind": "cli",
+   "name": "--log-timestamps",
+   "negations": [
+    "--no-log-timestamps"
+   ],
+   "source": {
+    "line": 3948,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-l"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "modifies the likelihood of token appearing in the completion, i.e. `--logit-bias 15043+1` to increase likelihood of token ' Hello', or `--logit-bias 15043-1` to decrease likelihood of token ' Hello'",
+   "kind": "cli",
+   "name": "--logit-bias",
+   "source": {
+    "line": 2242,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "TOKEN_ID(+/-)BIAS"
+  },
+  {
+   "aliases": [
+    "-lcd"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_LOOKUP",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "path to dynamic lookup cache to use for lookup decoding (updated by generation)",
+   "kind": "cli",
+   "name": "--lookup-cache-dynamic",
+   "source": {
+    "line": 1628,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FNAME"
+  },
+  {
+   "aliases": [
+    "-lcs"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_LOOKUP",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "path to static lookup cache to use for lookup decoding (not updated by generation)",
+   "kind": "cli",
+   "name": "--lookup-cache-static",
+   "source": {
+    "line": 1621,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FNAME"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON",
+    "LLAMA_EXAMPLE_EXPORT_LORA"
+   ],
+   "group": "example-specific",
+   "help": "path to LoRA adapter (use comma-separated values to load multiple adapters)",
+   "kind": "cli",
+   "name": "--lora",
+   "source": {
+    "line": 2950,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FNAME"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "load LoRA adapters without applying them (apply later via POST /lora-adapters) (default: disabled)",
+   "kind": "cli",
+   "name": "--lora-init-without-apply",
+   "source": {
+    "line": 3789,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON",
+    "LLAMA_EXAMPLE_EXPORT_LORA"
+   ],
+   "group": "example-specific",
+   "help": "path to LoRA adapter with user defined scaling (format: FNAME:SCALE,...) note: use comma-separated values",
+   "kind": "cli",
+   "name": "--lora-scaled",
+   "source": {
+    "line": 2960,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FNAME:SCALE,..."
+  },
+  {
+   "aliases": [
+    "-mg"
+   ],
+   "default": 0,
+   "deprecated": false,
+   "env": "LLAMA_ARG_MAIN_GPU",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "the GPU to use for the model (with split-mode = none), or for intermediate results and KV (with split-mode = row) (default: 0)",
+   "kind": "cli",
+   "name": "--main-gpu",
+   "source": {
+    "line": 2853,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "INDEX"
+  },
+  {
+   "aliases": [],
+   "default": "none",
+   "deprecated": false,
+   "env": "LLAMA_ARG_MCP_SERVERS_CONFIG",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "experimental: path to JSON file with MCP server definitions (Cursor-compatible format) - do not enable in untrusted environments (default: none) note: for security reasons, this will limit --cors-origins to localhost by default",
+   "kind": "cli",
+   "name": "--mcp-servers-config",
+   "source": {
+    "line": 3423,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "PATH"
+  },
+  {
+   "aliases": [],
+   "default": "none",
+   "deprecated": false,
+   "env": "LLAMA_ARG_MCP_SERVERS_JSON",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "experimental: inline JSON with MCP server definitions (Cursor-compatible format) - do not enable in untrusted environments (default: none) note: for security reasons, this will limit --cors-origins to localhost by default",
+   "kind": "cli",
+   "name": "--mcp-servers-json",
+   "source": {
+    "line": 3431,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "JSON"
+  },
+  {
+   "aliases": [],
+   "default": "disabled",
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "directory for loading local media files; files can be accessed via file:// URLs using relative paths (default: disabled)",
+   "kind": "cli",
+   "name": "--media-path",
+   "source": {
+    "line": 3614,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "PATH"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "env": "LLAMA_ARG_ENDPOINT_METRICS",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "enable prometheus compatible metrics endpoint (default: disabled)",
+   "kind": "cli",
+   "name": "--metrics",
+   "source": {
+    "line": 3578,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": 0.05,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "min-p sampling (default: 0.05, 0.0 = disabled)",
+   "kind": "cli",
+   "name": "--min-p",
+   "source": {
+    "line": 2036,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 0,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "use Mirostat sampling. Top K, Nucleus and Locally Typical samplers are ignored if used. (default: 0, 0 = disabled, 1 = Mirostat, 2 = Mirostat 2.0)",
+   "kind": "cli",
+   "name": "--mirostat",
+   "source": {
+    "line": 2217,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 5.0,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "Mirostat target entropy, parameter tau (default: 5.00)",
+   "kind": "cli",
+   "name": "--mirostat-ent",
+   "source": {
+    "line": 2234,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 0.1,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "Mirostat learning rate, parameter eta (default: 0.10)",
+   "kind": "cli",
+   "name": "--mirostat-lr",
+   "source": {
+    "line": 2226,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-mm"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_MMPROJ",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "path to a multimodal projector file. see tools/mtmd/README.md note: if -hf is used, this argument can be omitted",
+   "kind": "cli",
+   "name": "--mmproj",
+   "source": {
+    "line": 2574,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FILE"
+  },
+  {
+   "aliases": [],
+   "default": true,
+   "deprecated": false,
+   "env": "LLAMA_ARG_MMPROJ_AUTO",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_DOWNLOAD",
+    "LLAMA_EXAMPLE_MTMD",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "whether to use multimodal projector file (if available), useful when using -hf (default: enabled)",
+   "kind": "cli",
+   "name": "--mmproj-auto",
+   "negations": [
+    "--no-mmproj",
+    "--no-mmproj-auto"
+   ],
+   "source": {
+    "line": 2589,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-mmdev"
+   ],
+   "deprecated": false,
+   "env": "MTMD_BACKEND_DEVICE",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "device to use for multimodal projector (none = don't offload, default: follows --device) use --list-devices to see a list of available devices",
+   "kind": "cli",
+   "name": "--mmproj-device",
+   "source": {
+    "line": 2605,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "DEVICE"
+  },
+  {
+   "aliases": [],
+   "default": true,
+   "deprecated": false,
+   "env": "LLAMA_ARG_MMPROJ_OFFLOAD",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "whether to enable GPU offloading for multimodal projector (default: enabled)",
+   "kind": "cli",
+   "name": "--mmproj-offload",
+   "negations": [
+    "--no-mmproj-offload"
+   ],
+   "source": {
+    "line": 2597,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-mmu"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_MMPROJ_URL",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "URL to a multimodal projector file. see tools/mtmd/README.md",
+   "kind": "cli",
+   "name": "--mmproj-url",
+   "source": {
+    "line": 2582,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "URL"
+  },
+  {
+   "aliases": [
+    "-m"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_MODEL",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON",
+    "LLAMA_EXAMPLE_DOWNLOAD",
+    "LLAMA_EXAMPLE_EXPORT_LORA",
+    "LLAMA_EXAMPLE_TOKENIZE"
+   ],
+   "group": "example-specific",
+   "help": "model path from which to load base modelmodel path to load",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--model",
+   "source": {
+    "line": 3030,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FNAME"
+  },
+  {
+   "aliases": [
+    "-mu"
+   ],
+   "default": "unused",
+   "deprecated": false,
+   "env": "LLAMA_ARG_MODEL_URL",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON",
+    "LLAMA_EXAMPLE_DOWNLOAD",
+    "LLAMA_EXAMPLE_TOKENIZE"
+   ],
+   "group": "example-specific",
+   "help": "model download url (default: unused)",
+   "kind": "cli",
+   "name": "--model-url",
+   "source": {
+    "line": 3039,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "MODEL_URL"
+  },
+  {
+   "aliases": [],
+   "default": true,
+   "deprecated": false,
+   "env": "LLAMA_ARG_MODELS_AUTOLOAD",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "for router server, whether to automatically load models (default: enabled)",
+   "kind": "cli",
+   "name": "--models-autoload",
+   "negations": [
+    "--no-models-autoload"
+   ],
+   "source": {
+    "line": 3649,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": "disabled",
+   "deprecated": false,
+   "env": "LLAMA_ARG_MODELS_DIR",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "directory containing models for the router server (default: disabled)",
+   "kind": "cli",
+   "name": "--models-dir",
+   "source": {
+    "line": 3628,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "PATH"
+  },
+  {
+   "aliases": [],
+   "default": 4,
+   "deprecated": false,
+   "env": "LLAMA_ARG_MODELS_MAX",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "for router server, maximum number of models to load simultaneously (default: 4, 0 = unlimited)",
+   "kind": "cli",
+   "name": "--models-max",
+   "source": {
+    "line": 3642,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": "disabled",
+   "deprecated": false,
+   "env": "LLAMA_ARG_MODELS_PRESET",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "path to INI file containing model presets for the router server (default: disabled)",
+   "kind": "cli",
+   "name": "--models-preset",
+   "source": {
+    "line": 3635,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "PATH"
+  },
+  {
+   "aliases": [],
+   "default": 1024,
+   "deprecated": false,
+   "env": "LLAMA_ARG_MTMD_BATCH_MAX_TOKENS",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "maximum number of image tokens per batch when encoding images (default: 1024)",
+   "kind": "cli",
+   "name": "--mtmd-batch-max-tokens",
+   "source": {
+    "line": 2648,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-ncffn"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_N_CPU_FFN",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "keep the dense FFN weights of the first N layers in the CPU (dense models; for MoE expert weights use --n-cpu-moe)",
+   "kind": "cli",
+   "name": "--n-cpu-ffn",
+   "source": {
+    "line": 2772,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-ncmoe"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_N_CPU_MOE",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "keep the Mixture of Experts (MoE) weights of the first N layers in the CPU",
+   "kind": "cli",
+   "name": "--n-cpu-moe",
+   "source": {
+    "line": 2762,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_NO_HOST",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "bypass host buffer allowing extra buffers to be used",
+   "kind": "cli",
+   "name": "--no-host",
+   "source": {
+    "line": 2426,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_NUMA",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "attempt optimizations that help on some NUMA systems - distribute: spread execution evenly over all nodes - isolate: only spawn threads on CPUs on the node that execution started on - numactl: use the CPU map provided by numactl if run without this previously, it is recommended to drop the system page cache before using this see https://github.com/ggml-org/llama.cpp/issues/1437",
+   "kind": "cli",
+   "name": "--numa",
+   "source": {
+    "line": 2718,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "TYPE"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_OFFLINE",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON",
+    "LLAMA_EXAMPLE_DOWNLOAD",
+    "LLAMA_EXAMPLE_TOKENIZE"
+   ],
+   "group": "example-specific",
+   "help": "Offline mode: forces use of cache, prevents network access",
+   "kind": "cli",
+   "name": "--offline",
+   "source": {
+    "line": 3918,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": true,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "whether to offload host tensor operations to device (default: true)",
+   "kind": "cli",
+   "name": "--op-offload",
+   "negations": [
+    "--no-op-offload"
+   ],
+   "source": {
+    "line": 2942,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "advanced option to override model metadata by key. to specify multiple overrides, either use comma-separated values. types: int, float, bool, str. example: --override-kv tokenizer.ggml.add_bos_token=bool:false,tokenizer.ggml.add_eos_token=bool:false",
+   "kind": "cli",
+   "name": "--override-kv",
+   "source": {
+    "line": 2930,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "KEY=TYPE:VALUE,..."
+  },
+  {
+   "aliases": [
+    "-ot"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_OVERRIDE_TENSOR",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "override tensor buffer type",
+   "kind": "cli",
+   "name": "--override-tensor",
+   "source": {
+    "line": 2749,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "<tensor name pattern>=<buffer type>,..."
+  },
+  {
+   "aliases": [
+    "-np"
+   ],
+   "default": -1,
+   "deprecated": false,
+   "env": "LLAMA_ARG_N_PARALLEL",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "number of server slots (default: -1, -1 = auto)",
+   "kind": "cli",
+   "name": "--parallel",
+   "source": {
+    "line": 2540,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": "",
+   "deprecated": false,
+   "env": "LLAMA_ARG_STATIC_PATH",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "path to serve static files from (default: )",
+   "kind": "cli",
+   "name": "--path",
+   "source": {
+    "line": 3330,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "PATH"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "env": "LLAMA_ARG_PERF",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "whether to enable internal libllama performance timings (default: false)",
+   "kind": "cli",
+   "name": "--perf",
+   "negations": [
+    "--no-perf"
+   ],
+   "source": {
+    "line": 1780,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "use polling level to wait for work (0 - no polling, default: 50)",
+   "kind": "cli",
+   "name": "--poll",
+   "source": {
+    "line": 1570,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "<0...100>"
+  },
+  {
+   "aliases": [],
+   "choices": [
+    "0",
+    "1"
+   ],
+   "default": "same as --poll",
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "use polling to wait for work (default: same as --poll)",
+   "kind": "cli",
+   "name": "--poll-batch",
+   "source": {
+    "line": 1614,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "<0|1>"
+  },
+  {
+   "aliases": [],
+   "choices": [
+    "none",
+    "mean",
+    "cls",
+    "last",
+    "rank"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_POOLING",
+   "examples": [
+    "LLAMA_EXAMPLE_DEBUG",
+    "LLAMA_EXAMPLE_EMBEDDING",
+    "LLAMA_EXAMPLE_RETRIEVAL",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "pooling type for embeddings, use model default if unspecified",
+   "kind": "cli",
+   "name": "--pooling",
+   "source": {
+    "line": 2309,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "{none,mean,cls,last,rank}"
+  },
+  {
+   "aliases": [],
+   "default": 8080,
+   "deprecated": false,
+   "env": "LLAMA_ARG_PORT",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "port to listen (default: 8080)",
+   "kind": "cli",
+   "name": "--port",
+   "source": {
+    "line": 3316,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "PORT"
+  },
+  {
+   "aliases": [
+    "-n",
+    "--n-predict"
+   ],
+   "default": "%d",
+   "deprecated": false,
+   "env": "LLAMA_ARG_N_PREDICT",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "number of tokens to predict (default: %d, -1 = infinity, -2 = until context filled)number of tokens to predict (default: %d, -1 = infinity)",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--predict",
+   "source": {
+    "line": 1654,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": "prefill enabled",
+   "deprecated": false,
+   "env": "LLAMA_ARG_PREFILL_ASSISTANT",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "whether to prefill the assistant's response if the last message is an assistant message (default: prefill enabled) when this flag is set, if the last message is an assistant message then it will be treated as a full message and not prefilled",
+   "kind": "cli",
+   "name": "--prefill-assistant",
+   "negations": [
+    "--no-prefill-assistant"
+   ],
+   "source": {
+    "line": 3771,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": 0.0,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "repeat alpha presence penalty (default: 0.00, 0.0 = disabled)",
+   "kind": "cli",
+   "name": "--presence-penalty",
+   "source": {
+    "line": 2100,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "set process/thread priority : low(-1), normal(0), medium(1), high(2), realtime(3) (default: <params.cpuparams.priority>)",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--prio",
+   "source": {
+    "line": 1560,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "set process/thread priority : 0-normal, 1-medium, 2-high, 3-realtime (default: <params.cpuparams_batch.priority>)",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--prio-batch",
+   "source": {
+    "line": 1604,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "env": "LLAMA_ARG_ENDPOINT_PROPS",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "enable changing global properties via POST /props (default: disabled)",
+   "kind": "cli",
+   "name": "--props",
+   "source": {
+    "line": 3585,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-rea"
+   ],
+   "choices": [
+    "on",
+    "off",
+    "auto"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_REASONING",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_COMPLETION",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "Use reasoning/thinking in the chat ('on', 'off', or 'auto', default: 'auto' (detect from template))",
+   "kind": "cli",
+   "name": "--reasoning",
+   "source": {
+    "line": 3676,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "[on|off|auto]"
+  },
+  {
+   "aliases": [],
+   "default": -1,
+   "deprecated": false,
+   "env": "LLAMA_ARG_THINK_BUDGET",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_COMPLETION",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "token budget for thinking: -1 for unrestricted, 0 for immediate end, N>0 for token budget (default: -1)",
+   "kind": "cli",
+   "name": "--reasoning-budget",
+   "source": {
+    "line": 3706,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": "none",
+   "deprecated": false,
+   "env": "LLAMA_ARG_THINK_BUDGET_MESSAGE",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_COMPLETION",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "message injected before the end-of-thinking tag when reasoning budget is exhausted (default: none)",
+   "kind": "cli",
+   "name": "--reasoning-budget-message",
+   "source": {
+    "line": 3714,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "MESSAGE"
+  },
+  {
+   "aliases": [],
+   "default": "default",
+   "deprecated": false,
+   "env": "LLAMA_ARG_REASONING_EFFORT",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_COMPLETION",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "reasoning effort level given to the chat template: 'default' to keep the template default, or a level such as 'minimal', 'low', 'medium', 'high', 'xhigh' or 'max' (default: default)",
+   "kind": "cli",
+   "name": "--reasoning-effort",
+   "source": {
+    "line": 3694,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "LEVEL"
+  },
+  {
+   "aliases": [],
+   "default": "auto",
+   "deprecated": false,
+   "env": "LLAMA_ARG_THINK",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_COMPLETION",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "controls whether thought tags are allowed and/or extracted from the response, and in which format they're returned; one of: - none: leaves thoughts unparsed in `message.content` - deepseek: puts thoughts in `message.reasoning_content` - deepseek-legacy: keeps `<think>` tags in `message.content` while also populating `message.reasoning_content` (default: auto)",
+   "kind": "cli",
+   "name": "--reasoning-format",
+   "source": {
+    "line": 3665,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FORMAT"
+  },
+  {
+   "aliases": [],
+   "default": true,
+   "deprecated": false,
+   "env": "LLAMA_ARG_REASONING_PRESERVE",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_COMPLETION",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "preserve reasoning trace in the full history, not just the last assistant message (default: enabled) compatible with certain templates having 'supports_preserve_reasoning' capability example: https://docs.z.ai/guides/capabilities/thinking-mode#preserved-thinking",
+   "kind": "cli",
+   "name": "--reasoning-preserve",
+   "negations": [
+    "--no-reasoning-preserve"
+   ],
+   "source": {
+    "line": 3721,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": true,
+   "deprecated": false,
+   "env": "LLAMA_ARG_REPACK",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "whether to enable weight repacking (default: enabled)",
+   "kind": "cli",
+   "name": "--repack",
+   "negations": [
+    "-nr",
+    "--no-repack"
+   ],
+   "source": {
+    "line": 2418,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": 64,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "last n tokens to consider for penalize (default: 64, 0 = disabled)",
+   "kind": "cli",
+   "name": "--repeat-last-n",
+   "source": {
+    "line": 2074,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 1.0,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "penalize repeat sequence of tokens (default: 1.00, 1.0 = disabled)",
+   "kind": "cli",
+   "name": "--repeat-penalty",
+   "source": {
+    "line": 2086,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "--reranking"
+   ],
+   "default": false,
+   "deprecated": false,
+   "env": "LLAMA_ARG_RERANKING",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "enable reranking endpoint on server (default: disabled)",
+   "kind": "cli",
+   "name": "--rerank",
+   "source": {
+    "line": 3470,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "env": "LLAMA_ARG_REUSE_PORT",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "allow multiple sockets to bind to the same port (default: disabled)",
+   "kind": "cli",
+   "name": "--reuse-port",
+   "source": {
+    "line": 3323,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-r"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_COMPLETION",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "halt generation at PROMPT, return control in interactive mode",
+   "kind": "cli",
+   "name": "--reverse-prompt",
+   "source": {
+    "line": 1884,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "PROMPT"
+  },
+  {
+   "aliases": [],
+   "default": "loaded from model",
+   "deprecated": false,
+   "env": "LLAMA_ARG_ROPE_FREQ_BASE",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "RoPE base frequency, used by NTK-aware scaling (default: loaded from model)",
+   "kind": "cli",
+   "name": "--rope-freq-base",
+   "source": {
+    "line": 2347,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_ROPE_FREQ_SCALE",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "RoPE frequency scaling factor, expands context by a factor of 1/N",
+   "kind": "cli",
+   "name": "--rope-freq-scale",
+   "source": {
+    "line": 2354,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_ROPE_SCALE",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "RoPE context scaling factor, expands context by a factor of N",
+   "kind": "cli",
+   "name": "--rope-scale",
+   "source": {
+    "line": 2340,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "choices": [
+    "none",
+    "linear",
+    "yarn"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_ROPE_SCALING_TYPE",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "RoPE frequency scaling method, defaults to linear unless specified by the model",
+   "kind": "cli",
+   "name": "--rope-scaling",
+   "source": {
+    "line": 2330,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "{none,linear,yarn}"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_RPC",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "comma-separated list of RPC servers (host:port)",
+   "kind": "cli",
+   "name": "--rpc",
+   "source": {
+    "line": 2677,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "SERVERS"
+  },
+  {
+   "aliases": [
+    "--sampling-seq"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "simplified sequence for samplers that will be used (default: <sampler_type_chars.c_str()>)",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--sampler-seq",
+   "source": {
+    "line": 1997,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "SEQUENCE"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "samplers that will be used for generation in the order, separated by ';' (default: <sampler_type_names.c_str()>)",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--samplers",
+   "source": {
+    "line": 1981,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "SAMPLERS"
+  },
+  {
+   "aliases": [
+    "-s"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "RNG seed (default: <params.sampling.seed>, use random seed for <LLAMA_DEFAULT_SEED>)",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--seed",
+   "source": {
+    "line": 1990,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "SEED"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "env": "LLAMA_ARG_SKIP_CHAT_PARSING",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_COMPLETION",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "force a pure content parser, even if a Jinja template is specified; model will output everything in the content section, including any reasoning and/or tool calls (default: disabled)",
+   "kind": "cli",
+   "name": "--skip-chat-parsing",
+   "negations": [
+    "--no-skip-chat-parsing"
+   ],
+   "source": {
+    "line": 3760,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": -1,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "number of seconds of idleness after which the server will sleep (default: -1; -1 = disabled)",
+   "kind": "cli",
+   "name": "--sleep-idle-seconds",
+   "source": {
+    "line": 3796,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "SECONDS"
+  },
+  {
+   "aliases": [
+    "-sps"
+   ],
+   "default": 0.1,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "how much the prompt of a request must match the prompt of a slot in order to use that slot (default: 0.10, 0.0 = disabled)",
+   "kind": "cli",
+   "name": "--slot-prompt-similarity",
+   "source": {
+    "line": 3782,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "SIMILARITY"
+  },
+  {
+   "aliases": [],
+   "default": "disabled",
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "path to save slot kv cache (default: disabled)",
+   "kind": "cli",
+   "name": "--slot-save-path",
+   "source": {
+    "line": 3600,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "PATH"
+  },
+  {
+   "aliases": [],
+   "default": true,
+   "deprecated": false,
+   "env": "LLAMA_ARG_ENDPOINT_SLOTS",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "expose slots monitoring endpoint (default: enabled)",
+   "kind": "cli",
+   "name": "--slots",
+   "negations": [
+    "--no-slots"
+   ],
+   "source": {
+    "line": 3592,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "enable default speculative decoding config",
+   "kind": "cli",
+   "name": "--spec-default",
+   "source": {
+    "line": 4709,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": true,
+   "deprecated": false,
+   "env": "LLAMA_ARG_SPEC_DRAFT_BACKEND_SAMPLING",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "offload draft sampling to the backend (default: enabled)",
+   "kind": "cli",
+   "name": "--spec-draft-backend-sampling",
+   "negations": [
+    "--no-spec-draft-backend-sampling"
+   ],
+   "source": {
+    "line": 4190,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-Cd",
+    "--cpu-mask-draft"
+   ],
+   "default": "same as --cpu-mask",
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "Draft model CPU affinity mask. Complements cpu-range-draft (default: same as --cpu-mask)",
+   "kind": "cli",
+   "name": "--spec-draft-cpu-mask",
+   "source": {
+    "line": 3988,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "M"
+  },
+  {
+   "aliases": [
+    "-Cbd",
+    "--cpu-mask-batch-draft"
+   ],
+   "default": "same as --cpu-mask",
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "Draft model CPU affinity mask. Complements cpu-range-draft (default: same as --cpu-mask)",
+   "kind": "cli",
+   "name": "--spec-draft-cpu-mask-batch",
+   "source": {
+    "line": 4032,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "M"
+  },
+  {
+   "aliases": [
+    "-cmoed",
+    "--cpu-moe-draft"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_SPEC_DRAFT_CPU_MOE",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "keep all Mixture of Experts (MoE) weights in the CPU for the draft model",
+   "kind": "cli",
+   "name": "--spec-draft-cpu-moe",
+   "source": {
+    "line": 4108,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-Crd",
+    "--cpu-range-draft"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "Ranges of CPUs for affinity. Complements --cpu-mask-draft",
+   "kind": "cli",
+   "name": "--spec-draft-cpu-range",
+   "source": {
+    "line": 3998,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "lo-hi"
+  },
+  {
+   "aliases": [
+    "--cpu-strict-draft"
+   ],
+   "choices": [
+    "0",
+    "1"
+   ],
+   "default": "same as --cpu-strict",
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "Use strict CPU placement for draft model (default: same as --cpu-strict)",
+   "kind": "cli",
+   "name": "--spec-draft-cpu-strict",
+   "source": {
+    "line": 4008,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "<0|1>"
+  },
+  {
+   "aliases": [
+    "--cpu-strict-batch-draft"
+   ],
+   "choices": [
+    "0",
+    "1"
+   ],
+   "default": "--cpu-strict-draft",
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "Use strict CPU placement for draft model (default: --cpu-strict-draft)",
+   "kind": "cli",
+   "name": "--spec-draft-cpu-strict-batch",
+   "source": {
+    "line": 4052,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "<0|1>"
+  },
+  {
+   "aliases": [
+    "-devd",
+    "--device-draft"
+   ],
+   "choices": [
+    "dev1",
+    "dev2",
+    ".."
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "comma-separated list of devices to use for offloading the draft model (none = don't offload, default: follows --device) use --list-devices to see a list of available devices",
+   "kind": "cli",
+   "name": "--spec-draft-device",
+   "source": {
+    "line": 4199,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "<dev1,dev2,..>"
+  },
+  {
+   "aliases": [
+    "-hfd",
+    "-hfrd",
+    "--hf-repo-draft"
+   ],
+   "default": "unused",
+   "deprecated": false,
+   "env": "LLAMA_ARG_SPEC_DRAFT_HF_REPO",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "Same as --hf-repo, but for the draft model (default: unused)",
+   "kind": "cli",
+   "name": "--spec-draft-hf",
+   "source": {
+    "line": 3961,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "<user>/<model>[:quant]"
+  },
+  {
+   "aliases": [
+    "-md",
+    "--model-draft"
+   ],
+   "default": "unused",
+   "deprecated": false,
+   "env": "LLAMA_ARG_SPEC_DRAFT_MODEL",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "draft model for speculative decoding (default: unused)",
+   "kind": "cli",
+   "name": "--spec-draft-model",
+   "source": {
+    "line": 4227,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FNAME"
+  },
+  {
+   "aliases": [
+    "--spec-draft-ncmoe",
+    "-ncmoed",
+    "--n-cpu-moe-draft"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_SPEC_DRAFT_N_CPU_MOE",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "keep the Mixture of Experts (MoE) weights of the first N layers in the CPU for the draft model",
+   "kind": "cli",
+   "name": "--spec-draft-n-cpu-moe",
+   "source": {
+    "line": 4115,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 3,
+   "deprecated": false,
+   "env": "LLAMA_ARG_SPEC_DRAFT_N_MAX",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_LOOKUP",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "number of tokens to draft for speculative decoding (default: 3)",
+   "kind": "cli",
+   "name": "--spec-draft-n-max",
+   "source": {
+    "line": 4126,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 0,
+   "deprecated": false,
+   "env": "LLAMA_ARG_SPEC_DRAFT_N_MIN",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_LOOKUP",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "minimum number of draft tokens to use for speculative decoding (default: 0)",
+   "kind": "cli",
+   "name": "--spec-draft-n-min",
+   "source": {
+    "line": 4136,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-ngld",
+    "--gpu-layers-draft",
+    "--n-gpu-layers-draft"
+   ],
+   "default": "auto",
+   "deprecated": false,
+   "env": "LLAMA_ARG_N_GPU_LAYERS_DRAFT",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "max. number of draft model layers to store in VRAM, either an exact number, 'auto', or 'all' (default: auto)",
+   "kind": "cli",
+   "name": "--spec-draft-ngl",
+   "source": {
+    "line": 4208,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-otd",
+    "--override-tensor-draft"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "override tensor buffer type for draft model",
+   "kind": "cli",
+   "name": "--spec-draft-override-tensor",
+   "source": {
+    "line": 4102,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "<tensor name pattern>=<buffer type>,..."
+  },
+  {
+   "aliases": [
+    "--draft-p-min"
+   ],
+   "default": 0.0,
+   "deprecated": false,
+   "env": "LLAMA_ARG_SPEC_DRAFT_P_MIN",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "minimum speculative decoding probability (greedy) (default: 0.00)",
+   "kind": "cli",
+   "name": "--spec-draft-p-min",
+   "source": {
+    "line": 4183,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "P"
+  },
+  {
+   "aliases": [
+    "--draft-p-split"
+   ],
+   "default": 0.1,
+   "deprecated": false,
+   "env": "LLAMA_ARG_SPEC_DRAFT_P_SPLIT",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "speculative decoding split probability (default: 0.10)",
+   "kind": "cli",
+   "name": "--spec-draft-p-split",
+   "source": {
+    "line": 4176,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "P"
+  },
+  {
+   "aliases": [
+    "--poll-draft"
+   ],
+   "choices": [
+    "0",
+    "1"
+   ],
+   "default": "same as --poll",
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "Use polling to wait for draft model work (default: same as --poll)",
+   "kind": "cli",
+   "name": "--spec-draft-poll",
+   "source": {
+    "line": 4025,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "<0|1>"
+  },
+  {
+   "aliases": [
+    "--poll-batch-draft"
+   ],
+   "choices": [
+    "0",
+    "1"
+   ],
+   "default": "--poll-draft",
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "Use polling to wait for draft model work (default: --poll-draft)",
+   "kind": "cli",
+   "name": "--spec-draft-poll-batch",
+   "source": {
+    "line": 4069,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "<0|1>"
+  },
+  {
+   "aliases": [
+    "--prio-draft"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "set draft process/thread priority : 0-normal, 1-medium, 2-high, 3-realtime (default: <params.speculative.draft.cpuparams.priority>)",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--spec-draft-prio",
+   "source": {
+    "line": 4015,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "--prio-batch-draft"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "set draft process/thread priority : 0-normal, 1-medium, 2-high, 3-realtime (default: <params.speculative.draft.cpuparams_batch.priority>)",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--spec-draft-prio-batch",
+   "source": {
+    "line": 4059,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-td",
+    "--threads-draft"
+   ],
+   "default": "same as --threads",
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "number of threads to use during generation (default: same as --threads)",
+   "kind": "cli",
+   "name": "--spec-draft-threads",
+   "source": {
+    "line": 3968,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-tbd",
+    "--threads-batch-draft"
+   ],
+   "default": "same as --threads-draft",
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "number of threads to use during batch and prompt processing (default: same as --threads-draft)",
+   "kind": "cli",
+   "name": "--spec-draft-threads-batch",
+   "source": {
+    "line": 3978,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-ctkd",
+    "--cache-type-k-draft"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_SPEC_DRAFT_CACHE_TYPE_K",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "KV cache data type for K for the draft model allowed values: <get_all_kv_cache_types().c_str()> (default: <ggml_type_name(params.speculative.draft.cache_type_k)>)",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--spec-draft-type-k",
+   "source": {
+    "line": 4076,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "TYPE"
+  },
+  {
+   "aliases": [
+    "-ctvd",
+    "--cache-type-v-draft"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_SPEC_DRAFT_CACHE_TYPE_V",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "KV cache data type for V for the draft model allowed values: <get_all_kv_cache_types().c_str()> (default: <ggml_type_name(params.speculative.draft.cache_type_v)>)",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--spec-draft-type-v",
+   "source": {
+    "line": 4089,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "TYPE"
+  },
+  {
+   "aliases": [],
+   "default": 1,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "minimum hits for ngram-map-k speculative decoding (default: 1)",
+   "kind": "cli",
+   "name": "--spec-ngram-map-k-min-hits",
+   "source": {
+    "line": 4327,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 48,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "ngram size M for ngram-map-k speculative decoding, length of draft m-gram (default: 48)",
+   "kind": "cli",
+   "name": "--spec-ngram-map-k-size-m",
+   "source": {
+    "line": 4317,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 12,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "ngram size N for ngram-map-k speculative decoding, length of lookup n-gram (default: 12)",
+   "kind": "cli",
+   "name": "--spec-ngram-map-k-size-n",
+   "source": {
+    "line": 4307,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 1,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "minimum hits for ngram-map-k4v speculative decoding (default: 1)",
+   "kind": "cli",
+   "name": "--spec-ngram-map-k4v-min-hits",
+   "source": {
+    "line": 4358,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 48,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "ngram size M for ngram-map-k4v speculative decoding, length of draft m-gram (default: 48)",
+   "kind": "cli",
+   "name": "--spec-ngram-map-k4v-size-m",
+   "source": {
+    "line": 4348,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 12,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "ngram size N for ngram-map-k4v speculative decoding, length of lookup n-gram (default: 12)",
+   "kind": "cli",
+   "name": "--spec-ngram-map-k4v-size-n",
+   "source": {
+    "line": 4338,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "speculative",
+   "help": "the argument has been removed. use the respective --spec-ngram-*-min-hits",
+   "kind": "cli",
+   "name": "--spec-ngram-min-hits",
+   "source": {
+    "line": 4401,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 24,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "ngram-mod lookup length (default: 24)",
+   "kind": "cli",
+   "name": "--spec-ngram-mod-n-match",
+   "source": {
+    "line": 4265,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 64,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "maximum number of ngram tokens to use for ngram-based speculative decoding (default: 64)",
+   "kind": "cli",
+   "name": "--spec-ngram-mod-n-max",
+   "source": {
+    "line": 4255,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 48,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "minimum number of ngram tokens to use for ngram-based speculative decoding (default: 48)",
+   "kind": "cli",
+   "name": "--spec-ngram-mod-n-min",
+   "source": {
+    "line": 4245,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 1,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "minimum hits for ngram-simple speculative decoding (default: 1)",
+   "kind": "cli",
+   "name": "--spec-ngram-simple-min-hits",
+   "source": {
+    "line": 4296,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 48,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "ngram size M for ngram-simple speculative decoding, length of draft m-gram (default: 48)",
+   "kind": "cli",
+   "name": "--spec-ngram-simple-size-m",
+   "source": {
+    "line": 4286,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 12,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "ngram size N for ngram-simple speculative decoding, length of lookup n-gram (default: 12)",
+   "kind": "cli",
+   "name": "--spec-ngram-simple-size-n",
+   "source": {
+    "line": 4276,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "speculative",
+   "help": "the argument has been removed. use the respective --spec-ngram-*-size-m",
+   "kind": "cli",
+   "name": "--spec-ngram-size-m",
+   "source": {
+    "line": 4394,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "speculative",
+   "help": "the argument has been removed. use the respective --spec-ngram-*-size-n or --spec-ngram-mod-n-match",
+   "kind": "cli",
+   "name": "--spec-ngram-size-n",
+   "source": {
+    "line": 4387,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_SPEC_SYNTH_LEN",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "speculative",
+   "help": "target mean synthetic acceptance length, including the target token (benchmarking only)",
+   "kind": "cli",
+   "name": "--spec-synth-len",
+   "source": {
+    "line": 4143,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "L"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_SPEC_SYNTH_RATES",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "speculative",
+   "help": "comma-separated unconditional per-position synthetic acceptance probabilities (benchmarking only)",
+   "kind": "cli",
+   "name": "--spec-synth-rates",
+   "source": {
+    "line": 4156,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "P0,P1,..."
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_SPEC_TYPE",
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER",
+    "LLAMA_EXAMPLE_SPECULATIVE"
+   ],
+   "group": "speculative",
+   "help": "comma-separated list of types of speculative decoding to use (default: <common_speculative_type_name_str(params.speculative.types).c_str()>)",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--spec-type",
+   "source": {
+    "line": 4235,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [
+    "-sp"
+   ],
+   "default": false,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_COMPLETION",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "special tokens output enabled (default: false)",
+   "kind": "cli",
+   "name": "--special",
+   "source": {
+    "line": 1891,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-sm"
+   ],
+   "choices": [
+    "none",
+    "layer",
+    "row",
+    "tensor"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_SPLIT_MODE",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "how to split the model across multiple GPUs, one of: - none: use one GPU only - layer (default): split layers and KV across GPUs (pipelined) - row: split weight across GPUs by rows (parallelized) - tensor: split weights and KV across GPUs (parallelized, EXPERIMENTAL)",
+   "kind": "cli",
+   "name": "--split-mode",
+   "source": {
+    "line": 2802,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "{none,layer,row,tensor}"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "use Suffix/Prefix/Middle pattern for infill (instead of Prefix/Suffix/Middle) as some models prefer this. (default: disabled)",
+   "kind": "cli",
+   "name": "--spm-infill",
+   "source": {
+    "line": 1971,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_SSE_PING_INTERVAL",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "server SSE ping interval in seconds (-1 = disabled, default: 30)",
+   "kind": "cli",
+   "name": "--sse-ping-interval",
+   "source": {
+    "line": 3546,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_SSL_CERT_FILE",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "path to file a PEM-encoded SSL certificate",
+   "kind": "cli",
+   "name": "--ssl-cert-file",
+   "source": {
+    "line": 3513,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FNAME"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_SSL_KEY_FILE",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "path to file a PEM-encoded SSL private key",
+   "kind": "cli",
+   "name": "--ssl-key-file",
+   "source": {
+    "line": 3506,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "FNAME"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "env": "LLAMA_ARG_SWA_FULL",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "use full-size SWA cache (default: false) [(more info)](https://github.com/ggml-org/llama.cpp/pull/13194#issuecomment-2868343055)",
+   "kind": "cli",
+   "name": "--swa-full",
+   "source": {
+    "line": 1686,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "LLAMA_ARG_TAGS",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "set model tags, comma-separated (informational, not used for routing)",
+   "kind": "cli",
+   "name": "--tags",
+   "source": {
+    "line": 3018,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "STRING"
+  },
+  {
+   "aliases": [
+    "--temperature"
+   ],
+   "default": 0.8,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "temperature (default: 0.80)",
+   "kind": "cli",
+   "name": "--temp",
+   "source": {
+    "line": 2011,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-ts"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_TENSOR_SPLIT",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "fraction of the model to offload to each GPU, comma-separated list of proportions, e.g. 3,1",
+   "kind": "cli",
+   "name": "--tensor-split",
+   "source": {
+    "line": 2826,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N0,N1,N2,..."
+  },
+  {
+   "aliases": [
+    "-t"
+   ],
+   "default": -1,
+   "deprecated": false,
+   "env": "LLAMA_ARG_THREADS",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "number of CPU threads to use during generation (default: -1)",
+   "kind": "cli",
+   "name": "--threads",
+   "source": {
+    "line": 1513,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-tb"
+   ],
+   "default": "same as --threads",
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "number of threads to use during batch and prompt processing (default: same as --threads)",
+   "kind": "cli",
+   "name": "--threads-batch",
+   "source": {
+    "line": 1523,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": -1,
+   "deprecated": false,
+   "env": "LLAMA_ARG_THREADS_HTTP",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "number of threads used to process HTTP requests (default: -1)",
+   "kind": "cli",
+   "name": "--threads-http",
+   "source": {
+    "line": 3553,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-to"
+   ],
+   "default": 3600,
+   "deprecated": false,
+   "env": "LLAMA_ARG_TIMEOUT",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "server read/write timeout in seconds (default: 3600)",
+   "kind": "cli",
+   "name": "--timeout",
+   "source": {
+    "line": 3538,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": "no tools",
+   "deprecated": false,
+   "env": "LLAMA_ARG_TOOLS",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "experimental: whether to enable built-in tools for AI agents - do not enable in untrusted environments (default: no tools) specify \"all\" to enable all tools available tools: read_file, file_glob_search, grep_search, exec_shell_command, write_file, edit_file, get_info note: for security reasons, this will limit --cors-origins to localhost by default",
+   "kind": "cli",
+   "name": "--tools",
+   "source": {
+    "line": 3402,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "TOOL1,TOOL2,..."
+  },
+  {
+   "aliases": [],
+   "default": "none",
+   "deprecated": false,
+   "env": "LLAMA_ARG_TOOLS_RUNTIME",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "experimental: run tools in a separate runtime environment (default: none, use host environment) available options: 'docker:<image>', 'podman:<image>': spin up a new container and reuse it for all invocations, clean up on server exit 'docker-container:<id>', 'podman-container:<id>': use an existing container by ID, won't stop on server exit 'ssh:<target>': run tools on a remote POSIX host over SSH, key-based auth and a trusted host key are required",
+   "kind": "cli",
+   "name": "--tools-runtime",
+   "source": {
+    "line": 3412,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "OPTION"
+  },
+  {
+   "aliases": [],
+   "default": 40,
+   "deprecated": false,
+   "env": "LLAMA_ARG_TOP_K",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "top-k sampling (default: 40, 0 = disabled)",
+   "kind": "cli",
+   "name": "--top-k",
+   "source": {
+    "line": 2020,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "--top-n-sigma"
+   ],
+   "default": -1.0,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "top-n-sigma sampling (default: -1.00, -1.0 = disabled)",
+   "kind": "cli",
+   "name": "--top-nsigma",
+   "source": {
+    "line": 2044,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 0.95,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "top-p sampling (default: 0.95, 1.0 = disabled)",
+   "kind": "cli",
+   "name": "--top-p",
+   "source": {
+    "line": 2028,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "--typical-p"
+   ],
+   "default": 1.0,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "locally typical sampling, parameter p (default: 1.00, 1.0 = disabled)",
+   "kind": "cli",
+   "name": "--typical",
+   "source": {
+    "line": 2067,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "-ub"
+   ],
+   "default": 512,
+   "deprecated": false,
+   "env": "LLAMA_ARG_UBATCH",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "physical maximum batch size (default: 512)",
+   "kind": "cli",
+   "name": "--ubatch-size",
+   "source": {
+    "line": 1672,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [
+    "--webui"
+   ],
+   "default": true,
+   "deprecated": false,
+   "env": "LLAMA_ARG_UI",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "whether to enable the Web UI (default: enabled)",
+   "kind": "cli",
+   "name": "--ui",
+   "negations": [
+    "--no-ui",
+    "--no-webui"
+   ],
+   "source": {
+    "line": 3455,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "--webui-config"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_UI_CONFIG",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "JSON that provides default UI settings (overrides UI defaults)",
+   "kind": "cli",
+   "name": "--ui-config",
+   "source": {
+    "line": 3380,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "JSON"
+  },
+  {
+   "aliases": [
+    "--webui-config-file"
+   ],
+   "deprecated": false,
+   "env": "LLAMA_ARG_UI_CONFIG_FILE",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "JSON file that provides default UI settings (overrides UI defaults)",
+   "kind": "cli",
+   "name": "--ui-config-file",
+   "source": {
+    "line": 3387,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "PATH"
+  },
+  {
+   "aliases": [
+    "--webui-mcp-proxy"
+   ],
+   "default": false,
+   "deprecated": false,
+   "env": "LLAMA_ARG_UI_MCP_PROXY",
+   "examples": [
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "experimental: whether to enable MCP CORS proxy - do not enable in untrusted environments (default: disabled)",
+   "kind": "cli",
+   "name": "--ui-mcp-proxy",
+   "negations": [
+    "--no-ui-mcp-proxy",
+    "--no-webui-mcp-proxy"
+   ],
+   "source": {
+    "line": 3394,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-v",
+    "--log-verbose"
+   ],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "Set verbosity level to infinity (i.e. log all messages, useful for debugging)",
+   "kind": "cli",
+   "name": "--verbose",
+   "source": {
+    "line": 3910,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [
+    "-lv",
+    "--log-verbosity"
+   ],
+   "default": 3,
+   "deprecated": false,
+   "env": "LLAMA_ARG_LOG_VERBOSITY",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "Set the verbosity threshold. Messages with a higher verbosity will be ignored. Values: - 0: generic output - 1: error - 2: warning - 3: info - 4: trace (more info) - 5: debug (default: 3)",
+   "kind": "cli",
+   "name": "--verbosity",
+   "source": {
+    "line": 3925,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "show version and build info",
+   "kind": "cli",
+   "name": "--version",
+   "source": {
+    "line": 1447,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": "search in PATH",
+   "deprecated": false,
+   "env": "LLAMA_ARG_VIDEO_FFMPEG_DIR",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "path to the directory containing ffmpeg and ffprobe (default: search in PATH)",
+   "kind": "cli",
+   "name": "--video-ffmpeg-dir",
+   "source": {
+    "line": 2669,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "DIR"
+  },
+  {
+   "aliases": [],
+   "default": 4.0,
+   "deprecated": false,
+   "env": "LLAMA_ARG_VIDEO_FPS",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "target video frame rate (default: 4.0)",
+   "kind": "cli",
+   "name": "--video-fps",
+   "source": {
+    "line": 2655,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": "%",
+   "deprecated": false,
+   "env": "LLAMA_ARG_VIDEO_TIMESTAMP_INTERVAL",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "interval in milliseconds between text timestamps (default: %)",
+   "help_partial": true,
+   "kind": "cli",
+   "name": "--video-timestamp-interval",
+   "source": {
+    "line": 2662,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "use Gemma 3 12B QAT (note: can download weights from the internet)",
+   "kind": "cli",
+   "name": "--vision-gemma-12b-default",
+   "source": {
+    "line": 4698,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "use Gemma 3 4B QAT (note: can download weights from the internet)",
+   "kind": "cli",
+   "name": "--vision-gemma-4b-default",
+   "source": {
+    "line": 4687,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": true,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_CLI",
+    "LLAMA_EXAMPLE_COMPLETION",
+    "LLAMA_EXAMPLE_DEBUG",
+    "LLAMA_EXAMPLE_EMBEDDING",
+    "LLAMA_EXAMPLE_MTMD",
+    "LLAMA_EXAMPLE_PERPLEXITY",
+    "LLAMA_EXAMPLE_RETRIEVAL",
+    "LLAMA_EXAMPLE_SERVER"
+   ],
+   "group": "example-specific",
+   "help": "whether to perform warmup with an empty run (default: enabled)",
+   "kind": "cli",
+   "name": "--warmup",
+   "negations": [
+    "--no-warmup"
+   ],
+   "source": {
+    "line": 1963,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": 0.0,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "xtc probability (default: 0.00, 0.0 = disabled)",
+   "kind": "cli",
+   "name": "--xtc-probability",
+   "source": {
+    "line": 2051,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": 0.1,
+   "deprecated": false,
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "sampling",
+   "help": "xtc threshold (default: 0.10, 1.0 = disabled)",
+   "kind": "cli",
+   "name": "--xtc-threshold",
+   "source": {
+    "line": 2059,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": -1.0,
+   "deprecated": false,
+   "env": "LLAMA_ARG_YARN_ATTN_FACTOR",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "YaRN: scale sqrt(t) or attention magnitude (default: -1.00)",
+   "kind": "cli",
+   "name": "--yarn-attn-factor",
+   "source": {
+    "line": 2375,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": -1.0,
+   "deprecated": false,
+   "env": "LLAMA_ARG_YARN_BETA_FAST",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "YaRN: low correction dim or beta (default: -1.00)",
+   "kind": "cli",
+   "name": "--yarn-beta-fast",
+   "source": {
+    "line": 2389,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": -1.0,
+   "deprecated": false,
+   "env": "LLAMA_ARG_YARN_BETA_SLOW",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "YaRN: high correction dim or alpha (default: -1.00)",
+   "kind": "cli",
+   "name": "--yarn-beta-slow",
+   "source": {
+    "line": 2382,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": -1.0,
+   "deprecated": false,
+   "env": "LLAMA_ARG_YARN_EXT_FACTOR",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "YaRN: extrapolation mix factor (default: -1.00, 0.0 = full interpolation)",
+   "kind": "cli",
+   "name": "--yarn-ext-factor",
+   "source": {
+    "line": 2368,
+    "path": "common/arg.cpp"
+   },
+   "type": "str",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "default": "0 = model training context size",
+   "deprecated": false,
+   "env": "LLAMA_ARG_YARN_ORIG_CTX",
+   "examples": [
+    "LLAMA_EXAMPLE_COMMON"
+   ],
+   "group": "common",
+   "help": "YaRN: original context size of model (default: 0 = model training context size)",
+   "kind": "cli",
+   "name": "--yarn-orig-ctx",
+   "source": {
+    "line": 2361,
+    "path": "common/arg.cpp"
+   },
+   "type": "int",
+   "value_hint": "N"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--hf-token",
+   "help": "Environment form of --hf-token.",
+   "kind": "env",
+   "name": "HF_TOKEN",
+   "source": {
+    "line": 3072,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--api-key",
+   "help": "Environment form of --api-key.",
+   "kind": "env",
+   "name": "LLAMA_API_KEY",
+   "source": {
+    "line": 3478,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--agent",
+   "help": "Environment form of --agent.",
+   "kind": "env",
+   "name": "LLAMA_ARG_AGENT",
+   "source": {
+    "line": 3439,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--alias",
+   "help": "Environment form of --alias.",
+   "kind": "env",
+   "name": "LLAMA_ARG_ALIAS",
+   "source": {
+    "line": 3006,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--api-key-file",
+   "help": "Environment form of --api-key-file.",
+   "kind": "env",
+   "name": "LLAMA_ARG_API_KEY_FILE",
+   "source": {
+    "line": 3489,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--api-prefix",
+   "help": "Environment form of --api-prefix.",
+   "kind": "env",
+   "name": "LLAMA_ARG_API_PREFIX",
+   "source": {
+    "line": 3373,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--backend-sampling",
+   "help": "Environment form of --backend-sampling.",
+   "kind": "env",
+   "name": "LLAMA_ARG_BACKEND_SAMPLING",
+   "source": {
+    "line": 2302,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--batch-size",
+   "help": "Environment form of --batch-size.",
+   "kind": "env",
+   "name": "LLAMA_ARG_BATCH",
+   "source": {
+    "line": 1665,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--cache-idle-slots",
+   "help": "Environment form of --cache-idle-slots.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CACHE_IDLE_SLOTS",
+   "source": {
+    "line": 1728,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--cache-prompt",
+   "help": "Environment form of --cache-prompt.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CACHE_PROMPT",
+   "source": {
+    "line": 3560,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--cache-ram",
+   "help": "Environment form of --cache-ram.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CACHE_RAM",
+   "source": {
+    "line": 1712,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--cache-reuse",
+   "help": "Environment form of --cache-reuse.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CACHE_REUSE",
+   "source": {
+    "line": 3568,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--cache-type-k",
+   "help": "Environment form of --cache-type-k.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CACHE_TYPE_K",
+   "source": {
+    "line": 2433,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--cache-type-v",
+   "help": "Environment form of --cache-type-v.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CACHE_TYPE_V",
+   "source": {
+    "line": 2446,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--chat-template",
+   "help": "Environment form of --chat-template.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CHAT_TEMPLATE",
+   "source": {
+    "line": 3736,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--chat-template-file",
+   "help": "Environment form of --chat-template-file.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CHAT_TEMPLATE_FILE",
+   "source": {
+    "line": 3748,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--chat-template-kwargs",
+   "help": "Environment form of --chat-template-kwargs.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CHAT_TEMPLATE_KWARGS",
+   "source": {
+    "line": 3520,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--checkpoint-min-step",
+   "help": "Environment form of --checkpoint-min-step.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CHECKPOINT_MIN_SPACING_NT",
+   "source": {
+    "line": 1702,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--context-shift",
+   "help": "Environment form of --context-shift.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CONTEXT_SHIFT",
+   "source": {
+    "line": 1736,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--cont-batching",
+   "help": "Environment form of --cont-batching.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CONT_BATCHING",
+   "source": {
+    "line": 2566,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--cors-credentials",
+   "help": "Environment form of --cors-credentials.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CORS_CREDENTIALS",
+   "source": {
+    "line": 3362,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--cors-headers",
+   "help": "Environment form of --cors-headers.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CORS_HEADERS",
+   "source": {
+    "line": 3355,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--cors-methods",
+   "help": "Environment form of --cors-methods.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CORS_METHODS",
+   "source": {
+    "line": 3348,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--cors-origins",
+   "help": "Environment form of --cors-origins.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CORS_ORIGINS",
+   "source": {
+    "line": 3337,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--cpu-moe",
+   "help": "Environment form of --cpu-moe.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CPU_MOE",
+   "source": {
+    "line": 2755,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--ctx-checkpoints",
+   "help": "Environment form of --ctx-checkpoints.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CTX_CHECKPOINTS",
+   "source": {
+    "line": 1694,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--ctx-size",
+   "help": "Environment form of --ctx-size.",
+   "kind": "env",
+   "name": "LLAMA_ARG_CTX_SIZE",
+   "source": {
+    "line": 1635,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": true,
+   "flag": "--defrag-thold",
+   "help": "Environment form of --defrag-thold.",
+   "kind": "env",
+   "name": "LLAMA_ARG_DEFRAG_THOLD",
+   "source": {
+    "line": 2529,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--device",
+   "help": "Environment form of --device.",
+   "kind": "env",
+   "name": "LLAMA_ARG_DEVICE",
+   "source": {
+    "line": 2733,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--docker-repo",
+   "help": "Environment form of --docker-repo.",
+   "kind": "env",
+   "name": "LLAMA_ARG_DOCKER_REPO",
+   "source": {
+    "line": 3046,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--draft",
+   "help": "Environment form of --draft.",
+   "kind": "env",
+   "name": "LLAMA_ARG_DRAFT_MAX",
+   "source": {
+    "line": 4373,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--draft-min",
+   "help": "Environment form of --draft-min.",
+   "kind": "env",
+   "name": "LLAMA_ARG_DRAFT_MIN",
+   "source": {
+    "line": 4380,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--embedding",
+   "help": "Environment form of --embedding.",
+   "kind": "env",
+   "name": "LLAMA_ARG_EMBEDDINGS",
+   "source": {
+    "line": 3463,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--metrics",
+   "help": "Environment form of --metrics.",
+   "kind": "env",
+   "name": "LLAMA_ARG_ENDPOINT_METRICS",
+   "source": {
+    "line": 3578,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--props",
+   "help": "Environment form of --props.",
+   "kind": "env",
+   "name": "LLAMA_ARG_ENDPOINT_PROPS",
+   "source": {
+    "line": 3585,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--slots",
+   "help": "Environment form of --slots.",
+   "kind": "env",
+   "name": "LLAMA_ARG_ENDPOINT_SLOTS",
+   "source": {
+    "line": 3592,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--fit",
+   "help": "Environment form of --fit.",
+   "kind": "env",
+   "name": "LLAMA_ARG_FIT",
+   "source": {
+    "line": 2863,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--fit-ctx",
+   "help": "Environment form of --fit-ctx.",
+   "kind": "env",
+   "name": "LLAMA_ARG_FIT_CTX",
+   "source": {
+    "line": 2916,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--fit-target",
+   "help": "Environment form of --fit-target.",
+   "kind": "env",
+   "name": "LLAMA_ARG_FIT_TARGET",
+   "source": {
+    "line": 2891,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--flash-attn",
+   "help": "Environment form of --flash-attn.",
+   "kind": "env",
+   "name": "LLAMA_ARG_FLASH_ATTN",
+   "source": {
+    "line": 1751,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--hf-file",
+   "help": "Environment form of --hf-file.",
+   "kind": "env",
+   "name": "LLAMA_ARG_HF_FILE",
+   "source": {
+    "line": 3065,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--hf-repo",
+   "help": "Environment form of --hf-repo.",
+   "kind": "env",
+   "name": "LLAMA_ARG_HF_REPO",
+   "source": {
+    "line": 3055,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--host",
+   "help": "Environment form of --host.",
+   "kind": "env",
+   "name": "LLAMA_ARG_HOST",
+   "source": {
+    "line": 3309,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--image-max-tokens",
+   "help": "Environment form of --image-max-tokens.",
+   "kind": "env",
+   "name": "LLAMA_ARG_IMAGE_MAX_TOKENS",
+   "source": {
+    "line": 2641,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--image-min-tokens",
+   "help": "Environment form of --image-min-tokens.",
+   "kind": "env",
+   "name": "LLAMA_ARG_IMAGE_MIN_TOKENS",
+   "source": {
+    "line": 2634,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--jinja",
+   "help": "Environment form of --jinja.",
+   "kind": "env",
+   "name": "LLAMA_ARG_JINJA",
+   "source": {
+    "line": 3657,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--kv-offload",
+   "help": "Environment form of --kv-offload.",
+   "kind": "env",
+   "name": "LLAMA_ARG_KV_OFFLOAD",
+   "source": {
+    "line": 2410,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--kv-unified",
+   "help": "Environment form of --kv-unified.",
+   "kind": "env",
+   "name": "LLAMA_ARG_KV_UNIFIED",
+   "source": {
+    "line": 1720,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--kv-unified-per-slot",
+   "help": "Environment form of --kv-unified-per-slot.",
+   "kind": "env",
+   "name": "LLAMA_ARG_KV_UNIFIED_PER_SLOT",
+   "source": {
+    "line": 1646,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--lazy-mode",
+   "help": "Environment form of --lazy-mode.",
+   "kind": "env",
+   "name": "LLAMA_ARG_LAZY_MODE",
+   "source": {
+    "line": 2705,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--load-mode",
+   "help": "Environment form of --load-mode.",
+   "kind": "env",
+   "name": "LLAMA_ARG_LOAD_MODE",
+   "source": {
+    "line": 2686,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--log-colors",
+   "help": "Environment form of --log-colors.",
+   "kind": "env",
+   "name": "LLAMA_ARG_LOG_COLORS",
+   "source": {
+    "line": 3893,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--log-file",
+   "help": "Environment form of --log-file.",
+   "kind": "env",
+   "name": "LLAMA_ARG_LOG_FILE",
+   "source": {
+    "line": 3866,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--log-jsonl",
+   "help": "Environment form of --log-jsonl.",
+   "kind": "env",
+   "name": "LLAMA_ARG_LOG_JSONL",
+   "source": {
+    "line": 3873,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--log-prefix",
+   "help": "Environment form of --log-prefix.",
+   "kind": "env",
+   "name": "LLAMA_ARG_LOG_PREFIX",
+   "source": {
+    "line": 3940,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--log-timestamps",
+   "help": "Environment form of --log-timestamps.",
+   "kind": "env",
+   "name": "LLAMA_ARG_LOG_TIMESTAMPS",
+   "source": {
+    "line": 3948,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--verbosity",
+   "help": "Environment form of --verbosity.",
+   "kind": "env",
+   "name": "LLAMA_ARG_LOG_VERBOSITY",
+   "source": {
+    "line": 3925,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--main-gpu",
+   "help": "Environment form of --main-gpu.",
+   "kind": "env",
+   "name": "LLAMA_ARG_MAIN_GPU",
+   "source": {
+    "line": 2853,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--mcp-servers-config",
+   "help": "Environment form of --mcp-servers-config.",
+   "kind": "env",
+   "name": "LLAMA_ARG_MCP_SERVERS_CONFIG",
+   "source": {
+    "line": 3423,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--mcp-servers-json",
+   "help": "Environment form of --mcp-servers-json.",
+   "kind": "env",
+   "name": "LLAMA_ARG_MCP_SERVERS_JSON",
+   "source": {
+    "line": 3431,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--mmproj",
+   "help": "Environment form of --mmproj.",
+   "kind": "env",
+   "name": "LLAMA_ARG_MMPROJ",
+   "source": {
+    "line": 2574,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--mmproj-auto",
+   "help": "Environment form of --mmproj-auto.",
+   "kind": "env",
+   "name": "LLAMA_ARG_MMPROJ_AUTO",
+   "source": {
+    "line": 2589,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--mmproj-offload",
+   "help": "Environment form of --mmproj-offload.",
+   "kind": "env",
+   "name": "LLAMA_ARG_MMPROJ_OFFLOAD",
+   "source": {
+    "line": 2597,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--mmproj-url",
+   "help": "Environment form of --mmproj-url.",
+   "kind": "env",
+   "name": "LLAMA_ARG_MMPROJ_URL",
+   "source": {
+    "line": 2582,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--model",
+   "help": "Environment form of --model.",
+   "kind": "env",
+   "name": "LLAMA_ARG_MODEL",
+   "source": {
+    "line": 3030,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--models-autoload",
+   "help": "Environment form of --models-autoload.",
+   "kind": "env",
+   "name": "LLAMA_ARG_MODELS_AUTOLOAD",
+   "source": {
+    "line": 3649,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--models-dir",
+   "help": "Environment form of --models-dir.",
+   "kind": "env",
+   "name": "LLAMA_ARG_MODELS_DIR",
+   "source": {
+    "line": 3628,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--models-max",
+   "help": "Environment form of --models-max.",
+   "kind": "env",
+   "name": "LLAMA_ARG_MODELS_MAX",
+   "source": {
+    "line": 3642,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--models-preset",
+   "help": "Environment form of --models-preset.",
+   "kind": "env",
+   "name": "LLAMA_ARG_MODELS_PRESET",
+   "source": {
+    "line": 3635,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--model-url",
+   "help": "Environment form of --model-url.",
+   "kind": "env",
+   "name": "LLAMA_ARG_MODEL_URL",
+   "source": {
+    "line": 3039,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--mtmd-batch-max-tokens",
+   "help": "Environment form of --mtmd-batch-max-tokens.",
+   "kind": "env",
+   "name": "LLAMA_ARG_MTMD_BATCH_MAX_TOKENS",
+   "source": {
+    "line": 2648,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--no-host",
+   "help": "Environment form of --no-host.",
+   "kind": "env",
+   "name": "LLAMA_ARG_NO_HOST",
+   "source": {
+    "line": 2426,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--numa",
+   "help": "Environment form of --numa.",
+   "kind": "env",
+   "name": "LLAMA_ARG_NUMA",
+   "source": {
+    "line": 2718,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--n-cpu-ffn",
+   "help": "Environment form of --n-cpu-ffn.",
+   "kind": "env",
+   "name": "LLAMA_ARG_N_CPU_FFN",
+   "source": {
+    "line": 2772,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--n-cpu-moe",
+   "help": "Environment form of --n-cpu-moe.",
+   "kind": "env",
+   "name": "LLAMA_ARG_N_CPU_MOE",
+   "source": {
+    "line": 2762,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--gpu-layers",
+   "help": "Environment form of --gpu-layers.",
+   "kind": "env",
+   "name": "LLAMA_ARG_N_GPU_LAYERS",
+   "source": {
+    "line": 2784,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--spec-draft-ngl",
+   "help": "Environment form of --spec-draft-ngl.",
+   "kind": "env",
+   "name": "LLAMA_ARG_N_GPU_LAYERS_DRAFT",
+   "source": {
+    "line": 4208,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--parallel",
+   "help": "Environment form of --parallel.",
+   "kind": "env",
+   "name": "LLAMA_ARG_N_PARALLEL",
+   "source": {
+    "line": 2540,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--predict",
+   "help": "Environment form of --predict.",
+   "kind": "env",
+   "name": "LLAMA_ARG_N_PREDICT",
+   "source": {
+    "line": 1654,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--offline",
+   "help": "Environment form of --offline.",
+   "kind": "env",
+   "name": "LLAMA_ARG_OFFLINE",
+   "source": {
+    "line": 3918,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--override-tensor",
+   "help": "Environment form of --override-tensor.",
+   "kind": "env",
+   "name": "LLAMA_ARG_OVERRIDE_TENSOR",
+   "source": {
+    "line": 2749,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--perf",
+   "help": "Environment form of --perf.",
+   "kind": "env",
+   "name": "LLAMA_ARG_PERF",
+   "source": {
+    "line": 1780,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--pooling",
+   "help": "Environment form of --pooling.",
+   "kind": "env",
+   "name": "LLAMA_ARG_POOLING",
+   "source": {
+    "line": 2309,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--port",
+   "help": "Environment form of --port.",
+   "kind": "env",
+   "name": "LLAMA_ARG_PORT",
+   "source": {
+    "line": 3316,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--prefill-assistant",
+   "help": "Environment form of --prefill-assistant.",
+   "kind": "env",
+   "name": "LLAMA_ARG_PREFILL_ASSISTANT",
+   "source": {
+    "line": 3771,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--reasoning",
+   "help": "Environment form of --reasoning.",
+   "kind": "env",
+   "name": "LLAMA_ARG_REASONING",
+   "source": {
+    "line": 3676,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--reasoning-effort",
+   "help": "Environment form of --reasoning-effort.",
+   "kind": "env",
+   "name": "LLAMA_ARG_REASONING_EFFORT",
+   "source": {
+    "line": 3694,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--reasoning-preserve",
+   "help": "Environment form of --reasoning-preserve.",
+   "kind": "env",
+   "name": "LLAMA_ARG_REASONING_PRESERVE",
+   "source": {
+    "line": 3721,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--repack",
+   "help": "Environment form of --repack.",
+   "kind": "env",
+   "name": "LLAMA_ARG_REPACK",
+   "source": {
+    "line": 2418,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--rerank",
+   "help": "Environment form of --rerank.",
+   "kind": "env",
+   "name": "LLAMA_ARG_RERANKING",
+   "source": {
+    "line": 3470,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--reuse-port",
+   "help": "Environment form of --reuse-port.",
+   "kind": "env",
+   "name": "LLAMA_ARG_REUSE_PORT",
+   "source": {
+    "line": 3323,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--rope-freq-base",
+   "help": "Environment form of --rope-freq-base.",
+   "kind": "env",
+   "name": "LLAMA_ARG_ROPE_FREQ_BASE",
+   "source": {
+    "line": 2347,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--rope-freq-scale",
+   "help": "Environment form of --rope-freq-scale.",
+   "kind": "env",
+   "name": "LLAMA_ARG_ROPE_FREQ_SCALE",
+   "source": {
+    "line": 2354,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--rope-scale",
+   "help": "Environment form of --rope-scale.",
+   "kind": "env",
+   "name": "LLAMA_ARG_ROPE_SCALE",
+   "source": {
+    "line": 2340,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--rope-scaling",
+   "help": "Environment form of --rope-scaling.",
+   "kind": "env",
+   "name": "LLAMA_ARG_ROPE_SCALING_TYPE",
+   "source": {
+    "line": 2330,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--rpc",
+   "help": "Environment form of --rpc.",
+   "kind": "env",
+   "name": "LLAMA_ARG_RPC",
+   "source": {
+    "line": 2677,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--skip-chat-parsing",
+   "help": "Environment form of --skip-chat-parsing.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SKIP_CHAT_PARSING",
+   "source": {
+    "line": 3760,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--spec-draft-backend-sampling",
+   "help": "Environment form of --spec-draft-backend-sampling.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SPEC_DRAFT_BACKEND_SAMPLING",
+   "source": {
+    "line": 4190,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--spec-draft-type-k",
+   "help": "Environment form of --spec-draft-type-k.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SPEC_DRAFT_CACHE_TYPE_K",
+   "source": {
+    "line": 4076,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--spec-draft-type-v",
+   "help": "Environment form of --spec-draft-type-v.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SPEC_DRAFT_CACHE_TYPE_V",
+   "source": {
+    "line": 4089,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--spec-draft-cpu-moe",
+   "help": "Environment form of --spec-draft-cpu-moe.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SPEC_DRAFT_CPU_MOE",
+   "source": {
+    "line": 4108,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--spec-draft-hf",
+   "help": "Environment form of --spec-draft-hf.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SPEC_DRAFT_HF_REPO",
+   "source": {
+    "line": 3961,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--spec-draft-model",
+   "help": "Environment form of --spec-draft-model.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SPEC_DRAFT_MODEL",
+   "source": {
+    "line": 4227,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--spec-draft-n-cpu-moe",
+   "help": "Environment form of --spec-draft-n-cpu-moe.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SPEC_DRAFT_N_CPU_MOE",
+   "source": {
+    "line": 4115,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--spec-draft-n-max",
+   "help": "Environment form of --spec-draft-n-max.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SPEC_DRAFT_N_MAX",
+   "source": {
+    "line": 4126,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--spec-draft-n-min",
+   "help": "Environment form of --spec-draft-n-min.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SPEC_DRAFT_N_MIN",
+   "source": {
+    "line": 4136,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--spec-draft-p-min",
+   "help": "Environment form of --spec-draft-p-min.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SPEC_DRAFT_P_MIN",
+   "source": {
+    "line": 4183,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--spec-draft-p-split",
+   "help": "Environment form of --spec-draft-p-split.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SPEC_DRAFT_P_SPLIT",
+   "source": {
+    "line": 4176,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--spec-synth-len",
+   "help": "Environment form of --spec-synth-len.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SPEC_SYNTH_LEN",
+   "source": {
+    "line": 4143,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--spec-synth-rates",
+   "help": "Environment form of --spec-synth-rates.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SPEC_SYNTH_RATES",
+   "source": {
+    "line": 4156,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--spec-type",
+   "help": "Environment form of --spec-type.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SPEC_TYPE",
+   "source": {
+    "line": 4235,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--split-mode",
+   "help": "Environment form of --split-mode.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SPLIT_MODE",
+   "source": {
+    "line": 2802,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--sse-ping-interval",
+   "help": "Environment form of --sse-ping-interval.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SSE_PING_INTERVAL",
+   "source": {
+    "line": 3546,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--ssl-cert-file",
+   "help": "Environment form of --ssl-cert-file.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SSL_CERT_FILE",
+   "source": {
+    "line": 3513,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--ssl-key-file",
+   "help": "Environment form of --ssl-key-file.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SSL_KEY_FILE",
+   "source": {
+    "line": 3506,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--path",
+   "help": "Environment form of --path.",
+   "kind": "env",
+   "name": "LLAMA_ARG_STATIC_PATH",
+   "source": {
+    "line": 3330,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--swa-full",
+   "help": "Environment form of --swa-full.",
+   "kind": "env",
+   "name": "LLAMA_ARG_SWA_FULL",
+   "source": {
+    "line": 1686,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--tags",
+   "help": "Environment form of --tags.",
+   "kind": "env",
+   "name": "LLAMA_ARG_TAGS",
+   "source": {
+    "line": 3018,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--tensor-split",
+   "help": "Environment form of --tensor-split.",
+   "kind": "env",
+   "name": "LLAMA_ARG_TENSOR_SPLIT",
+   "source": {
+    "line": 2826,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--reasoning-format",
+   "help": "Environment form of --reasoning-format.",
+   "kind": "env",
+   "name": "LLAMA_ARG_THINK",
+   "source": {
+    "line": 3665,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--reasoning-budget",
+   "help": "Environment form of --reasoning-budget.",
+   "kind": "env",
+   "name": "LLAMA_ARG_THINK_BUDGET",
+   "source": {
+    "line": 3706,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--reasoning-budget-message",
+   "help": "Environment form of --reasoning-budget-message.",
+   "kind": "env",
+   "name": "LLAMA_ARG_THINK_BUDGET_MESSAGE",
+   "source": {
+    "line": 3714,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--threads",
+   "help": "Environment form of --threads.",
+   "kind": "env",
+   "name": "LLAMA_ARG_THREADS",
+   "source": {
+    "line": 1513,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--threads-http",
+   "help": "Environment form of --threads-http.",
+   "kind": "env",
+   "name": "LLAMA_ARG_THREADS_HTTP",
+   "source": {
+    "line": 3553,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--timeout",
+   "help": "Environment form of --timeout.",
+   "kind": "env",
+   "name": "LLAMA_ARG_TIMEOUT",
+   "source": {
+    "line": 3538,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--tools",
+   "help": "Environment form of --tools.",
+   "kind": "env",
+   "name": "LLAMA_ARG_TOOLS",
+   "source": {
+    "line": 3402,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--tools-runtime",
+   "help": "Environment form of --tools-runtime.",
+   "kind": "env",
+   "name": "LLAMA_ARG_TOOLS_RUNTIME",
+   "source": {
+    "line": 3412,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--top-k",
+   "help": "Environment form of --top-k.",
+   "kind": "env",
+   "name": "LLAMA_ARG_TOP_K",
+   "source": {
+    "line": 2020,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--ubatch-size",
+   "help": "Environment form of --ubatch-size.",
+   "kind": "env",
+   "name": "LLAMA_ARG_UBATCH",
+   "source": {
+    "line": 1672,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--ui",
+   "help": "Environment form of --ui.",
+   "kind": "env",
+   "name": "LLAMA_ARG_UI",
+   "source": {
+    "line": 3455,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--ui-config",
+   "help": "Environment form of --ui-config.",
+   "kind": "env",
+   "name": "LLAMA_ARG_UI_CONFIG",
+   "source": {
+    "line": 3380,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--ui-config-file",
+   "help": "Environment form of --ui-config-file.",
+   "kind": "env",
+   "name": "LLAMA_ARG_UI_CONFIG_FILE",
+   "source": {
+    "line": 3387,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--ui-mcp-proxy",
+   "help": "Environment form of --ui-mcp-proxy.",
+   "kind": "env",
+   "name": "LLAMA_ARG_UI_MCP_PROXY",
+   "source": {
+    "line": 3394,
+    "path": "common/arg.cpp"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--video-ffmpeg-dir",
+   "help": "Environment form of --video-ffmpeg-dir.",
+   "kind": "env",
+   "name": "LLAMA_ARG_VIDEO_FFMPEG_DIR",
+   "source": {
+    "line": 2669,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--video-fps",
+   "help": "Environment form of --video-fps.",
+   "kind": "env",
+   "name": "LLAMA_ARG_VIDEO_FPS",
+   "source": {
+    "line": 2655,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--video-timestamp-interval",
+   "help": "Environment form of --video-timestamp-interval.",
+   "kind": "env",
+   "name": "LLAMA_ARG_VIDEO_TIMESTAMP_INTERVAL",
+   "source": {
+    "line": 2662,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--yarn-attn-factor",
+   "help": "Environment form of --yarn-attn-factor.",
+   "kind": "env",
+   "name": "LLAMA_ARG_YARN_ATTN_FACTOR",
+   "source": {
+    "line": 2375,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--yarn-beta-fast",
+   "help": "Environment form of --yarn-beta-fast.",
+   "kind": "env",
+   "name": "LLAMA_ARG_YARN_BETA_FAST",
+   "source": {
+    "line": 2389,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--yarn-beta-slow",
+   "help": "Environment form of --yarn-beta-slow.",
+   "kind": "env",
+   "name": "LLAMA_ARG_YARN_BETA_SLOW",
+   "source": {
+    "line": 2382,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--yarn-ext-factor",
+   "help": "Environment form of --yarn-ext-factor.",
+   "kind": "env",
+   "name": "LLAMA_ARG_YARN_EXT_FACTOR",
+   "source": {
+    "line": 2368,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--yarn-orig-ctx",
+   "help": "Environment form of --yarn-orig-ctx.",
+   "kind": "env",
+   "name": "LLAMA_ARG_YARN_ORIG_CTX",
+   "source": {
+    "line": 2361,
+    "path": "common/arg.cpp"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--mmproj-device",
+   "help": "Environment form of --mmproj-device.",
+   "kind": "env",
+   "name": "MTMD_BACKEND_DEVICE",
+   "source": {
+    "line": 2605,
+    "path": "common/arg.cpp"
+   },
+   "type": "str"
+  }
+ ],
+ "provenance": {
+  "commit": "60199339bcff9092dd7273d371b52308c85a92de",
+  "method": "static source extraction",
+  "repo": "https://github.com/ggml-org/llama.cpp",
+  "sources": [
+   "common/arg.cpp",
+   "common/common.h",
+   "tools/server/server-task.cpp"
+  ],
+  "tag": "b11000",
+  "tag_date": "2026-09-16"
+ },
+ "schema": 1,
+ "version": "b11000"
+}

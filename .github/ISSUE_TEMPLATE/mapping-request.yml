@@ -1,0 +1,22 @@
+name: Mapping request
+description: An option that is reported as UNKNOWN and should be mapped
+labels: [mapping]
+body:
+  - type: input
+    id: option
+    attributes:
+      label: Option and engine
+      placeholder: "--enforce-eager (vLLM 0.33.0)"
+    validations:
+      required: true
+  - type: textarea
+    id: counterpart
+    attributes:
+      label: Counterpart in other engines, if you know one
+      description: Include the `engine@tag:path:line` references that `engine-migrate flags ... -f json` gives, and whether the meaning is the same or only similar.
+  - type: checkboxes
+    id: pr
+    attributes:
+      label: Contribution
+      options:
+        - label: I can open a pull request with the row (see CONTRIBUTING.md)

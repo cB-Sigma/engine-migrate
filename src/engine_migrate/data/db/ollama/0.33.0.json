@@ -1,0 +1,967 @@
+{
+ "engine": "ollama",
+ "metrics": [],
+ "notes": [
+  "Ollama has no serving command-line flags; it is configured with environment variables (kind=env), Modelfile instructions (kind=modelfile) and model parameters set via Modelfile PARAMETER or the API options field (kind=param).",
+  "Ollama does not expose a Prometheus metrics endpoint, so no metrics are listed.",
+  "Environment variable defaults are only recorded when the description states them."
+ ],
+ "options": [
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "CudaVisibleDevices()",
+   "help": "Set which NVIDIA devices are visible",
+   "kind": "env",
+   "name": "CUDA_VISIBLE_DEVICES",
+   "source": {
+    "line": 354,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "VkVisibleDevices()",
+   "help": "Set which Vulkan devices are visible by numeric ID",
+   "kind": "env",
+   "name": "GGML_VK_VISIBLE_DEVICES",
+   "source": {
+    "line": 357,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "GpuDeviceOrdinal()",
+   "help": "Set which AMD devices are visible by numeric ID",
+   "kind": "env",
+   "name": "GPU_DEVICE_ORDINAL",
+   "source": {
+    "line": 358,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "HipVisibleDevices()",
+   "help": "Set which AMD devices are visible by numeric ID",
+   "kind": "env",
+   "name": "HIP_VISIBLE_DEVICES",
+   "source": {
+    "line": 355,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "HsaOverrideGfxVersion()",
+   "help": "Override the gfx used for all detected AMD GPUs",
+   "kind": "env",
+   "name": "HSA_OVERRIDE_GFX_VERSION",
+   "source": {
+    "line": 359,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "String(\"HTTPS_PROXY\")()",
+   "help": "HTTPS proxy",
+   "kind": "env",
+   "name": "HTTPS_PROXY",
+   "source": {
+    "line": 342,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "String(\"HTTP_PROXY\")()",
+   "help": "HTTP proxy",
+   "kind": "env",
+   "name": "HTTP_PROXY",
+   "source": {
+    "line": 341,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": "on",
+   "deprecated": false,
+   "getter": "String(\"LLAMA_ARG_FIT\")()",
+   "help": "Enable llama.cpp automatic fit of unset memory options (default \"on\")",
+   "kind": "env",
+   "name": "LLAMA_ARG_FIT",
+   "source": {
+    "line": 320,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "String(\"LLAMA_ARG_FIT_TARGET\")()",
+   "help": "Target free VRAM margin per device for llama.cpp fit (MiB)",
+   "kind": "env",
+   "name": "LLAMA_ARG_FIT_TARGET",
+   "source": {
+    "line": 321,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "String(\"NO_PROXY\")()",
+   "help": "No proxy",
+   "kind": "env",
+   "name": "NO_PROXY",
+   "source": {
+    "line": 343,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": "4k/32k/256k based on VRAM",
+   "deprecated": false,
+   "getter": "ContextLength()",
+   "help": "Context length to use unless otherwise specified (default: 4k/32k/256k based on VRAM)",
+   "kind": "env",
+   "name": "OLLAMA_CONTEXT_LENGTH",
+   "source": {
+    "line": 336,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "LogLevel()",
+   "help": "Show additional debug information (e.g. OLLAMA_DEBUG=1)",
+   "kind": "env",
+   "name": "OLLAMA_DEBUG",
+   "source": {
+    "line": 313,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "DebugLogRequests()",
+   "help": "Log inference request bodies and replay curl commands to a temp directory",
+   "kind": "env",
+   "name": "OLLAMA_DEBUG_LOG_REQUESTS",
+   "source": {
+    "line": 314,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "Editor()",
+   "help": "Path to editor for interactive prompt editing (Ctrl+G)",
+   "kind": "env",
+   "name": "OLLAMA_EDITOR",
+   "source": {
+    "line": 337,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "FlashAttention(false)",
+   "help": "Enabled flash attention",
+   "kind": "env",
+   "name": "OLLAMA_FLASH_ATTENTION",
+   "source": {
+    "line": 316,
+    "path": "envconfig/config.go"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "GoTemplate(true)",
+   "help": "Enable Modelfile TEMPLATE based rendering when available",
+   "kind": "env",
+   "name": "OLLAMA_GO_TEMPLATE",
+   "source": {
+    "line": 315,
+    "path": "envconfig/config.go"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "GpuOverhead()",
+   "help": "Reserve a portion of VRAM per GPU (bytes)",
+   "kind": "env",
+   "name": "OLLAMA_GPU_OVERHEAD",
+   "source": {
+    "line": 318,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": "127.0.0.1:11434",
+   "deprecated": false,
+   "getter": "Host()",
+   "help": "IP Address for the ollama server (default 127.0.0.1:11434)",
+   "kind": "env",
+   "name": "OLLAMA_HOST",
+   "source": {
+    "line": 322,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "String(\"OLLAMA_IGPU_ENABLE\")()",
+   "help": "Enable integrated GPUs",
+   "kind": "env",
+   "name": "OLLAMA_IGPU_ENABLE",
+   "source": {
+    "line": 319,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": "5m",
+   "deprecated": false,
+   "getter": "KeepAlive()",
+   "help": "The duration that models stay loaded in memory (default \"5m\")",
+   "kind": "env",
+   "name": "OLLAMA_KEEP_ALIVE",
+   "source": {
+    "line": 323,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": "f16",
+   "deprecated": false,
+   "getter": "KvCacheType()",
+   "help": "Quantization type for the K/V cache (default: f16)",
+   "kind": "env",
+   "name": "OLLAMA_KV_CACHE_TYPE",
+   "source": {
+    "line": 317,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "LLMLibrary()",
+   "help": "Set LLM library to bypass autodetection",
+   "kind": "env",
+   "name": "OLLAMA_LLM_LIBRARY",
+   "source": {
+    "line": 324,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": "5m",
+   "deprecated": false,
+   "getter": "LoadTimeout()",
+   "help": "How long to allow model loads to stall before giving up (default \"5m\")",
+   "kind": "env",
+   "name": "OLLAMA_LOAD_TIMEOUT",
+   "source": {
+    "line": 325,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "MaxRunners()",
+   "help": "Maximum number of loaded models per GPU",
+   "kind": "env",
+   "name": "OLLAMA_MAX_LOADED_MODELS",
+   "source": {
+    "line": 326,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "MaxQueue()",
+   "help": "Maximum number of queued requests",
+   "kind": "env",
+   "name": "OLLAMA_MAX_QUEUE",
+   "source": {
+    "line": 328,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": "4",
+   "deprecated": false,
+   "getter": "MaxTransferStreams()",
+   "help": "Maximum parallel transfer streams for safetensors model pulls/pushes (default 4)",
+   "kind": "env",
+   "name": "OLLAMA_MAX_TRANSFER_STREAMS",
+   "source": {
+    "line": 327,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "Models()",
+   "help": "The path to the models directory",
+   "kind": "env",
+   "name": "OLLAMA_MODELS",
+   "source": {
+    "line": 329,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "NoHistory()",
+   "help": "Do not preserve readline history",
+   "kind": "env",
+   "name": "OLLAMA_NOHISTORY",
+   "source": {
+    "line": 331,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "NoPrune()",
+   "help": "Do not prune model blobs on startup",
+   "kind": "env",
+   "name": "OLLAMA_NOPRUNE",
+   "source": {
+    "line": 332,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "NoCloud()",
+   "help": "Disable Ollama cloud features (remote inference and web search)",
+   "kind": "env",
+   "name": "OLLAMA_NO_CLOUD",
+   "source": {
+    "line": 330,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "NumParallel()",
+   "help": "Maximum number of parallel requests",
+   "kind": "env",
+   "name": "OLLAMA_NUM_PARALLEL",
+   "source": {
+    "line": 333,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "AllowedOrigins()",
+   "help": "A comma separated list of allowed origins",
+   "kind": "env",
+   "name": "OLLAMA_ORIGINS",
+   "source": {
+    "line": 334,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": "ollama.com",
+   "deprecated": false,
+   "getter": "Remotes()",
+   "help": "Allowed hosts for remote models (default \"ollama.com\")",
+   "kind": "env",
+   "name": "OLLAMA_REMOTES",
+   "source": {
+    "line": 338,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "SchedSpread()",
+   "help": "Always schedule model across all GPUs",
+   "kind": "env",
+   "name": "OLLAMA_SCHED_SPREAD",
+   "source": {
+    "line": 335,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "EnableVulkan(true)",
+   "help": "Enable Vulkan support",
+   "kind": "env",
+   "name": "OLLAMA_VULKAN",
+   "source": {
+    "line": 360,
+    "path": "envconfig/config.go"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "RocrVisibleDevices()",
+   "help": "Set which AMD devices are visible by UUID or numeric ID",
+   "kind": "env",
+   "name": "ROCR_VISIBLE_DEVICES",
+   "source": {
+    "line": 356,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "String(\"http_proxy\")()",
+   "help": "HTTP proxy",
+   "kind": "env",
+   "name": "http_proxy",
+   "source": {
+    "line": 348,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "String(\"https_proxy\")()",
+   "help": "HTTPS proxy",
+   "kind": "env",
+   "name": "https_proxy",
+   "source": {
+    "line": 349,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "getter": "String(\"no_proxy\")()",
+   "help": "No proxy",
+   "kind": "env",
+   "name": "no_proxy",
+   "source": {
+    "line": 350,
+    "path": "envconfig/config.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "help": "Modelfile instruction.",
+   "kind": "modelfile",
+   "name": "ADAPTER",
+   "source": {
+    "line": 697,
+    "path": "parser/parser.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "help": "Modelfile instruction.",
+   "kind": "modelfile",
+   "name": "DRAFT",
+   "source": {
+    "line": 697,
+    "path": "parser/parser.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "help": "Modelfile instruction.",
+   "kind": "modelfile",
+   "name": "FROM",
+   "source": {
+    "line": 697,
+    "path": "parser/parser.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "help": "Modelfile instruction.",
+   "kind": "modelfile",
+   "name": "LICENSE",
+   "source": {
+    "line": 697,
+    "path": "parser/parser.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "help": "Modelfile instruction.",
+   "kind": "modelfile",
+   "name": "MESSAGE",
+   "source": {
+    "line": 697,
+    "path": "parser/parser.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "help": "Modelfile instruction.",
+   "kind": "modelfile",
+   "name": "PARAMETER",
+   "source": {
+    "line": 697,
+    "path": "parser/parser.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "help": "Modelfile instruction.",
+   "kind": "modelfile",
+   "name": "PARSER",
+   "source": {
+    "line": 697,
+    "path": "parser/parser.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "help": "Modelfile instruction.",
+   "kind": "modelfile",
+   "name": "RENDERER",
+   "source": {
+    "line": 697,
+    "path": "parser/parser.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "help": "Modelfile instruction.",
+   "kind": "modelfile",
+   "name": "REQUIRES",
+   "source": {
+    "line": 697,
+    "path": "parser/parser.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "help": "Modelfile instruction.",
+   "kind": "modelfile",
+   "name": "SYSTEM",
+   "source": {
+    "line": 697,
+    "path": "parser/parser.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "help": "Modelfile instruction.",
+   "kind": "modelfile",
+   "name": "TEMPLATE",
+   "source": {
+    "line": 697,
+    "path": "parser/parser.go"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": 4,
+   "deprecated": false,
+   "go_field": "Runner.DraftNumPredict",
+   "help": "",
+   "kind": "param",
+   "name": "draft_num_predict",
+   "scope": "load",
+   "source": {
+    "line": 595,
+    "path": "api/types.go"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": 0.0,
+   "deprecated": false,
+   "go_field": "Options.FrequencyPenalty",
+   "help": "",
+   "kind": "param",
+   "name": "frequency_penalty",
+   "scope": "request",
+   "source": {
+    "line": 583,
+    "path": "api/types.go"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "go_field": "Runner.MainGPU",
+   "help": "",
+   "kind": "param",
+   "name": "main_gpu",
+   "scope": "load",
+   "source": {
+    "line": 592,
+    "path": "api/types.go"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "go_field": "Options.MinP",
+   "help": "",
+   "kind": "param",
+   "name": "min_p",
+   "scope": "request",
+   "source": {
+    "line": 577,
+    "path": "api/types.go"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "default": 512,
+   "deprecated": false,
+   "go_field": "Runner.NumBatch",
+   "help": "",
+   "kind": "param",
+   "name": "num_batch",
+   "scope": "load",
+   "source": {
+    "line": 590,
+    "path": "api/types.go"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "go_field": "Runner.NumCtx",
+   "help": "",
+   "kind": "param",
+   "name": "num_ctx",
+   "scope": "load",
+   "source": {
+    "line": 589,
+    "path": "api/types.go"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": -1,
+   "deprecated": false,
+   "go_field": "Runner.NumGPU",
+   "help": "",
+   "kind": "param",
+   "name": "num_gpu",
+   "scope": "load",
+   "source": {
+    "line": 591,
+    "path": "api/types.go"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": 4,
+   "deprecated": false,
+   "go_field": "Options.NumKeep",
+   "help": "",
+   "kind": "param",
+   "name": "num_keep",
+   "scope": "request",
+   "source": {
+    "line": 572,
+    "path": "api/types.go"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": -1,
+   "deprecated": false,
+   "go_field": "Options.NumPredict",
+   "help": "",
+   "kind": "param",
+   "name": "num_predict",
+   "scope": "request",
+   "source": {
+    "line": 574,
+    "path": "api/types.go"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": 0,
+   "deprecated": false,
+   "go_field": "Runner.NumThread",
+   "help": "",
+   "kind": "param",
+   "name": "num_thread",
+   "scope": "load",
+   "source": {
+    "line": 594,
+    "path": "api/types.go"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": 0.0,
+   "deprecated": false,
+   "go_field": "Options.PresencePenalty",
+   "help": "",
+   "kind": "param",
+   "name": "presence_penalty",
+   "scope": "request",
+   "source": {
+    "line": 582,
+    "path": "api/types.go"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "default": 64,
+   "deprecated": false,
+   "go_field": "Options.RepeatLastN",
+   "help": "",
+   "kind": "param",
+   "name": "repeat_last_n",
+   "scope": "request",
+   "source": {
+    "line": 579,
+    "path": "api/types.go"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": 1.0,
+   "deprecated": false,
+   "go_field": "Options.RepeatPenalty",
+   "help": "",
+   "kind": "param",
+   "name": "repeat_penalty",
+   "scope": "request",
+   "source": {
+    "line": 581,
+    "path": "api/types.go"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "default": -1,
+   "deprecated": false,
+   "go_field": "Options.Seed",
+   "help": "",
+   "kind": "param",
+   "name": "seed",
+   "scope": "request",
+   "source": {
+    "line": 573,
+    "path": "api/types.go"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "go_field": "Options.Stop",
+   "help": "",
+   "kind": "param",
+   "name": "stop",
+   "scope": "request",
+   "source": {
+    "line": 584,
+    "path": "api/types.go"
+   },
+   "type": "list[str]"
+  },
+  {
+   "aliases": [],
+   "default": 0.8,
+   "deprecated": false,
+   "go_field": "Options.Temperature",
+   "help": "",
+   "kind": "param",
+   "name": "temperature",
+   "scope": "request",
+   "source": {
+    "line": 580,
+    "path": "api/types.go"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "default": 40,
+   "deprecated": false,
+   "go_field": "Options.TopK",
+   "help": "",
+   "kind": "param",
+   "name": "top_k",
+   "scope": "request",
+   "source": {
+    "line": 575,
+    "path": "api/types.go"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": 0.9,
+   "deprecated": false,
+   "go_field": "Options.TopP",
+   "help": "",
+   "kind": "param",
+   "name": "top_p",
+   "scope": "request",
+   "source": {
+    "line": 576,
+    "path": "api/types.go"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "default": 1.0,
+   "deprecated": false,
+   "go_field": "Options.TypicalP",
+   "help": "",
+   "kind": "param",
+   "name": "typical_p",
+   "scope": "request",
+   "source": {
+    "line": 578,
+    "path": "api/types.go"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "go_field": "Runner.UseMMap",
+   "help": "",
+   "kind": "param",
+   "name": "use_mmap",
+   "scope": "load",
+   "source": {
+    "line": 593,
+    "path": "api/types.go"
+   },
+   "type": "bool"
+  }
+ ],
+ "provenance": {
+  "commit": "ebf200f9521da9739a576a8bbf8cbf94e0cec6e3",
+  "method": "static source extraction",
+  "repo": "https://github.com/ollama/ollama",
+  "sources": [
+   "api/types.go",
+   "envconfig/config.go",
+   "parser/parser.go"
+  ],
+  "tag": "v0.33.0",
+  "tag_date": "2026-08-25"
+ },
+ "schema": 1,
+ "version": "0.33.0"
+}

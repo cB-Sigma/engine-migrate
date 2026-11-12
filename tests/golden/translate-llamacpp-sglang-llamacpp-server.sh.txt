@@ -1,0 +1,54 @@
+# llamacpp b12323 -> sglang 0.5.23  (input read as: command)
+
+python3 -m sglang.launch_server \
+  --model-path /models/qwen3-8b-q4_k_m.gguf \
+  --context-length 16384 \
+  --max-running-requests 4 \
+  --enable-metrics \
+  --api-key sk-local \
+  --host 0.0.0.0 \
+  --port 8080
+
+## Report: 3 exact, 4 approximate, 0 no equivalent, 3 unknown
+
+APPROXIMATE    -m /models/qwen3-8b-q4_k_m.gguf  ->  --model-path /models/qwen3-8b-q4_k_m.gguf
+               llamacpp: Path of a local GGUF model file. sglang: Local folder or Hugging Face repo
+               ID of the model weights.
+               source: llamacpp@b12323:common/arg.cpp:3027
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/model.py:51
+APPROXIMATE    -c 16384  ->  --context-length 16384
+               llamacpp: Size of the prompt context of the server (0 = loaded from model); how it is
+               shared between parallel slots depends on other options. sglang: The model's maximum
+               context length; taken from the model's config.json when unset.
+               source: llamacpp@b12323:common/arg.cpp:1609
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/model.py:110
+APPROXIMATE    -np 4  ->  --max-running-requests 4
+               llamacpp: Number of server slots (-1 = auto). sglang: The maximum number of running
+               requests.
+               source: llamacpp@b12323:common/arg.cpp:2515
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/schedule.py:31
+UNKNOWN        -ngl 99
+               --gpu-layers is a known llamacpp b12323 option, but no mapping row covers it yet.
+               source: llamacpp@b12323:common/arg.cpp:2781
+UNKNOWN        --mlock
+               Not an option of llamacpp b12323; it exists in llamacpp b9000 to b10000. Pass the
+               matching --from-version.
+UNKNOWN        --webui
+               --ui is a known llamacpp b12323 option, but no mapping row covers it yet.
+               source: llamacpp@b12323:common/arg.cpp:3478
+EXACT          --metrics  ->  --enable-metrics
+               source: llamacpp@b12323:common/arg.cpp:3621
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/observability.py:70
+EXACT          --api-key sk-local  ->  --api-key sk-local
+               note: Which endpoints the key protects differs per engine and is not covered by this
+               tool.
+               source: llamacpp@b12323:common/arg.cpp:3521
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/serving.py:160
+APPROXIMATE    --host 0.0.0.0  ->  --host 0.0.0.0
+               llamacpp: IP addresses to listen on (comma-separated) or UNIX socket paths ending in
+               .sock. sglang: The host of the HTTP server.
+               source: llamacpp@b12323:common/arg.cpp:3323
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/serving.py:65
+EXACT          --port 8080  ->  --port 8080
+               source: llamacpp@b12323:common/arg.cpp:3339
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/serving.py:66

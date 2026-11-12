@@ -1,0 +1,64 @@
+# vllm: 0.28.0 -> 0.33.0, for this configuration  (input read as: kubernetes)
+
+severity  option                    what changes
+--------  ------------------------  ----------------------------------------
+INFO      --disable-prefix-caching  not an option of vllm 0.28.0, but exists in vllm 0.33.0
+
+## Defaults that changed for options this configuration does not set (5)
+
+option                         change
+-----------------------------  ----------------------------------------
+--allowed-origins              default ['*'] -> []
+--cp-kv-cache-interleave-size  default 1 -> unset
+--dcp-comm-backend             default 'ag_rs' -> unset
+--disable-cascade-attn         default True -> unset; negations added: --enable-cascade-attn
+--mamba-cache-mode             default 'none' -> unset; choices removed: all
+
+## Suggested configuration for vllm 0.33.0
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qwen3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qwen3
+  template:
+    metadata:
+      labels:
+        app: qwen3
+    spec:
+      containers:
+      - name: vllm
+        image: vllm/vllm-openai:v0.33.0
+        args:
+        - --model
+        - Qwen/Qwen3-32B
+        - --max-model-len
+        - '32768'
+        - --tensor-parallel-size
+        - '2'
+        - --gpu-memory-utilization
+        - '0.90'
+        - --disable-prefix-caching
+        - --lora-modules
+        - sql=/adapters/sql
+        - support=/adapters/support
+        - --enable-lora
+        - --port
+        - '8000'
+        env:
+        - name: HF_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: hf
+              key: token
+        - name: VLLM_LOGGING_LEVEL
+          value: INFO
+        ports:
+        - containerPort: 8000
+        resources:
+          limits:
+            nvidia.com/gpu: 2

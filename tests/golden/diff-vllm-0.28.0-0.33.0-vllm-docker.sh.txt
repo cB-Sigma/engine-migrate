@@ -1,0 +1,30 @@
+# vllm: 0.28.0 -> 0.33.0, for this configuration  (input read as: docker)
+
+None of the options set in this configuration changed.
+
+## Defaults that changed for options this configuration does not set (5)
+
+option                         change
+-----------------------------  ----------------------------------------
+--allowed-origins              default ['*'] -> []
+--cp-kv-cache-interleave-size  default 1 -> unset
+--dcp-comm-backend             default 'ag_rs' -> unset
+--disable-cascade-attn         default True -> unset; negations added: --enable-cascade-attn
+--mamba-cache-mode             default 'none' -> unset; choices removed: all
+
+## Suggested configuration for vllm 0.33.0
+
+docker run \
+  --gpus all \
+  --ipc=host \
+  -p 8000:8000 \
+  -v ~/.cache/huggingface:/root/.cache/huggingface \
+  -e HF_TOKEN=$HF_TOKEN \
+  vllm/vllm-openai:v0.33.0 \
+  --model meta-llama/Llama-3.1-8B-Instruct \
+  --dtype bfloat16 \
+  --max-model-len 16384 \
+  --max-num-seqs 64 \
+  --seed 7 \
+  --trust-remote-code \
+  --download-dir /root/.cache/huggingface

@@ -1,0 +1,31 @@
+# llamacpp: b9000 -> b12323, for this configuration  (input read as: command)
+
+severity  option   what changes
+--------  -------  ----------------------------------------
+ERROR     --mlock  removed in b12323
+INFO      --webui  primary name is now --ui; this spelling is still accepted
+
+## Defaults that changed for options this configuration does not set (5)
+
+option                change
+--------------------  ----------------------------------------
+--dry-penalty-last-n  default -1 -> 64
+--spec-draft-n-max    default 16 -> 3
+--spec-draft-p-min    default 0.75 -> 0.0
+--spec-draft-poll     default 'same as --poll]' -> 'same as --poll'
+--timeout             default 600 -> 3600
+
+## Suggested configuration for llamacpp b12323
+
+llama-server \
+  -m /models/qwen3-8b-q4_k_m.gguf \
+  -c 16384 \
+  -np 4 \
+  -ngl 99 \
+  --webui \
+  --metrics \
+  --api-key sk-local \
+  --host 0.0.0.0 \
+  --port 8080
+
+- --mlock was dropped from the rewritten config (removed in b12323).

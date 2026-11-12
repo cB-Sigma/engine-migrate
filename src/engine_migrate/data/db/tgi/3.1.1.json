@@ -1,0 +1,1744 @@
+{
+ "engine": "tgi",
+ "metrics": [
+  {
+   "help": "",
+   "labels": [
+    "reason"
+   ],
+   "name": "tgi_batch_concat",
+   "source": {
+    "line": 183,
+    "path": "backends/v2/src/backend.rs"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "",
+   "labels": [
+    "method"
+   ],
+   "name": "tgi_batch_concat_duration",
+   "source": {
+    "line": 299,
+    "path": "backends/v2/src/backend.rs"
+   },
+   "type": "histogram"
+  },
+  {
+   "help": "Maximum tokens for the current batch",
+   "labels": [],
+   "name": "tgi_batch_current_max_tokens",
+   "source": {
+    "line": 2178,
+    "path": "router/src/server.rs"
+   },
+   "type": "gauge"
+  },
+  {
+   "help": "Current batch size",
+   "labels": [],
+   "name": "tgi_batch_current_size",
+   "source": {
+    "line": 2172,
+    "path": "router/src/server.rs"
+   },
+   "type": "gauge"
+  },
+  {
+   "help": "Time spent decoding a batch per method (prefill or decode)",
+   "labels": [
+    "method"
+   ],
+   "name": "tgi_batch_decode_duration",
+   "source": {
+    "line": 2228,
+    "path": "router/src/server.rs"
+   },
+   "type": "histogram"
+  },
+  {
+   "help": "Time spent filtering batches and sending generated tokens per method (prefill or decode)",
+   "labels": [
+    "method"
+   ],
+   "name": "tgi_batch_filter_duration",
+   "source": {
+    "line": 2208,
+    "path": "router/src/server.rs"
+   },
+   "type": "histogram"
+  },
+  {
+   "help": "Batch forward duration per method (prefill or decode)",
+   "labels": [
+    "method"
+   ],
+   "name": "tgi_batch_forward_duration",
+   "source": {
+    "line": 2198,
+    "path": "router/src/server.rs"
+   },
+   "type": "histogram"
+  },
+  {
+   "help": "Inference calls per method (prefill or decode)",
+   "labels": [
+    "method"
+   ],
+   "name": "tgi_batch_inference_count",
+   "source": {
+    "line": 2157,
+    "path": "router/src/server.rs"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "Batch inference duration",
+   "labels": [
+    "method"
+   ],
+   "name": "tgi_batch_inference_duration",
+   "source": {
+    "line": 2193,
+    "path": "router/src/server.rs"
+   },
+   "type": "histogram"
+  },
+  {
+   "help": "",
+   "labels": [
+    "method"
+   ],
+   "name": "tgi_batch_inference_failure",
+   "source": {
+    "line": 273,
+    "path": "backends/v2/src/backend.rs"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "Number of successful inference calls per method (prefill or decode)",
+   "labels": [
+    "method"
+   ],
+   "name": "tgi_batch_inference_success",
+   "source": {
+    "line": 2167,
+    "path": "router/src/server.rs"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "",
+   "labels": [],
+   "name": "tgi_batch_max_total_tokens",
+   "source": {
+    "line": 138,
+    "path": "backends/v3/src/lib.rs"
+   },
+   "type": "gauge"
+  },
+  {
+   "help": "Batch size of the next batch",
+   "labels": [],
+   "name": "tgi_batch_next_size",
+   "source": {
+    "line": 2238,
+    "path": "router/src/server.rs"
+   },
+   "type": "histogram"
+  },
+  {
+   "help": "Maximum amount of tokens in total.",
+   "labels": [],
+   "name": "tgi_batch_total_tokens",
+   "source": {
+    "line": 2183,
+    "path": "router/src/server.rs"
+   },
+   "type": "gauge"
+  },
+  {
+   "help": "Current queue size",
+   "labels": [],
+   "name": "tgi_queue_size",
+   "source": {
+    "line": 2177,
+    "path": "router/src/server.rs"
+   },
+   "type": "gauge"
+  },
+  {
+   "help": "Total number of requests",
+   "labels": [],
+   "name": "tgi_request_count",
+   "source": {
+    "line": 2162,
+    "path": "router/src/server.rs"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "Total time spent processing the request",
+   "labels": [],
+   "name": "tgi_request_duration",
+   "source": {
+    "line": 2223,
+    "path": "router/src/server.rs"
+   },
+   "type": "histogram"
+  },
+  {
+   "help": "",
+   "labels": [
+    "err"
+   ],
+   "name": "tgi_request_failure",
+   "source": {
+    "line": 377,
+    "path": "backends/v2/src/backend.rs"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "Generated tokens per request",
+   "labels": [],
+   "name": "tgi_request_generated_tokens",
+   "source": {
+    "line": 2152,
+    "path": "router/src/server.rs"
+   },
+   "type": "histogram"
+  },
+  {
+   "help": "Request inference duration",
+   "labels": [],
+   "name": "tgi_request_inference_duration",
+   "source": {
+    "line": 2142,
+    "path": "router/src/server.rs"
+   },
+   "type": "histogram"
+  },
+  {
+   "help": "Input token length per request",
+   "labels": [],
+   "name": "tgi_request_input_length",
+   "source": {
+    "line": 2233,
+    "path": "router/src/server.rs"
+   },
+   "type": "histogram"
+  },
+  {
+   "help": "Maximum new tokens per request",
+   "labels": [],
+   "name": "tgi_request_max_new_tokens",
+   "source": {
+    "line": 2188,
+    "path": "router/src/server.rs"
+   },
+   "type": "histogram"
+  },
+  {
+   "help": "Mean time per token per request",
+   "labels": [],
+   "name": "tgi_request_mean_time_per_token_duration",
+   "source": {
+    "line": 2147,
+    "path": "router/src/server.rs"
+   },
+   "type": "histogram"
+  },
+  {
+   "help": "Time spent in the queue per request",
+   "labels": [],
+   "name": "tgi_request_queue_duration",
+   "source": {
+    "line": 2213,
+    "path": "router/src/server.rs"
+   },
+   "type": "histogram"
+  },
+  {
+   "help": "Speculated tokens per request",
+   "labels": [],
+   "name": "tgi_request_skipped_tokens",
+   "source": {
+    "line": 2203,
+    "path": "router/src/server.rs"
+   },
+   "type": "histogram"
+  },
+  {
+   "help": "Number of successful requests",
+   "labels": [],
+   "name": "tgi_request_success",
+   "source": {
+    "line": 2126,
+    "path": "router/src/server.rs"
+   },
+   "type": "counter"
+  },
+  {
+   "help": "Time spent validating the request",
+   "labels": [],
+   "name": "tgi_request_validation_duration",
+   "source": {
+    "line": 2218,
+    "path": "router/src/server.rs"
+   },
+   "type": "histogram"
+  }
+ ],
+ "notes": [
+  "Options are those of text-generation-launcher (the Docker image entrypoint).",
+  "Metrics are collected from every router/backend source file, so the list is the union over backends; a given backend exposes a subset."
+ ],
+ "options": [
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "API_KEY",
+   "help": "",
+   "kind": "cli",
+   "name": "--api-key",
+   "source": {
+    "line": 818,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "env": "CORS_ALLOW_ORIGIN",
+   "help": "",
+   "kind": "cli",
+   "name": "--cors-allow-origin",
+   "source": {
+    "line": 815,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "list[str]"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "CUDA_GRAPHS",
+   "help": "Specify the batch sizes to compute cuda graphs for. Use \"0\" to disable. Default = \"1,2,4,8,16,32\"",
+   "kind": "cli",
+   "name": "--cuda-graphs",
+   "source": {
+    "line": 739,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "list[int]"
+  },
+  {
+   "aliases": [],
+   "default": 1.0,
+   "deprecated": false,
+   "env": "CUDA_MEMORY_FRACTION",
+   "help": "Limit the CUDA available memory. The allowed value equals the total visible memory multiplied by cuda-memory-fraction.",
+   "kind": "cli",
+   "name": "--cuda-memory-fraction",
+   "source": {
+    "line": 782,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "env": "DISABLE_CUSTOM_KERNELS",
+   "help": "For some models (like bloom), text-generation-inference implemented custom cuda kernels to speed up inference. Those kernels were only tested on A100. Use this flag to disable them if you're running on different hardware and encounter issues.",
+   "kind": "cli",
+   "name": "--disable-custom-kernels",
+   "source": {
+    "line": 777,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "env": "DISABLE_GRAMMAR_SUPPORT",
+   "help": "Disable outlines grammar constrained generation. This is a feature that allows you to generate text that follows a specific grammar.",
+   "kind": "cli",
+   "name": "--disable-grammar-support",
+   "source": {
+    "line": 845,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "choices": [
+    "float16",
+    "bfloat16"
+   ],
+   "default": null,
+   "deprecated": false,
+   "env": "DTYPE",
+   "help": "The dtype to be forced upon the model. This option cannot be used with `--quantize`.",
+   "kind": "cli",
+   "name": "--dtype",
+   "source": {
+    "line": 604,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "env": "ENABLE_PREFILL_LOGPROBS",
+   "help": "Enables prefill logprobs Logprobs in the prompt are deactivated by default because they consume a large amount of VRAM (especially for long prompts). Using this flag reallows users to ask for them.",
+   "kind": "cli",
+   "name": "--enable-prefill-logprobs",
+   "source": {
+    "line": 878,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "help": "Display a lot of information about your runtime environment",
+   "kind": "cli",
+   "name": "--env",
+   "source": {
+    "line": 849,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": "0.0.0.0",
+   "deprecated": false,
+   "env": "HOSTNAME",
+   "help": "The IP address to listen on",
+   "kind": "cli",
+   "name": "--hostname",
+   "source": {
+    "line": 743,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "HUGGINGFACE_HUB_CACHE",
+   "help": "The location of the huggingface hub cache. Used to override the location if you want to provide a mounted disk for instance",
+   "kind": "cli",
+   "name": "--huggingface-hub-cache",
+   "source": {
+    "line": 765,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "env": "JSON_OUTPUT",
+   "help": "Outputs the logs in JSON format (useful for telemetry)",
+   "kind": "cli",
+   "name": "--json-output",
+   "source": {
+    "line": 806,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "choices": [
+    "fp8_e4m3fn",
+    "fp8_e5m2"
+   ],
+   "default": null,
+   "deprecated": false,
+   "env": "KV_CACHE_DTYPE",
+   "help": "Specify the dtype for the key-value cache. When this option is not provided, the dtype of the model is used (typically `float16` or `bfloat16`). Currently the only supported value are `fp8_e4m3fn` and `fp8_e5m2` on CUDA.",
+   "kind": "cli",
+   "name": "--kv-cache-dtype",
+   "source": {
+    "line": 610,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "LORA_ADAPTERS",
+   "help": "Lora Adapters a list of adapter ids i.e. `repo/adapter1,repo/adapter2` to load during startup that will be available to callers via the `adapter_id` field in a request.",
+   "kind": "cli",
+   "name": "--lora-adapters",
+   "source": {
+    "line": 858,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": "localhost",
+   "deprecated": false,
+   "env": "MASTER_ADDR",
+   "help": "The address the master shard will listen on. (setting used by torch distributed)",
+   "kind": "cli",
+   "name": "--master-addr",
+   "source": {
+    "line": 756,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": 29500,
+   "deprecated": false,
+   "env": "MASTER_PORT",
+   "help": "The address the master port will listen on. (setting used by torch distributed)",
+   "kind": "cli",
+   "name": "--master-port",
+   "source": {
+    "line": 760,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "MAX_BATCH_PREFILL_TOKENS",
+   "help": "Limits the number of tokens for the prefill operation. Since this operation take the most memory and is compute bound, it is interesting to limit the number of requests that can be sent. Default to `max_input_tokens + 50` to give a bit of room.",
+   "kind": "cli",
+   "name": "--max-batch-prefill-tokens",
+   "source": {
+    "line": 688,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "MAX_BATCH_SIZE",
+   "help": "Enforce a maximum number of requests per batch Specific flag for hardware targets that do not support unpadded inference",
+   "kind": "cli",
+   "name": "--max-batch-size",
+   "source": {
+    "line": 733,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "MAX_BATCH_TOTAL_TOKENS",
+   "help": "**IMPORTANT** This is one critical control to allow maximum usage of the available hardware. This represents the total amount of potential tokens within a batch. When using padding (not recommended) this would be equivalent of `batch_size` * `max_total_tokens`. However in the non-padded (flash attention) version this can be much finer. For `max_batch_total_tokens=1000`, you could fit `10` queries of `total_tokens=100` or a single query of `1000` tokens. Overall this number should be the largest possible amount that fits the remaining memory (after the model is loaded). Since the actual memory overhead depends on other parameters like if you're using quantization, flash attention or the model implementation, text-generation-inference cannot infer this number automatically.",
+   "kind": "cli",
+   "name": "--max-batch-total-tokens",
+   "source": {
+    "line": 708,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": 2,
+   "deprecated": false,
+   "env": "MAX_BEST_OF",
+   "help": "This is the maximum allowed value for clients to set `best_of`. Best of makes `n` generations at the same time, and return the best in terms of overall log probability over the entire generated sequence",
+   "kind": "cli",
+   "name": "--max-best-of",
+   "source": {
+    "line": 628,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": 4,
+   "deprecated": false,
+   "env": "MAX_CLIENT_BATCH_SIZE",
+   "help": "Control the maximum number of inputs that a client can send in a single request",
+   "kind": "cli",
+   "name": "--max-client-batch-size",
+   "source": {
+    "line": 853,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": 128,
+   "deprecated": false,
+   "env": "MAX_CONCURRENT_REQUESTS",
+   "help": "The maximum amount of concurrent requests for this particular deployment. Having a low limit will refuse clients requests instead of having them wait for too long and is usually good to handle backpressure correctly.",
+   "kind": "cli",
+   "name": "--max-concurrent-requests",
+   "source": {
+    "line": 622,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "MAX_INPUT_LENGTH",
+   "help": "Legacy version of [`Args::max_input_tokens`].",
+   "kind": "cli",
+   "name": "--max-input-length",
+   "source": {
+    "line": 656,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "MAX_INPUT_TOKENS",
+   "help": "This is the maximum allowed input length (expressed in number of tokens) for users. The larger this value, the longer prompt users can send which can impact the overall memory required to handle the load. Please note that some models have a finite range of sequence they can handle. Default to min(max_allocatable, max_position_embeddings) - 1",
+   "kind": "cli",
+   "name": "--max-input-tokens",
+   "source": {
+    "line": 652,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": 4,
+   "deprecated": false,
+   "env": "MAX_STOP_SEQUENCES",
+   "help": "This is the maximum allowed value for clients to set `stop_sequences`. Stop sequences are used to allow the model to stop on more than just the EOS token, and enable more complex \"prompting\" where users can preprompt the model in a specific way and define their \"own\" stop token aligned with their prompt.",
+   "kind": "cli",
+   "name": "--max-stop-sequences",
+   "source": {
+    "line": 636,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": 5,
+   "deprecated": false,
+   "env": "MAX_TOP_N_TOKENS",
+   "help": "This is the maximum allowed value for clients to set `top_n_tokens`. `top_n_tokens` is used to return information about the the `n` most likely tokens at each generation step, instead of just the sampled token. This information can be used for downstream tasks like for classification or ranking.",
+   "kind": "cli",
+   "name": "--max-top-n-tokens",
+   "source": {
+    "line": 644,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "MAX_TOTAL_TOKENS",
+   "help": "This is the most important value to set as it defines the \"memory budget\" of running clients requests. Clients will send input sequences and ask to generate `max_new_tokens` on top. with a value of `1512` users can send either a prompt of `1000` and ask for `512` new tokens, or send a prompt of `1` and ask for `1511` max_new_tokens. The larger this value, the larger amount each request will be in your RAM and the less effective batching can be. Default to min(max_allocatable, max_position_embeddings)",
+   "kind": "cli",
+   "name": "--max-total-tokens",
+   "source": {
+    "line": 668,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": 20,
+   "deprecated": false,
+   "env": "MAX_WAITING_TOKENS",
+   "help": "This setting defines how many tokens can be passed before forcing the waiting queries to be put on the batch (if the size of the batch allows for it). New queries require 1 `prefill` forward, which is different from `decode` and therefore you need to pause the running batch in order to run `prefill` to create the correct values for the waiting queries to be able to join the batch. With a value too small, queries will always \"steal\" the compute to run `prefill` and running queries will be delayed by a lot. With a value too big, waiting queries could wait for a very long time before being allowed a slot in the running batch. If your server is busy that means that requests that could run in ~2s on an empty server could end up running in ~20s because the query had to wait for 18s. This number is expressed in number of tokens to make it a bit more \"model\" agnostic, but what should really matter is the overall latency for end users.",
+   "kind": "cli",
+   "name": "--max-waiting-tokens",
+   "source": {
+    "line": 728,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": "bigscience/bloom-560m",
+   "deprecated": false,
+   "env": "MODEL_ID",
+   "help": "The name of the model to load. Can be a MODEL_ID as listed on <https://hf.co/models> like `gpt2` or `OpenAssistant/oasst-sft-1-pythia-12b`. Or it can be a local directory containing the necessary files as saved by `save_pretrained(...)` methods of transformers",
+   "kind": "cli",
+   "name": "--model-id",
+   "source": {
+    "line": 562,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "env": "NGROK",
+   "help": "Enable ngrok tunneling",
+   "kind": "cli",
+   "name": "--ngrok",
+   "source": {
+    "line": 827,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "NGROK_AUTHTOKEN",
+   "help": "ngrok authentication token",
+   "kind": "cli",
+   "name": "--ngrok-authtoken",
+   "source": {
+    "line": 831,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "NGROK_EDGE",
+   "help": "ngrok edge",
+   "kind": "cli",
+   "name": "--ngrok-edge",
+   "source": {
+    "line": 835,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "NUM_SHARD",
+   "help": "The number of shards to use if you don't want to use all GPUs on a given machine. You can use `CUDA_VISIBLE_DEVICES=0,1 text-generation-launcher... --num_shard 2` and `CUDA_VISIBLE_DEVICES=2,3 text-generation-launcher... --num_shard 2` to launch 2 copies with 2 shard each on a given machine with 4 GPUs for instance.",
+   "kind": "cli",
+   "name": "--num-shard",
+   "source": {
+    "line": 585,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "OTLP_ENDPOINT",
+   "help": "",
+   "kind": "cli",
+   "name": "--otlp-endpoint",
+   "source": {
+    "line": 809,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": "text-generation-inference.router",
+   "deprecated": false,
+   "env": "OTLP_SERVICE_NAME",
+   "help": "",
+   "kind": "cli",
+   "name": "--otlp-service-name",
+   "source": {
+    "line": 812,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": 2000000,
+   "deprecated": false,
+   "env": "PAYLOAD_LIMIT",
+   "help": "Payload size limit in bytes Default is 2MB",
+   "kind": "cli",
+   "name": "--payload-limit",
+   "source": {
+    "line": 870,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": 3000,
+   "deprecated": false,
+   "env": "PORT",
+   "help": "The port to listen on.",
+   "kind": "cli",
+   "name": "--port",
+   "source": {
+    "line": 747,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "choices": [
+    "awq",
+    "compressed-tensors",
+    "eetq",
+    "exl2",
+    "gptq",
+    "marlin",
+    "bitsandbytes",
+    "bitsandbytes-nf4",
+    "bitsandbytes-fp4",
+    "fp8"
+   ],
+   "default": null,
+   "deprecated": false,
+   "env": "QUANTIZE",
+   "help": "Quantization method to use for the model. It is not necessary to specify this option for pre-quantized models, since the quantization method is read from the model configuration. Marlin kernels will be used automatically for GPTQ/AWQ models.",
+   "kind": "cli",
+   "name": "--quantize",
+   "source": {
+    "line": 593,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "REVISION",
+   "help": "The actual revision of the model if you're referring to a model on the hub. You can use a specific commit id or a branch like `refs/pr/2`.",
+   "kind": "cli",
+   "name": "--revision",
+   "source": {
+    "line": 567,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "ROPE_FACTOR",
+   "help": "Rope scaling will only be used for RoPE models See `rope_scaling`",
+   "kind": "cli",
+   "name": "--rope-factor",
+   "source": {
+    "line": 802,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "choices": [
+    "linear",
+    "dynamic"
+   ],
+   "default": null,
+   "deprecated": false,
+   "env": "ROPE_SCALING",
+   "help": "Rope scaling will only be used for RoPE models and allow rescaling the position rotary to accomodate for larger prompts. Goes together with `rope_factor`. `--rope-factor 2.0` gives linear scaling with a factor of 2.0 `--rope-scaling dynamic` gives dynamic scaling with a factor of 1.0 `--rope-scaling linear` gives linear scaling with a factor of 1.0 (Nothing will be changed basically) `--rope-scaling linear --rope-factor` fully describes the scaling you want",
+   "kind": "cli",
+   "name": "--rope-scaling",
+   "source": {
+    "line": 797,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": "/tmp/text-generation-server",
+   "deprecated": false,
+   "env": "SHARD_UDS_PATH",
+   "help": "The name of the socket for gRPC communication between the webserver and the shards.",
+   "kind": "cli",
+   "name": "--shard-uds-path",
+   "source": {
+    "line": 752,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "choices": [
+    "true",
+    "false"
+   ],
+   "default": null,
+   "deprecated": false,
+   "env": "SHARDED",
+   "help": "Whether to shard the model across multiple GPUs By default text-generation-inference will use all available GPUs to run the model. Setting it to `false` deactivates `num_shard`.",
+   "kind": "cli",
+   "name": "--sharded",
+   "source": {
+    "line": 578,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "SPECULATE",
+   "help": "The number of input_ids to speculate on If using a medusa model, the heads will be picked up automatically Other wise, it will use n-gram speculation which is relatively free in terms of compute, but the speedup heavily depends on the task.",
+   "kind": "cli",
+   "name": "--speculate",
+   "source": {
+    "line": 600,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "TOKENIZER_CONFIG_PATH",
+   "help": "The path to the tokenizer config file. This path is used to load the tokenizer configuration which may include a `chat_template`. If not provided, the default config will be used from the model hub.",
+   "kind": "cli",
+   "name": "--tokenizer-config-path",
+   "source": {
+    "line": 840,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": false,
+   "deprecated": false,
+   "env": "TRUST_REMOTE_CODE",
+   "help": "Whether you want to execute hub modelling code. Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.",
+   "kind": "cli",
+   "name": "--trust-remote-code",
+   "source": {
+    "line": 616,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "choices": [
+    "on",
+    "off",
+    "no-stack"
+   ],
+   "default": "on",
+   "deprecated": false,
+   "env": "USAGE_STATS",
+   "help": "Control if anonymous usage stats are collected. Options are \"on\", \"off\" and \"no-stack\" Defaul is on.",
+   "kind": "cli",
+   "name": "--usage-stats",
+   "source": {
+    "line": 864,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "default": 2,
+   "deprecated": false,
+   "env": "VALIDATION_WORKERS",
+   "help": "The number of tokenizer workers used for payload validation and truncation inside the router.",
+   "kind": "cli",
+   "name": "--validation-workers",
+   "source": {
+    "line": 572,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "default": 0.3,
+   "deprecated": false,
+   "env": "WAITING_SERVED_RATIO",
+   "help": "This represents the ratio of waiting queries vs running queries where you want to start considering pausing the running queries to include the waiting ones into the same batch. `waiting_served_ratio=1.2` Means when 12 queries are waiting and there's only 10 queries left in the current batch we check if we can fit those 12 waiting queries into the batching strategy, and if yes, then batching happens delaying the 10 running queries by a `prefill` run. This setting is only applied if there is room in the batch as defined by `max_batch_total_tokens`.",
+   "kind": "cli",
+   "name": "--waiting-served-ratio",
+   "source": {
+    "line": 681,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "WATERMARK_DELTA",
+   "help": "",
+   "kind": "cli",
+   "name": "--watermark-delta",
+   "source": {
+    "line": 823,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "WATERMARK_GAMMA",
+   "help": "",
+   "kind": "cli",
+   "name": "--watermark-gamma",
+   "source": {
+    "line": 821,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "default": null,
+   "deprecated": false,
+   "env": "WEIGHTS_CACHE_OVERRIDE",
+   "help": "The location of the huggingface hub cache. Used to override the location if you want to provide a mounted disk for instance",
+   "kind": "cli",
+   "name": "--weights-cache-override",
+   "source": {
+    "line": 770,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--api-key",
+   "help": "Environment form of --api-key.",
+   "kind": "env",
+   "name": "API_KEY",
+   "source": {
+    "line": 818,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--cors-allow-origin",
+   "help": "Environment form of --cors-allow-origin.",
+   "kind": "env",
+   "name": "CORS_ALLOW_ORIGIN",
+   "source": {
+    "line": 815,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "list[str]"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--cuda-graphs",
+   "help": "Environment form of --cuda-graphs.",
+   "kind": "env",
+   "name": "CUDA_GRAPHS",
+   "source": {
+    "line": 739,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "list[int]"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--cuda-memory-fraction",
+   "help": "Environment form of --cuda-memory-fraction.",
+   "kind": "env",
+   "name": "CUDA_MEMORY_FRACTION",
+   "source": {
+    "line": 782,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--disable-custom-kernels",
+   "help": "Environment form of --disable-custom-kernels.",
+   "kind": "env",
+   "name": "DISABLE_CUSTOM_KERNELS",
+   "source": {
+    "line": 777,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--disable-grammar-support",
+   "help": "Environment form of --disable-grammar-support.",
+   "kind": "env",
+   "name": "DISABLE_GRAMMAR_SUPPORT",
+   "source": {
+    "line": 845,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--dtype",
+   "help": "Environment form of --dtype.",
+   "kind": "env",
+   "name": "DTYPE",
+   "source": {
+    "line": 604,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--enable-prefill-logprobs",
+   "help": "Environment form of --enable-prefill-logprobs.",
+   "kind": "env",
+   "name": "ENABLE_PREFILL_LOGPROBS",
+   "source": {
+    "line": 878,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--hostname",
+   "help": "Environment form of --hostname.",
+   "kind": "env",
+   "name": "HOSTNAME",
+   "source": {
+    "line": 743,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--huggingface-hub-cache",
+   "help": "Environment form of --huggingface-hub-cache.",
+   "kind": "env",
+   "name": "HUGGINGFACE_HUB_CACHE",
+   "source": {
+    "line": 765,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--json-output",
+   "help": "Environment form of --json-output.",
+   "kind": "env",
+   "name": "JSON_OUTPUT",
+   "source": {
+    "line": 806,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--kv-cache-dtype",
+   "help": "Environment form of --kv-cache-dtype.",
+   "kind": "env",
+   "name": "KV_CACHE_DTYPE",
+   "source": {
+    "line": 610,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--lora-adapters",
+   "help": "Environment form of --lora-adapters.",
+   "kind": "env",
+   "name": "LORA_ADAPTERS",
+   "source": {
+    "line": 858,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--master-addr",
+   "help": "Environment form of --master-addr.",
+   "kind": "env",
+   "name": "MASTER_ADDR",
+   "source": {
+    "line": 756,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--master-port",
+   "help": "Environment form of --master-port.",
+   "kind": "env",
+   "name": "MASTER_PORT",
+   "source": {
+    "line": 760,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--max-batch-prefill-tokens",
+   "help": "Environment form of --max-batch-prefill-tokens.",
+   "kind": "env",
+   "name": "MAX_BATCH_PREFILL_TOKENS",
+   "source": {
+    "line": 688,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--max-batch-size",
+   "help": "Environment form of --max-batch-size.",
+   "kind": "env",
+   "name": "MAX_BATCH_SIZE",
+   "source": {
+    "line": 733,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--max-batch-total-tokens",
+   "help": "Environment form of --max-batch-total-tokens.",
+   "kind": "env",
+   "name": "MAX_BATCH_TOTAL_TOKENS",
+   "source": {
+    "line": 708,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--max-best-of",
+   "help": "Environment form of --max-best-of.",
+   "kind": "env",
+   "name": "MAX_BEST_OF",
+   "source": {
+    "line": 628,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--max-client-batch-size",
+   "help": "Environment form of --max-client-batch-size.",
+   "kind": "env",
+   "name": "MAX_CLIENT_BATCH_SIZE",
+   "source": {
+    "line": 853,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--max-concurrent-requests",
+   "help": "Environment form of --max-concurrent-requests.",
+   "kind": "env",
+   "name": "MAX_CONCURRENT_REQUESTS",
+   "source": {
+    "line": 622,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--max-input-length",
+   "help": "Environment form of --max-input-length.",
+   "kind": "env",
+   "name": "MAX_INPUT_LENGTH",
+   "source": {
+    "line": 656,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--max-input-tokens",
+   "help": "Environment form of --max-input-tokens.",
+   "kind": "env",
+   "name": "MAX_INPUT_TOKENS",
+   "source": {
+    "line": 652,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--max-stop-sequences",
+   "help": "Environment form of --max-stop-sequences.",
+   "kind": "env",
+   "name": "MAX_STOP_SEQUENCES",
+   "source": {
+    "line": 636,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--max-top-n-tokens",
+   "help": "Environment form of --max-top-n-tokens.",
+   "kind": "env",
+   "name": "MAX_TOP_N_TOKENS",
+   "source": {
+    "line": 644,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--max-total-tokens",
+   "help": "Environment form of --max-total-tokens.",
+   "kind": "env",
+   "name": "MAX_TOTAL_TOKENS",
+   "source": {
+    "line": 668,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--max-waiting-tokens",
+   "help": "Environment form of --max-waiting-tokens.",
+   "kind": "env",
+   "name": "MAX_WAITING_TOKENS",
+   "source": {
+    "line": 728,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--model-id",
+   "help": "Environment form of --model-id.",
+   "kind": "env",
+   "name": "MODEL_ID",
+   "source": {
+    "line": 562,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--ngrok",
+   "help": "Environment form of --ngrok.",
+   "kind": "env",
+   "name": "NGROK",
+   "source": {
+    "line": 827,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--ngrok-authtoken",
+   "help": "Environment form of --ngrok-authtoken.",
+   "kind": "env",
+   "name": "NGROK_AUTHTOKEN",
+   "source": {
+    "line": 831,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--ngrok-edge",
+   "help": "Environment form of --ngrok-edge.",
+   "kind": "env",
+   "name": "NGROK_EDGE",
+   "source": {
+    "line": 835,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--num-shard",
+   "help": "Environment form of --num-shard.",
+   "kind": "env",
+   "name": "NUM_SHARD",
+   "source": {
+    "line": 585,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--otlp-endpoint",
+   "help": "Environment form of --otlp-endpoint.",
+   "kind": "env",
+   "name": "OTLP_ENDPOINT",
+   "source": {
+    "line": 809,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--otlp-service-name",
+   "help": "Environment form of --otlp-service-name.",
+   "kind": "env",
+   "name": "OTLP_SERVICE_NAME",
+   "source": {
+    "line": 812,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--payload-limit",
+   "help": "Environment form of --payload-limit.",
+   "kind": "env",
+   "name": "PAYLOAD_LIMIT",
+   "source": {
+    "line": 870,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--port",
+   "help": "Environment form of --port.",
+   "kind": "env",
+   "name": "PORT",
+   "source": {
+    "line": 747,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--quantize",
+   "help": "Environment form of --quantize.",
+   "kind": "env",
+   "name": "QUANTIZE",
+   "source": {
+    "line": 593,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--revision",
+   "help": "Environment form of --revision.",
+   "kind": "env",
+   "name": "REVISION",
+   "source": {
+    "line": 567,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--rope-factor",
+   "help": "Environment form of --rope-factor.",
+   "kind": "env",
+   "name": "ROPE_FACTOR",
+   "source": {
+    "line": 802,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--rope-scaling",
+   "help": "Environment form of --rope-scaling.",
+   "kind": "env",
+   "name": "ROPE_SCALING",
+   "source": {
+    "line": 797,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--sharded",
+   "help": "Environment form of --sharded.",
+   "kind": "env",
+   "name": "SHARDED",
+   "source": {
+    "line": 578,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--shard-uds-path",
+   "help": "Environment form of --shard-uds-path.",
+   "kind": "env",
+   "name": "SHARD_UDS_PATH",
+   "source": {
+    "line": 752,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--speculate",
+   "help": "Environment form of --speculate.",
+   "kind": "env",
+   "name": "SPECULATE",
+   "source": {
+    "line": 600,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--tokenizer-config-path",
+   "help": "Environment form of --tokenizer-config-path.",
+   "kind": "env",
+   "name": "TOKENIZER_CONFIG_PATH",
+   "source": {
+    "line": 840,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--trust-remote-code",
+   "help": "Environment form of --trust-remote-code.",
+   "kind": "env",
+   "name": "TRUST_REMOTE_CODE",
+   "source": {
+    "line": 616,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "bool"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--usage-stats",
+   "help": "Environment form of --usage-stats.",
+   "kind": "env",
+   "name": "USAGE_STATS",
+   "source": {
+    "line": 864,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--validation-workers",
+   "help": "Environment form of --validation-workers.",
+   "kind": "env",
+   "name": "VALIDATION_WORKERS",
+   "source": {
+    "line": 572,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "int"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--waiting-served-ratio",
+   "help": "Environment form of --waiting-served-ratio.",
+   "kind": "env",
+   "name": "WAITING_SERVED_RATIO",
+   "source": {
+    "line": 681,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--watermark-delta",
+   "help": "Environment form of --watermark-delta.",
+   "kind": "env",
+   "name": "WATERMARK_DELTA",
+   "source": {
+    "line": 823,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--watermark-gamma",
+   "help": "Environment form of --watermark-gamma.",
+   "kind": "env",
+   "name": "WATERMARK_GAMMA",
+   "source": {
+    "line": 821,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "float"
+  },
+  {
+   "aliases": [],
+   "deprecated": false,
+   "flag": "--weights-cache-override",
+   "help": "Environment form of --weights-cache-override.",
+   "kind": "env",
+   "name": "WEIGHTS_CACHE_OVERRIDE",
+   "source": {
+    "line": 770,
+    "path": "launcher/src/main.rs"
+   },
+   "type": "str"
+  }
+ ],
+ "provenance": {
+  "commit": "c34bd9d8d97f7b93e55772e44ced4e27c649977a",
+  "method": "static source extraction",
+  "repo": "https://github.com/huggingface/text-generation-inference",
+  "sources": [
+   "backends/v2/src/backend.rs",
+   "backends/v2/src/queue.rs",
+   "backends/v3/src/backend.rs",
+   "backends/v3/src/lib.rs",
+   "backends/v3/src/queue.rs",
+   "launcher/src/main.rs",
+   "router/src/infer/mod.rs",
+   "router/src/server.rs",
+   "router/src/validation.rs",
+   "router/src/vertex.rs"
+  ],
+  "tag": "v3.1.1",
+  "tag_date": "2025-03-04"
+ },
+ "schema": 1,
+ "version": "3.1.1"
+}

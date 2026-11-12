@@ -1,0 +1,24 @@
+# llamacpp b12323 (b12323): 16 metric(s)
+
+name                                                    type     labels    help
+------------------------------------------------------  -------  --------  ----------------------------------------
+llamacpp:n_busy_slots_per_decode                        gauge              Average number of busy slots per llama_decode() call
+llamacpp:n_decode_total                                 counter            Total number of llama_decode() calls, excluding
+                                                                           speculative decoding and multimodal decoding
+llamacpp:n_tokens_max                                   counter            Largest observed sequence length (prompt + generation)
+llamacpp:predicted_tokens_seconds                       gauge              Average generation throughput in tokens/s
+llamacpp:prompt_seconds_total                           counter            Total time spent processing prompts
+llamacpp:prompt_tokens_cached_total                     counter            Number of prompt tokens reused from the cache
+llamacpp:prompt_tokens_seconds                          gauge              Average prompt throughput in tokens/s
+llamacpp:prompt_tokens_total                            counter            Number of prompt tokens processed, excluding cached
+                                                                           tokens
+llamacpp:requests_deferred                              gauge              Number of requests deferred
+llamacpp:requests_processing                            gauge              Number of requests processing
+llamacpp:spec_decode_num_accepted_tokens_per_pos_total  counter  position  Accepted tokens per draft position
+llamacpp:spec_decode_num_accepted_tokens_total          counter            Speculative: Total draft tokens accepted by the target
+                                                                           model
+llamacpp:spec_decode_num_draft_tokens_total             counter            Speculative: Total draft tokens generated
+llamacpp:spec_decode_num_drafts_total                   counter            Speculative: Total speculative decoding verification
+                                                                           steps
+llamacpp:tokens_predicted_seconds_total                 counter            Total time spent generating tokens
+llamacpp:tokens_predicted_total                         counter            Number of generation tokens processed

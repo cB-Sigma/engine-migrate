@@ -1,0 +1,44 @@
+# vllm 0.33.0 -> sglang 0.5.23  (input read as: yaml)
+
+model-path: mistralai/Mistral-7B-Instruct-v0.3
+host: 0.0.0.0
+port: 8000
+context-length: 8192
+tp-size: 1
+disable-radix-cache: true
+trust-remote-code: true
+served-model-name: mistral
+
+## Report: 7 exact, 1 approximate, 0 no equivalent, 0 unknown
+
+EXACT          model: mistralai/Mistral-7B-Instruct-v0.3  ->  --model-path mistralai/Mistral-7B-Instruct-v0.3
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:969
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/model.py:51
+EXACT          host: 0.0.0.0  ->  --host 0.0.0.0
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:293
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/serving.py:65
+EXACT          port: 8000  ->  --port 8000
+               source: vllm@v0.33.0:vllm/entrypoints/common/cli_args.py:295
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/serving.py:66
+EXACT          max-model-len: 8192  ->  --context-length 8192
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:991
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/model.py:110
+EXACT          tensor-parallel-size: 1  ->  --tp-size 1
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1208
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/parallel.py:45
+EXACT          enable-prefix-caching: false  ->  --disable-radix-cache
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1401
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/memory.py:64
+EXACT          trust-remote-code: true  ->  --trust-remote-code
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:974
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/model.py:106
+APPROXIMATE    served-model-name: mistral mistral-7b  ->  --served-model-name mistral
+               Same meaning, but the value could not be carried over unchanged.
+               note: only the first of 2 values is kept: --served-model-name takes a single value
+               source: vllm@v0.33.0:vllm/engine/arg_utils.py:1030
+               target: sglang@v0.5.23:python/sglang/srt/arg_groups/fields/serving.py:168
+
+## Also check
+
+- Prometheus metrics: sglang 0.5.23 has a switch for this (--enable-metrics); vllm has none, so
+  decide whether to add it.

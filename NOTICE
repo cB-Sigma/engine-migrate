@@ -1,0 +1,19 @@
+engine-migrate
+Copyright 2026 The engine-migrate Authors
+
+This product is licensed under the Apache License, Version 2.0.
+
+The database under src/engine_migrate/data/db/ contains short factual
+strings (option names, defaults, choices, help texts, metric names and
+metric descriptions) extracted from the source code of the following
+projects at the release tags recorded in each database file:
+
+  vLLM                        https://github.com/vllm-project/vllm            Apache-2.0
+  SGLang                      https://github.com/sgl-project/sglang           Apache-2.0
+  llama.cpp                   https://github.com/ggml-org/llama.cpp           MIT
+  Text Generation Inference   https://github.com/huggingface/text-generation-inference   Apache-2.0
+  Ollama                      https://github.com/ollama/ollama                MIT
+
+Those strings remain the work of the respective project contributors.
+engine-migrate is an independent project and is not affiliated with,
+sponsored by, or endorsed by any of these projects.

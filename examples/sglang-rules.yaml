@@ -1,0 +1,11 @@
+groups:
+  - name: sglang
+    rules:
+      - alert: SglangQueueBacklog
+        expr: sum by (model_name) (sglang:num_queue_reqs) > 100
+        for: 5m
+      - alert: SglangSlowTokens
+        expr: histogram_quantile(0.95, sum by (le) (rate(sglang:time_per_output_token_seconds_bucket[5m]))) > 0.2
+        for: 10m
+      - record: sglang:running_requests
+        expr: sum(sglang:num_running_reqs)

@@ -1,0 +1,15 @@
+name: Engine version request
+description: Ask for an engine release to be added to the database
+labels: [database]
+body:
+  - type: input
+    id: tag
+    attributes:
+      label: Engine and release tag
+      placeholder: "sglang v0.5.24"
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything that changed in how the engine defines its options or metrics

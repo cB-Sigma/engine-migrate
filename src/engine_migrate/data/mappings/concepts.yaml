@@ -1,0 +1,820 @@
+# Curated mapping table: neutral concepts -> engine options.
+#
+# Rules (enforced by tests/test_mapping_integrity.py):
+#   * every `option` must exist in the extracted database for every database
+#     version of that engine between `since` and `until` (inclusive; default:
+#     all versions in the database);
+#   * `meaning` must paraphrase the option's own help text - the report cites
+#     the source line so readers can check;
+#   * two bindings translate as EXACT only when their `semantics` tags are
+#     equal.  When in doubt use different tags: APPROXIMATE with an honest
+#     explanation beats a wrong EXACT.
+#
+# Binding fields:
+#   option     flag / env var / parameter name as spelled in the database
+#   semantics  short tag; equal tags => EXACT, different tags => APPROXIMATE
+#   meaning    one sentence shown in the report when the result is APPROXIMATE
+#   value      how the value is written:
+#                kind: scalar (default) | flag | list | lora
+#                invert: true       (flag) presence of the option means "off"
+#                style: nargs | comma | single | repeat   (list / lora)
+#                map: {engine value: neutral value}       (scalar)
+#   prefer     pick this binding when the value looks like:
+#                repo_id | local_path | file_path | inline
+#   since / until   database versions (inclusive) where the option exists
+#   advice     extra hint printed when this binding is the translation target
+#
+# Concept fields:
+#   absent           {engine: text} shown as the NO EQUIVALENT explanation
+#   caveat           printed with every translation of this concept
+#   compare_defaults report when the option is unset and engine defaults differ
+#   advise_when_unset  hint when the target has a switch the source lacks
+#   portable: false  never translate the value (e.g. path to an engine-specific file)
+
+schema: 1
+
+concepts:
+  - id: model.source
+    title: Model source
+    summary: Which model weights the server loads.
+    bindings:
+      vllm:
+        - option: --model
+          semantics: hf-id-or-directory
+          meaning: Name or path of a Hugging Face model.
+          positional: true
+      sglang:
+        - option: --model-path
+          semantics: hf-id-or-directory
+          meaning: Local folder or Hugging Face repo ID of the model weights.
+      tgi:
+        - option: --model-id
+          semantics: hf-id-or-directory
+          meaning: Hugging Face model id or a local directory saved with save_pretrained.
+      llamacpp:
+        - option: --hf-repo
+          semantics: hf-gguf-repository
+          meaning: >-
+            Hugging Face repository that contains GGUF files, optionally with a
+            ":QUANT" suffix; other weight formats are not loaded.
+          prefer: repo_id
+        - option: --model
+          semantics: local-gguf-file
+          meaning: Path of a local GGUF model file.
+          prefer: local_path
+      ollama:
+        - option: FROM
+          semantics: ollama-model-reference
+          meaning: Modelfile instruction naming an Ollama model, a GGUF file or a safetensors directory.
+
+  - id: model.revision
+    title: Model revision
+    summary: Branch, tag or commit of the model repository.
+    bindings:
+      vllm:
+        - option: --revision
+          semantics: hub-revision
+          meaning: Branch name, tag name or commit id of the model.
+      sglang:
+        - option: --revision
+          semantics: hub-revision
+          meaning: Branch name, tag name or commit id of the model.
+      tgi:
+        - option: --revision
+          semantics: hub-revision
+          meaning: Commit id or branch of the model on the hub.
+    absent:
+      llamacpp: llama-server has no revision option; the GGUF file or repository tag selects the weights.
+
+  - id: model.served_name
+    title: Served model name
+    summary: Model name(s) the API answers to.
+    bindings:
+      vllm:
+        - option: --served-model-name
+          semantics: api-model-names
+          meaning: One or more names; the first is returned in responses.
+          value: {kind: list, style: nargs}
+      sglang:
+        - option: --served-model-name
+          semantics: api-model-names
+          meaning: A single name returned by the v1/models endpoint.
+          value: {kind: list, style: single}
+      llamacpp:
+        - option: --alias
+          semantics: api-model-names
+          meaning: Comma-separated model name aliases used by the API.
+          value: {kind: list, style: comma}
+
+  - id: model.dtype
+    title: Weight dtype
+    summary: Floating point type used for weights and activations.
+    bindings:
+      vllm:
+        - option: --dtype
+          semantics: torch-dtype-auto-half-float
+          meaning: Data type for model weights and activations (auto, half, float16, bfloat16, float, float32).
+      sglang:
+        - option: --dtype
+          semantics: torch-dtype-auto-half-float
+          meaning: Data type for model weights and activations (auto, half, float16, bfloat16, float, float32).
+      tgi:
+        - option: --dtype
+          semantics: forced-dtype-float16-bfloat16
+          meaning: Dtype forced upon the model (float16 or bfloat16 only); cannot be combined with --quantize.
+    absent:
+      llamacpp: The GGUF file fixes the weight format; llama-server has no dtype option.
+
+  - id: model.quantization
+    title: Weight quantisation
+    summary: Quantisation method applied to (or expected of) the weights.
+    caveat: Quantisation method names are engine-specific; the value is copied and checked against the target's choices.
+    bindings:
+      vllm:
+        - option: --quantization
+          semantics: vllm-quantization-method
+          meaning: Method used to quantize the weights; unset means read it from the model config.
+      sglang:
+        - option: --quantization
+          semantics: sglang-quantization-method
+          meaning: The quantization method.
+      tgi:
+        - option: --quantize
+          semantics: tgi-quantization-method
+          meaning: Quantization method; not needed for pre-quantized models.
+    absent:
+      llamacpp: Quantisation is a property of the GGUF file (see the ":QUANT" suffix of --hf-repo).
+
+  - id: context.length
+    title: Context length
+    summary: Maximum number of tokens (prompt plus output) per sequence.
+    bindings:
+      vllm:
+        - option: --max-model-len
+          semantics: model-context-tokens
+          meaning: Model context length (prompt and output); derived from the model config when unset.
+      sglang:
+        - option: --context-length
+          semantics: model-context-tokens
+          meaning: The model's maximum context length; taken from the model's config.json when unset.
+      llamacpp:
+        - option: --ctx-size
+          semantics: server-prompt-context-tokens
+          meaning: Size of the prompt context of the server (0 = loaded from model); how it is shared between parallel slots depends on other options.
+      tgi:
+        - option: --max-total-tokens
+          semantics: per-request-token-budget
+          meaning: Per-request budget of input tokens plus max_new_tokens.
+      ollama:
+        - option: OLLAMA_CONTEXT_LENGTH
+          semantics: default-context-tokens
+          meaning: Context length used unless a model or request specifies otherwise.
+
+  - id: memory.gpu_fraction
+    title: GPU memory budget
+    summary: How much GPU memory the server may use.
+    bindings:
+      vllm:
+        - option: --gpu-memory-utilization
+          semantics: fraction-of-gpu-memory-for-executor
+          meaning: Fraction (0-1) of GPU memory for the model executor of this instance.
+      sglang:
+        - option: --mem-fraction-static
+          semantics: fraction-for-weights-and-kv-pool
+          meaning: Fraction of memory used for static allocation (model weights and KV cache pool).
+      tgi:
+        - option: --cuda-memory-fraction
+          semantics: fraction-cap-on-visible-cuda-memory
+          meaning: Cap on CUDA memory, as a fraction of the total visible memory.
+    absent:
+      llamacpp: >-
+        llama-server has no memory fraction. The nearest controls use other
+        units: --gpu-layers (number of layers kept in VRAM) and --fit-target
+        (free-memory margin per device in MiB).
+      ollama: Ollama has no memory fraction; OLLAMA_GPU_OVERHEAD reserves an absolute number of bytes per GPU.
+
+  - id: memory.kv_cache_bytes
+    title: KV cache size
+    summary: Absolute size of the KV cache.
+    bindings:
+      vllm:
+        - option: --kv-cache-memory-bytes
+          semantics: kv-cache-bytes-per-gpu
+          meaning: Size of the KV cache per GPU in bytes.
+    absent:
+      sglang: >-
+        SGLang sizes the pool in tokens, not bytes (--max-total-tokens), or as
+        a fraction (--mem-fraction-static); there is no byte-sized option.
+      llamacpp: llama-server has no byte-sized KV cache option.
+      tgi: TGI has no KV cache size option.
+
+  - id: kv_cache.dtype
+    title: KV cache dtype
+    summary: Data type used to store the KV cache.
+    caveat: Dtype names differ between engines; the value is copied and checked against the target's choices.
+    bindings:
+      vllm:
+        - option: --kv-cache-dtype
+          semantics: vllm-kv-dtype-names
+          meaning: Data type for KV cache storage ("auto" uses the model dtype).
+      sglang:
+        - option: --kv-cache-dtype
+          semantics: sglang-kv-dtype-names
+          meaning: Data type for KV cache storage ("auto" uses the model dtype).
+      tgi:
+        - option: --kv-cache-dtype
+          semantics: tgi-kv-dtype-names
+          meaning: Dtype of the key-value cache (fp8_e4m3fn or fp8_e5m2 on CUDA); model dtype when unset.
+    absent:
+      llamacpp: llama-server uses GGML type names in --cache-type-k / --cache-type-v; there is no one-to-one value mapping.
+
+  - id: parallel.tensor
+    title: Tensor parallelism
+    summary: Number of GPUs a single model replica is split across.
+    bindings:
+      vllm:
+        - option: --tensor-parallel-size
+          semantics: tensor-parallel-degree
+          meaning: Number of tensor parallel groups.
+      sglang:
+        - option: --tp-size
+          semantics: tensor-parallel-degree
+          meaning: The tensor parallelism size.
+      tgi:
+        - option: --num-shard
+          semantics: shard-count
+          meaning: Number of shards (GPUs) the model is split over; TGI uses all GPUs when unset.
+    absent:
+      llamacpp: llama-server has no tensor-parallel degree; multi-GPU placement is controlled by --device and --split-mode.
+
+  - id: parallel.pipeline
+    title: Pipeline parallelism
+    summary: Number of pipeline stages.
+    bindings:
+      vllm:
+        - option: --pipeline-parallel-size
+          semantics: pipeline-parallel-degree
+          meaning: Number of pipeline parallel groups.
+      sglang:
+        - option: --pp-size
+          semantics: pipeline-parallel-degree
+          meaning: The pipeline parallelism size.
+
+  - id: parallel.data
+    title: Data parallelism
+    summary: Number of model replicas behind one server.
+    bindings:
+      vllm:
+        - option: --data-parallel-size
+          semantics: data-parallel-groups
+          meaning: Number of data parallel groups (also affects how MoE layers are sharded).
+      sglang:
+        - option: --dp-size
+          semantics: data-parallel-replicas
+          meaning: The number of data-parallel replicas of the model.
+
+  - id: concurrency.max_running
+    title: Concurrent sequences
+    summary: How many requests are decoded together.
+    bindings:
+      vllm:
+        - option: --max-num-seqs
+          semantics: sequences-per-iteration
+          meaning: Maximum number of sequences processed in a single iteration.
+      sglang:
+        - option: --max-running-requests
+          semantics: running-requests
+          meaning: The maximum number of running requests.
+      llamacpp:
+        - option: --parallel
+          semantics: server-slots
+          meaning: Number of server slots (-1 = auto).
+      ollama:
+        - option: OLLAMA_NUM_PARALLEL
+          semantics: parallel-requests
+          meaning: Maximum number of parallel requests.
+
+  - id: admission.max_concurrent_requests
+    title: Admission limit
+    summary: Requests beyond this limit are refused.
+    bindings:
+      tgi:
+        - option: --max-concurrent-requests
+          semantics: refuse-above-limit
+          meaning: Maximum concurrent requests; excess requests are refused rather than queued.
+      sglang:
+        - option: --max-queued-requests
+          semantics: queue-length-limit
+          meaning: The maximum number of queued requests.
+      ollama:
+        - option: OLLAMA_MAX_QUEUE
+          semantics: queue-length-limit
+          meaning: Maximum number of queued requests.
+
+  - id: batching.max_tokens
+    title: Batch token budget
+    summary: Token budget of one batch / iteration.
+    bindings:
+      vllm:
+        - option: --max-num-batched-tokens
+          semantics: tokens-per-iteration
+          meaning: Maximum number of tokens processed in a single iteration.
+      tgi:
+        - option: --max-batch-total-tokens
+          semantics: total-tokens-in-batch
+          meaning: Total amount of potential tokens within a batch.
+      llamacpp:
+        - option: --batch-size
+          semantics: logical-batch-size
+          meaning: Logical maximum batch size.
+    absent:
+      sglang: SGLang has no per-iteration token cap; --chunked-prefill-size limits prefill chunks only.
+
+  - id: prefill.chunked
+    title: Chunked prefill
+    summary: Split long prompts over several iterations.
+    bindings:
+      vllm:
+        - option: --enable-chunked-prefill
+          semantics: chunked-prefill-switch
+          meaning: Allow prefill requests to be chunked by the remaining batched-token budget.
+          value: {kind: flag}
+    absent:
+      sglang: SGLang configures this as a size, not a switch (--chunked-prefill-size N; -1 disables).
+
+  - id: cache.prefix
+    title: Prefix / prompt cache
+    summary: Reuse KV cache for shared prompt prefixes.
+    bindings:
+      vllm:
+        - option: --enable-prefix-caching
+          semantics: cross-request-prefix-cache
+          meaning: Whether to enable prefix caching.
+          value: {kind: flag}
+      sglang:
+        - option: --disable-radix-cache
+          semantics: cross-request-prefix-cache
+          meaning: Disable RadixAttention for prefix caching (it is on unless this flag is given).
+          value: {kind: flag, invert: true}
+      llamacpp:
+        - option: --cache-prompt
+          semantics: prompt-cache
+          meaning: Whether to enable prompt caching in the server.
+          value: {kind: flag}
+
+  - id: chat.template
+    title: Chat template
+    summary: Override the chat template of the model.
+    bindings:
+      vllm:
+        - option: --chat-template
+          semantics: template-file-or-inline
+          meaning: File path of the chat template, or the template itself in single-line form.
+      sglang:
+        - option: --chat-template
+          semantics: builtin-name-or-template-file
+          meaning: Built-in chat template name or path of a chat template file.
+      llamacpp:
+        - option: --chat-template-file
+          semantics: jinja-template-file
+          meaning: Path of a custom Jinja chat template file.
+          prefer: file_path
+        - option: --chat-template
+          semantics: jinja-template-inline-or-builtin
+          meaning: Custom Jinja chat template given inline, or the name of a built-in template.
+          prefer: inline
+
+  - id: tools.parser
+    title: Tool-call parser
+    summary: Parser that turns model output into OpenAI tool calls.
+    caveat: Parser names are engine-specific; the value is copied and checked against the target's built-in names.
+    bindings:
+      vllm:
+        - option: --tool-call-parser
+          semantics: vllm-tool-parser-name
+          meaning: Tool call parser for the model in use; built-in or registered by a plugin.
+          advice: vLLM only parses tool calls for tool_choice=auto when --enable-auto-tool-choice is also set.
+      sglang:
+        - option: --tool-call-parser
+          semantics: sglang-tool-parser-name
+          meaning: Parser for tool-call interactions.
+    absent:
+      llamacpp: llama-server has no tool-call parser option; tool calls are handled by the Jinja chat template (--jinja).
+      tgi: TGI has no tool-call parser option.
+
+  - id: tools.auto_choice
+    title: Automatic tool choice
+    summary: Allow tool_choice=auto.
+    bindings:
+      vllm:
+        - option: --enable-auto-tool-choice
+          semantics: auto-tool-choice-switch
+          meaning: Enable auto tool choice for supported models.
+          value: {kind: flag}
+    absent:
+      sglang: SGLang has no separate switch; selecting --tool-call-parser is the only tool-calling option.
+      llamacpp: llama-server has no such switch.
+      tgi: TGI has no such switch.
+
+  - id: reasoning.parser
+    title: Reasoning parser
+    summary: Parser that separates reasoning content from the answer.
+    caveat: Parser names are engine-specific; the value is copied and checked against the target's built-in names.
+    bindings:
+      vllm:
+        - option: --reasoning-parser
+          semantics: vllm-reasoning-parser-name
+          meaning: Reasoning parser for the model in use.
+      sglang:
+        - option: --reasoning-parser
+          semantics: sglang-reasoning-parser-name
+          meaning: Parser for reasoning models ("auto" detects it from the chat template).
+    absent:
+      llamacpp: >-
+        llama-server selects an output format, not a per-model parser
+        (--reasoning-format none|deepseek|...); choose it by hand.
+      tgi: TGI has no reasoning parser option.
+
+  - id: lora.enable
+    title: Enable LoRA
+    summary: Turn LoRA adapter support on.
+    bindings:
+      vllm:
+        - option: --enable-lora
+          semantics: lora-switch
+          meaning: Enable handling of LoRA adapters.
+          value: {kind: flag}
+      sglang:
+        - option: --enable-lora
+          semantics: lora-switch
+          meaning: Enable LoRA support for the model.
+          value: {kind: flag}
+    absent:
+      llamacpp: llama-server needs no switch; passing --lora loads adapters.
+      tgi: TGI needs no switch; passing --lora-adapters loads adapters.
+
+  - id: lora.adapters
+    title: LoRA adapters
+    summary: Adapters loaded at startup.
+    caveat: Adapter weight formats are not interchangeable between engines (for example llama.cpp needs GGUF adapters).
+    bindings:
+      vllm:
+        - option: --lora-modules
+          semantics: named-adapters-name-path-or-json-name-path
+          meaning: Adapters as name=path items or JSON objects with "name" and "path".
+          value: {kind: lora, style: nargs}
+      sglang:
+        - option: --lora-paths
+          semantics: adapters-path-or-name-path-or-json-lora_name-lora_path
+          meaning: Adapters as PATH, NAME=PATH or JSON objects with "lora_name" and "lora_path".
+          value: {kind: lora, style: nargs}
+      llamacpp:
+        - option: --lora
+          semantics: adapter-file-paths
+          meaning: Comma-separated paths of LoRA adapter files (no names).
+          value: {kind: lora, style: comma-paths}
+      tgi:
+        - option: --lora-adapters
+          semantics: adapter-hub-ids
+          meaning: Comma-separated adapter ids, addressed by adapter_id in requests.
+          value: {kind: lora, style: comma-paths}
+
+  - id: lora.max_per_batch
+    title: LoRAs per batch
+    summary: Number of different adapters in one batch.
+    bindings:
+      vllm:
+        - option: --max-loras
+          semantics: adapters-per-batch
+          meaning: Max number of LoRAs in a single batch.
+      sglang:
+        - option: --max-loras-per-batch
+          semantics: adapters-per-batch-including-base
+          meaning: Maximum number of adapters for a running batch, including base-only requests.
+
+  - id: lora.max_rank
+    title: Maximum LoRA rank
+    summary: Largest adapter rank the server prepares for.
+    bindings:
+      vllm:
+        - option: --max-lora-rank
+          semantics: max-lora-rank
+          meaning: Max LoRA rank (restricted to a fixed set of values).
+      sglang:
+        - option: --max-lora-rank
+          semantics: max-lora-rank
+          meaning: The maximum rank of LoRA adapters; inferred from --lora-paths when unset.
+
+  - id: lora.max_cpu
+    title: LoRAs kept in CPU memory
+    summary: Number of adapters cached in host memory.
+    bindings:
+      vllm:
+        - option: --max-cpu-loras
+          semantics: adapters-in-cpu-memory
+          meaning: Maximum number of LoRAs to store in CPU memory.
+      sglang:
+        - option: --max-loaded-loras
+          semantics: adapters-in-cpu-memory
+          meaning: Maximum number of LoRA adapters loaded in CPU memory at a time.
+
+  - id: server.api_key
+    title: API key
+    summary: Key clients must present.
+    caveat: Which endpoints the key protects differs per engine and is not covered by this tool.
+    bindings:
+      vllm:
+        - option: --api-key
+          semantics: bearer-api-key
+          meaning: One or more accepted API keys.
+          value: {kind: list, style: nargs}
+      sglang:
+        - option: --api-key
+          semantics: bearer-api-key
+          meaning: A single API key for the server.
+          value: {kind: list, style: single}
+      llamacpp:
+        - option: --api-key
+          semantics: bearer-api-key
+          meaning: API key; several keys as a comma-separated list.
+          value: {kind: list, style: comma}
+      tgi:
+        - option: --api-key
+          semantics: undocumented-api-key
+          meaning: API key (the TGI source gives this option no help text).
+          value: {kind: list, style: single}
+
+  - id: server.host
+    title: Listen address
+    summary: Address the HTTP server binds to.
+    compare_defaults: true
+    bindings:
+      vllm:
+        - option: --host
+          semantics: bind-address
+          meaning: Host name.
+      sglang:
+        - option: --host
+          semantics: bind-address
+          meaning: The host of the HTTP server.
+      llamacpp:
+        - option: --host
+          semantics: bind-address-list-or-unix-socket
+          meaning: IP addresses to listen on (comma-separated) or UNIX socket paths ending in .sock.
+      tgi:
+        - option: --hostname
+          semantics: bind-address
+          meaning: The IP address to listen on.
+      ollama:
+        - option: OLLAMA_HOST
+          semantics: bind-address-with-optional-port
+          meaning: IP address for the Ollama server, optionally with ":port" (default 127.0.0.1:11434).
+
+  - id: server.port
+    title: Listen port
+    summary: TCP port of the HTTP server.
+    compare_defaults: true
+    bindings:
+      vllm:
+        - option: --port
+          semantics: tcp-port
+          meaning: Port number.
+      sglang:
+        - option: --port
+          semantics: tcp-port
+          meaning: The port of the HTTP server.
+      llamacpp:
+        - option: --port
+          semantics: tcp-port
+          meaning: Port to listen on.
+      tgi:
+        - option: --port
+          semantics: tcp-port
+          meaning: The port to listen on.
+    absent:
+      ollama: The port is part of OLLAMA_HOST (host:port); there is no separate port setting.
+
+  - id: server.root_path
+    title: Root path
+    summary: Path prefix when served behind a path-routing proxy.
+    bindings:
+      vllm:
+        - option: --root-path
+          semantics: asgi-root-path
+          meaning: FastAPI root_path when the app is behind a path based routing proxy.
+      sglang:
+        - option: --fastapi-root-path
+          semantics: asgi-root-path
+          meaning: Root path when the app is behind a path based routing proxy.
+
+  - id: tls.key
+    title: TLS key file
+    summary: Private key for HTTPS.
+    bindings:
+      vllm:
+        - option: --ssl-keyfile
+          semantics: pem-key-file
+          meaning: The file path to the SSL key file.
+      sglang:
+        - option: --ssl-keyfile
+          semantics: pem-key-file
+          meaning: The file path to the SSL key file.
+      llamacpp:
+        - option: --ssl-key-file
+          semantics: pem-key-file
+          meaning: Path to a PEM-encoded SSL private key.
+
+  - id: tls.cert
+    title: TLS certificate file
+    summary: Certificate for HTTPS.
+    bindings:
+      vllm:
+        - option: --ssl-certfile
+          semantics: pem-cert-file
+          meaning: The file path to the SSL cert file.
+      sglang:
+        - option: --ssl-certfile
+          semantics: pem-cert-file
+          meaning: The file path to the SSL certificate file.
+      llamacpp:
+        - option: --ssl-cert-file
+          semantics: pem-cert-file
+          meaning: Path to a PEM-encoded SSL certificate.
+
+  - id: metrics.enable
+    title: Prometheus metrics
+    summary: Expose the Prometheus metrics endpoint.
+    advise_when_unset: true
+    bindings:
+      sglang:
+        - option: --enable-metrics
+          semantics: metrics-switch
+          meaning: Enable Prometheus metrics.
+          value: {kind: flag}
+      llamacpp:
+        - option: --metrics
+          semantics: metrics-switch
+          meaning: Enable the Prometheus compatible metrics endpoint.
+          value: {kind: flag}
+    absent:
+      vllm: vLLM has no flag that switches the metrics endpoint on or off.
+      tgi: TGI has no flag that switches the metrics endpoint on or off.
+      ollama: Ollama does not expose Prometheus metrics.
+
+  - id: security.trust_remote_code
+    title: Trust remote code
+    summary: Allow model repositories to run their own Python code.
+    bindings:
+      vllm:
+        - option: --trust-remote-code
+          semantics: trust-remote-code-switch
+          meaning: Trust remote code when downloading the model and tokenizer.
+          value: {kind: flag}
+      sglang:
+        - option: --trust-remote-code
+          semantics: trust-remote-code-switch
+          meaning: Allow custom models defined on the Hub in their own modeling files.
+          value: {kind: flag}
+      tgi:
+        - option: --trust-remote-code
+          semantics: trust-remote-code-switch
+          meaning: Execute hub modelling code.
+          value: {kind: flag}
+    absent:
+      llamacpp: llama-server never runs model-repository code, so there is nothing to switch.
+
+  - id: storage.download_dir
+    title: Download directory
+    summary: Where downloaded weights are stored.
+    bindings:
+      vllm:
+        - option: --download-dir
+          semantics: weights-download-directory
+          meaning: Directory to download and load the weights (default - the Hugging Face cache).
+      sglang:
+        - option: --download-dir
+          semantics: weights-download-directory
+          meaning: Model download directory for Hugging Face.
+      tgi:
+        - option: --huggingface-hub-cache
+          semantics: hub-cache-location
+          meaning: Location of the Hugging Face hub cache.
+      ollama:
+        - option: OLLAMA_MODELS
+          semantics: ollama-models-directory
+          meaning: The path to the Ollama models directory.
+
+  - id: tokenizer.path
+    title: Tokenizer
+    summary: Tokenizer to use instead of the model's own.
+    bindings:
+      vllm:
+        - option: --tokenizer
+          semantics: tokenizer-id-or-path
+          meaning: Name or path of the Hugging Face tokenizer.
+      sglang:
+        - option: --tokenizer-path
+          semantics: tokenizer-id-or-path
+          meaning: The path of the tokenizer.
+
+  - id: sampling.seed
+    title: Random seed
+    summary: Seed for reproducible sampling.
+    bindings:
+      vllm:
+        - option: --seed
+          semantics: global-random-seed
+          meaning: Random seed for reproducibility (set globally).
+      sglang:
+        - option: --random-seed
+          semantics: global-random-seed
+          meaning: The random seed.
+      llamacpp:
+        - option: --seed
+          semantics: sampler-rng-seed
+          meaning: RNG seed of the sampler.
+      ollama:
+        - option: seed
+          semantics: sampler-rng-seed
+          meaning: Model parameter seed (set with PARAMETER or request options).
+
+  - id: speculative.draft_model
+    title: Speculative decoding - draft model
+    summary: Draft model used for speculative decoding.
+    bindings:
+      vllm:
+        - option: --spec-model
+          semantics: draft-model-or-head
+          meaning: Name of the draft model, EAGLE head or additional weights.
+      sglang:
+        - option: --speculative-draft-model-path
+          semantics: draft-model-path
+          meaning: Local folder or Hugging Face repo ID of the draft model weights.
+      llamacpp:
+        - option: --spec-draft-model
+          semantics: draft-gguf-file
+          meaning: Draft model (GGUF file) for speculative decoding.
+
+  - id: speculative.method
+    title: Speculative decoding - method
+    summary: Speculative decoding algorithm.
+    caveat: Method names are engine-specific; the value is copied and must be checked by hand.
+    bindings:
+      vllm:
+        - option: --spec-method
+          semantics: vllm-speculative-method-name
+          meaning: Name of the speculative method (for example ngram, eagle, draft_model).
+      sglang:
+        - option: --speculative-algorithm
+          semantics: sglang-speculative-algorithm-name
+          meaning: Speculative algorithm (built-ins include EAGLE, EAGLE3, NEXTN, STANDALONE, NGRAM).
+
+  - id: speculative.config_json
+    title: Speculative decoding - JSON config
+    summary: Structured speculative decoding configuration.
+    portable: false
+    bindings:
+      vllm:
+        - option: --speculative-config
+          semantics: vllm-speculative-json
+          meaning: Speculative decoding configuration as JSON.
+    absent:
+      sglang: >-
+        SGLang has no JSON form; translate the fields by hand to
+        --speculative-algorithm, --speculative-draft-model-path and
+        --speculative-num-draft-tokens.
+      llamacpp: llama-server has no JSON form; see --spec-draft-model and --spec-type.
+      tgi: TGI only offers --speculate N.
+
+  - id: logging.level
+    title: Log level
+    summary: Verbosity of server logs.
+    bindings:
+      vllm:
+        - option: --log-level
+          semantics: python-level-uppercase
+          meaning: Log level, one of the upper-case Python logging names.
+          since: "0.31.0"
+      sglang:
+        - option: --log-level
+          semantics: logger-level-free-form
+          meaning: The logging level of all loggers (default "info").
+
+  - id: config.file
+    title: Config file
+    summary: Read options from a file.
+    portable: false
+    bindings:
+      vllm:
+        - option: --config
+          semantics: vllm-yaml-config
+          meaning: YAML file of vLLM CLI options.
+      sglang:
+        - option: --config
+          semantics: sglang-yaml-config
+          meaning: YAML file of SGLang server arguments.
+    absent:
+      vllm: The referenced file holds engine-specific options; translate the file itself with engine-migrate.
+      sglang: The referenced file holds engine-specific options; translate the file itself with engine-migrate.
+      llamacpp: llama-server does not read YAML option files; translate the file itself with engine-migrate.
+      tgi: TGI does not read option files; translate the file itself with engine-migrate.

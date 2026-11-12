@@ -1,0 +1,8 @@
+# tgi: 3.0.2 -> 3.3.7  (v3.0.2 .. v3.3.7)
+
+## Options added (2)
+
+name                            detail
+------------------------------  ----------------------------------------
+--graceful-termination-timeout
+--prometheus-port
